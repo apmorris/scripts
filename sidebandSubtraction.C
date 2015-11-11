@@ -140,4 +140,3 @@ std::cout << NMC2 << std::endl;
 
 
 
-
