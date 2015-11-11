@@ -8,13 +8,13 @@
 */
 
 
-void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "Lb2chicpK_MC_2011_2012_mass_fit.png"){
+void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_MC_2011_2012_mass_fit_gauss1_gauss2.png"){
 
-    //gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
+    gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
     //lhcbStyle();
 
     const std::string filename(input_file);
-    const std::string treename = "reducedTreeMC";
+    const std::string treename = "reducedTree";
 
     TFile* file = TFile::Open( filename.c_str() );
     if( !file ) std::cout << "file " << filename << " does not exist" << std::endl;
@@ -30,7 +30,7 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     RooRealVar mass_Chic("mass_chic","m(J/#psi#gamma)", 3.35, 3.75, "GeV/c^{2}"); 
     RooRealVar mean("mean","mean", 5.6, 5.59, 5.65);
     RooRealVar sigma1("sigma1","sigma1", 0.010, 0.001, 0.1);
-    RooRealVar sigma2("sigma2","sigma2", 0.1, 0.05, 1.0);
+    RooRealVar sigma2("sigma2","sigma2", 0.1, 0.005, 1.0);
     RooRealVar alpha1("alpha1","alpha1", 1.0, 0.5, 5.0);
     RooRealVar n1("n1","n1", 1.8, 0.2, 15.0);
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
@@ -64,8 +64,8 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     */
 
     // -- add signal & bg
-    //RooAddPdf pdf("pdf", "pdf", RooArgList(gauss2, gauss1), RooArgList( frac2 ));  
-    RooAddPdf pdf("pdf", "pdf", RooArgList(cb2, cb1), RooArgList( frac2 ));  
+    RooAddPdf pdf("pdf", "pdf", RooArgList(gauss1, gauss2), RooArgList( frac2 ));  
+    //RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( frac2 ));  
 
     RooArgSet obs;
     obs.add(mass);
@@ -74,13 +74,20 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     obs.add(mass_Jpsi);
     obs.add(mass_Chic);
     obs.add(bkgcat_chic);
-    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut("")); 
+    //RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut("bkgcat_chic < 10.")); 
+    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
 
     RooPlot* plot = mass.frame();
 
+    plot->SetAxisRange(5.5, 5.75);
+
+
     pdf.fitTo( ds );
+
     ds.plotOn( plot, RooFit::Binning(80) );
     pdf.plotOn( plot );
+    //gauss3.plotOn( plot );
+
 
 
     RooPlot* plotPullMass = mass.frame();
@@ -88,24 +95,27 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     plotPullMass->addPlotable( plot->pullHist() );
     //plotPullMass->SetMinimum();
     //plotPullMass->SetMaximum();
-
+    plotPullMass->SetAxisRange(5.5, 5.75);
     TCanvas* c = new TCanvas();
+    c->cd();
 
     TPad* pad1 = new TPad("pad1","pad1", 0, 0.3, 1, 1.0);
-    pad1->SetBottomMargin(0);
+    pad1->SetBottomMargin(0.1);
+    pad1->SetTopMargin(0.1);
     pad1->Draw();
-    c->cd();
-    TPad* pad2 = new TPad("pad2","pad2", 0, 0.05, 1, 0.3);
-    pad2->SetBottomMargin(0.2);
+    
+    //TPad* pad2 = new TPad("pad2","pad2", 0, 0.05, 1, 0.4);
+    TPad* pad2 = new TPad("pad2","pad2", 0, 0, 1, 0.3);
+    pad2->SetBottomMargin(0.1);
     pad2->SetTopMargin(0.0);
     pad2->Draw();
 
-    //  pdf.plotOn( plot, RooFit::Components( DfbPdf ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
-    //  pdf.plotOn( plot, RooFit::Components( promptPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDotted) );
-    //  pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDashDotted) );
+    pdf.plotOn( plot, RooFit::Components( gauss1 ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
+    pdf.plotOn( plot, RooFit::Components( gauss2 ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDotted) );
+    //pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDashDotted) );
 
     pad1->cd();
-    pad1->SetLogy();
+    //pad1->SetLogy();
     plot->Draw();
 
     pad2->cd();
@@ -113,4 +123,3 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
 
     c->SaveAs(out_file_mass);
 }
-
