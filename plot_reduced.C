@@ -198,4 +198,3 @@ std::cout << NMC << " simulated events total (after cuts)" << std::endl;
 
 
 
-
