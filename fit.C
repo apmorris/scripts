@@ -9,9 +9,9 @@
 
 
 
-void fit(char * input_file, char * out_file_mass){
+void fit(char * input_file = "~/cern/ntuples/reducedTree.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_2011_2012_mass_fit_cb1_cb2.png"){
 
-    gROOT->ProcessLine(".L ~/lhcb/lhcbstyle.C");
+    gROOT->ProcessLine(".L ~/cern/scripts/lhcbstyle.C");
     //lhcbStyle();
 
     const std::string filename(input_file);
@@ -47,11 +47,15 @@ void fit(char * input_file, char * out_file_mass){
     RooRealVar dfbYield("dfbYield","dfb Yield", 1e2, 1e1, 1e4);
     RooRealVar bgYield("bgYield","bg Yield", 100.0, 100.0, 1e4);
 
-    alpha1.setVal( 2.1  );
-    alpha2.setVal( -4.9 );
-    n1.setVal( 3.2 );
-    n2.setVal( 7.9 );
-    cbRatio.setVal( 0.6808 );
+    
+    //put in values from fit_MC here
+    
+
+    alpha1.setVal( 2.04670e+00  );
+    alpha2.setVal( -2.01178e+00 );
+    n1.setVal( 2.39553e+00 );
+    n2.setVal( 3.08386e+00 );
+    cbRatio.setVal( 6.18979e-01 );
 
     alpha1.setConstant( true );
     alpha2.setConstant( true );
@@ -104,9 +108,9 @@ void fit(char * input_file, char * out_file_mass){
     pad2->SetTopMargin(0.0);
     pad2->Draw();
 
-    pdf.plotOn( plot, RooFit::Components( DfbPdf ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
-    pdf.plotOn( plot, RooFit::Components( promptPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDotted) );
-    pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDashDotted) );
+    //pdf.plotOn( plot, RooFit::Components( DfbPdf ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
+    //pdf.plotOn( plot, RooFit::Components( promptPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDotted) );
+    //pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDashDotted) );
 
     pad1->cd();
     plot->Draw();

@@ -8,7 +8,7 @@
 */
 
 
-void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_MC_2011_2012_mass_fit_cb1_cb2.png"){
+void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_MC_2011_2012_mass_fit_gauss1_gauss2.png"){
 
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
     //lhcbStyle();
@@ -64,8 +64,8 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     */
 
     // -- add signal & bg
-    //RooAddPdf pdf("pdf", "pdf", RooArgList(gauss1, gauss2), RooArgList( frac2 ));  
-    RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( frac2 ));  
+    RooAddPdf pdf("pdf", "pdf", RooArgList(gauss1, gauss2), RooArgList( frac2 ));  
+    //RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( frac2 ));  
 
     RooArgSet obs;
     obs.add(mass);
@@ -84,7 +84,7 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
 
     pdf.fitTo( ds );
 
-    ds.plotOn( plot, RooFit::Binning(50) );
+    ds.plotOn( plot, RooFit::Binning(200) );
     pdf.plotOn( plot );
     //gauss3.plotOn( plot );
 

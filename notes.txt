@@ -1,0 +1,42 @@
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+|                |                               |                               |
+|   N O T E S    |    A L I C E   M O R R I S    |    M P H Y S   P R O J E C T  |
+|                |                               |                               |
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+P I D   C A L I B R A T I O N S :
+
+--Write a script to calculate momentum of Kaon and Proton from variables in MC 
+file, while copying the ntuple.
+
+--Use ...E ...X ...Y ...Z as the components of the 4 momentum. Can store as a 
+TLorentzVector? Look this up.
+
+--Script can also rename the variables to be standard. Use the minann branches for 
+renaming to V2ProbNN*
+
+--Will need to write another script to rename the main data file to match the 
+changes. Also go through other scripts to change the variable names.
+
+----------------------------------------------------------------------------------
+F I T T I N G :
+
+--fit_MC works best for cb1+cb2 and 200 bins. Recorded fit parameters in txt files 
+in the fit_MC_binning folder, transferred values to fit code. Will have to check 
+out the errors this keeps throwing.
+
+----------------------------------------------------------------------------------
+G I T   S T U F F :
+
+--scripts is now a repo, local and remote
+
+--to update the remote version, from scripts directory, type at command line:
+git add *.C *.txt *.py
+git commit -m "Some description of the changes made"
+git push origin master
+
+--to update the local version, from scripts directory, type at command line:
+git pull
+
+--may need to make plots a repo too? or cern?
