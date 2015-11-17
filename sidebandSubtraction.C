@@ -62,13 +62,13 @@ void sidebandSubtraction(){
     gStyle->SetOptStat(0);	
 
     // Defining histograms, drawing and scaling
-    TH1D* h1 = new TH1D ("h1", "minann_mu", 40, 0., 1.);
-    TH1D* h2 = new TH1D ("h2", "minann_mu", 40, 0., 1.);
-    TH1D* h3 = new TH1D ("h3", "minann_mu", 40, 0., 1.);    
+    TH1D* h1 = new TH1D ("h1", "ProbNNp", 40, 0., 1.);
+    TH1D* h2 = new TH1D ("h2", "ProbNNp", 40, 0., 1.);
+    TH1D* h3 = new TH1D ("h3", "ProbNNp", 40, 0., 1.);    
 
-    t1->Draw("minann_mu>>h1", "", "goff"); 	
-    t2->Draw("minann_mu>>h2", "", "goff");
-    t3->Draw("minann_mu>>h3", "", "goff");   
+    t1->Draw("ProbNNp>>h1", "", "goff"); 	
+    t2->Draw("ProbNNp>>h2", "", "goff");
+    t3->Draw("ProbNNp>>h3", "", "goff");   
 
     
     // Plotting the results of the signal selection
@@ -77,11 +77,11 @@ void sidebandSubtraction(){
     c1->cd(1);
 
     h1->Draw();
-    h1->GetXaxis()->SetTitle("minann_mu");
+    h1->GetXaxis()->SetTitle("ProbNNp");
     h2->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();
     
-    c1->SaveAs("~/cern/plots/signal_region_minann_mu.png");
+    c1->SaveAs("~/cern/plots/signal_region_ProbNNp.png");
 
     // Plotting the results of the sideband selection
     TCanvas* c2 = new TCanvas("c2");
@@ -89,11 +89,11 @@ void sidebandSubtraction(){
     c2->cd(1);
 
     h2->Draw();
-    h2->GetXaxis()->SetTitle("minann_mu");
+    h2->GetXaxis()->SetTitle("ProbNNp");
     h2->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();
 
-    c2->SaveAs("~/cern/plots/sideband_region_minann_mu.png");
+    c2->SaveAs("~/cern/plots/sideband_region_ProbNNp.png");
 
     // Scaling the sideband histo to the signal histo, and subtracting
     h2->Scale(0.5);
@@ -117,11 +117,11 @@ void sidebandSubtraction(){
 
     h3->Draw();
     h1->Draw("same");
-    h3->GetXaxis()->SetTitle("minann_mu");	
+    h3->GetXaxis()->SetTitle("ProbNNp");	
     h3->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();
 
-    c3->SaveAs("~/cern/plots/sideband_subtracted_minann_mu.png");
+    c3->SaveAs("~/cern/plots/sideband_subtracted_ProbNNp.png");
 
 
 std::cout << Ndata << " events after sideband subtraction" << std::endl;

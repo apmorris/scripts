@@ -18,7 +18,7 @@ Script to plot the following variables:
 14 trgh_track[1] 
 15 trgh_track[2] 
 16 trgh_track[3] 
-17 ann_kaon[0] 
+17 ProbNNk 
 18 minann_mu
 19 m_jpsi
 
@@ -36,9 +36,9 @@ Script to plot the following variables:
 
 
     // Definition of variables
-    const std::string filename =    "~/cern/ntuples/Lb2chicpK_2011_2012_signal.root";
-    const std::string filename_MC = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal.root";
-    const std::string treename =    "HistosAndTuples/MyTuple";
+    const std::string filename =    "~/cern/ntuples/Lb2chicpK_2011_2012_signal_fixed.root";
+    const std::string filename_MC = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal_fixed.root";
+    const std::string treename =    "MyTuple";
     const std::string yaxis =       "Candidates";
   
     // Opening files and trees
@@ -721,11 +721,11 @@ Script to plot the following variables:
 
 
 
-    // ann_kaon[0] plot section ---------------------------------------------------------------------------------------------------17
+    // ProbNNk plot section ---------------------------------------------------------------------------------------------------17
 
     // Define the histograms
-    TH1D* h17 = new TH1D ("h17", "ann_kaon[0]", 100, 0., 1.0);
-    TH1D* h17_MC = new TH1D ("h17_MC", "ann_kaon[0]", 100, 0., 1.0);
+    TH1D* h17 = new TH1D ("h17", "ProbNNk", 100, 0., 1.0);
+    TH1D* h17_MC = new TH1D ("h17_MC", "ProbNNk", 100, 0., 1.0);
     
     
     // Differentiating the MC histo from the data histo
@@ -735,8 +735,8 @@ Script to plot the following variables:
 
 
     // Draw the histogram for the data and the MC 
-    t1->Draw("ann_kaon[0]>>h17", "", "goff"); 	
-    t2->Draw("ann_kaon[0]>>h17_MC", "", "goff");
+    t1->Draw("ProbNNk>>h17", "", "goff"); 	
+    t2->Draw("ProbNNk>>h17_MC", "", "goff");
 
 
     // Scaling MC to data
@@ -752,12 +752,12 @@ Script to plot the following variables:
     // Plotting 
     h17_MC->Draw();
     h17->Draw("same"); 	// draws on same pad
-    h17_MC->GetXaxis()->SetTitle( "ann_kaon[0]" );	
+    h17_MC->GetXaxis()->SetTitle( "ProbNNk" );	
     h17_MC->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();		
 
 
-    c17->SaveAs("~/cern/plots/ann_kaon[0].png");
+    c17->SaveAs("~/cern/plots/ProbNNk.png");
 
 
 
@@ -871,7 +871,7 @@ TO DO:
 14 trgh_track[1] 
 15 trgh_track[2] 
 16 trgh_track[3] 
-17 ann_kaon[0] 
+17 ProbNNk 
 18 minann_mu 
 19 m_jpsi                                   -- DONE
 

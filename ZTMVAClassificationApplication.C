@@ -144,7 +144,7 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reduc
    
   // Float_t ptsum, pionpt,pionpt2, maxphi, minphi, normq, logipmax ,logipmin,logfd,logvd, xpt  ,maxpionpid,minpionpid, logvpi , nTT, eta  , maxpioneta, minpioneta; 
 
-   float dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track, ann_kaon, minann_P, minann_mu;
+   float dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track, ann_kaon, ProbNNp, minann_mu;
     
     //reader->AddVariable( "mass", &mass);
     //reader->AddVariable( "mass_jpsi", &mass_jpsi);
@@ -157,9 +157,9 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reduc
     reader->AddVariable( "minCl_gamma", &minCl_gamma);
     reader->AddVariable( "trgh_track", &trgh_track);
     reader->AddVariable( "ann_kaon", &ann_kaon);
-    //reader->AddVariable( "minann_K", &minann_K);    
+    //reader->AddVariable( "ProbNNk", &ProbNNk);    
     //reader->AddVariable( "ann_proton", &ann_proton); 
-    reader->AddVariable( "minann_P", &minann_P); 
+    reader->AddVariable( "ProbNNp", &ProbNNp); 
     //reader->AddVariable( "ann_mu", &ann_mu);   
     reader->AddVariable( "minann_mu", &minann_mu);
 
@@ -303,9 +303,9 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reduc
    theTree->SetBranchAddress(  "minCl_gamma", &minCl_gamma);
    theTree->SetBranchAddress(  "trgh_track", &trgh_track);
    theTree->SetBranchAddress(  "ann_kaon", &ann_kaon);
-   //theTree->SetBranchAddress(  "minann_K", &minann_K);
+   //theTree->SetBranchAddress(  "ProbNNk", &ProbNNk);
    //theTree->SetBranchAddress(  "ann_proton", &ann_proton);
-   theTree->SetBranchAddress(  "minann_P", &minann_P);
+   theTree->SetBranchAddress(  "ProbNNp", &ProbNNp);
    //theTree->SetBranchAddress(  "ann_mu", &ann_mu);
    theTree->SetBranchAddress(  "minann_mu", &minann_mu);
   

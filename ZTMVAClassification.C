@@ -135,9 +135,9 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     //factory->AddVariable( "trig_b_l2tos_tos", "trig_b_l2tos_tos", "", 'F' );
     factory->AddVariable( "trgh_track", "trgh_track", "", 'F' );
     factory->AddVariable( "ann_kaon", "ann_kaon", "", 'F' );
-    //factory->AddVariable( "minann_K", "minann_K", "", 'F' );    
+    //factory->AddVariable( "ProbNNk", "ProbNNk", "", 'F' );    
     //factory->AddVariable( "ann_proton", "ann_proton", "", 'F' ); 
-    factory->AddVariable( "minann_P", "minann_P", "", 'F' ); 
+    factory->AddVariable( "ProbNNp", "ProbNNp", "", 'F' ); 
     //factory->AddVariable( "ann_mu", "ann_mu", "", 'F' ); 
     factory->AddVariable( "minann_mu", "minann_mu", "", 'F' );
     

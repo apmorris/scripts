@@ -12,8 +12,8 @@ void polarityCuts(){
 
   // -- define tuple file name, tuple name and cut to apply
   // -- and also the name of the output file
-  const std::string filename = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal.root";
-  const std::string treename("HistosAndTuples/MyTuple");
+  const std::string filename = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal_fixed.root";
+  const std::string treename("MyTuple");
   const std::string cuts = " polarity > 0. " ;
   const std::string outFilename("~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal_MagUp.root");
 
@@ -42,9 +42,9 @@ void polarityCuts(){
   tree->SetBranchStatus("trig_b_l2tos_tos",1);
   tree->SetBranchStatus("trgh_track",1);
   tree->SetBranchStatus("ann_kaon",1);
-  tree->SetBranchStatus("minann_K",1);
+  tree->SetBranchStatus("ProbNNk",1);
   tree->SetBranchStatus("ann_proton",1);
-  tree->SetBranchStatus("minann_P",1);
+  tree->SetBranchStatus("ProbNNp",1);
   tree->SetBranchStatus("ann_mu",1);
   tree->SetBranchStatus("minann_mu",1);
   tree->SetBranchStatus("m_chicp",1);//not in MC
@@ -65,7 +65,7 @@ void polarityCuts(){
 
 
 
-  float mass, mass_chicp, mass_pK, mass_jpsi, mass_chic, dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track, ann_kaon, minann_K, ann_proton, minann_P, ann_mu, minann_mu, polarity;
+  float mass, mass_chicp, mass_pK, mass_jpsi, mass_chic, dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track, ann_kaon, ProbNNk, ann_proton, ProbNNp, ann_mu, minann_mu, polarity;
 
   float trig_b_l0tos_tos, trig_b_l1tos_tos, trig_b_l2tos_tos;
 
@@ -85,9 +85,9 @@ void polarityCuts(){
   rTree1->SetBranchAddress("trig_b_l2tos_tos", &trig_b_l2tos_tos);
   rTree1->SetBranchAddress("trgh_track", &trgh_track);
   rTree1->SetBranchAddress("ann_kaon", &ann_kaon);
-  rTree1->SetBranchAddress("minann_K", &minann_K);
+  rTree1->SetBranchAddress("ProbNNk", &ProbNNk);
   rTree1->SetBranchAddress("ann_proton", &ann_proton);
-  rTree1->SetBranchAddress("minann_P", &minann_P);
+  rTree1->SetBranchAddress("ProbNNp", &ProbNNp);
   rTree1->SetBranchAddress("ann_mu", &ann_mu);
   rTree1->SetBranchAddress("minann_mu", &minann_mu);
   rTree1->SetBranchAddress("polarity", &polarity);
@@ -116,9 +116,9 @@ void polarityCuts(){
   rTree2->Branch("trig_b_l2tos_tos", &trig_b_l2tos_tos, "trig_b_l2tos_tos/F");
   rTree2->Branch("trgh_track", &trgh_track, "trgh_track/F");
   rTree2->Branch("ann_kaon", &ann_kaon, "ann_kaon/F");
-  rTree2->Branch("minann_K", &minann_K, "minann_K/F");
+  rTree2->Branch("ProbNNk", &ProbNNk, "ProbNNk/F");
   rTree2->Branch("ann_proton", &ann_proton, "ann_proton/F");
-  rTree2->Branch("minann_P", &minann_P, "minann_P/F");
+  rTree2->Branch("ProbNNp", &ProbNNp, "ProbNNp/F");
   rTree2->Branch("ann_mu", &ann_mu, "ann_mu/F");
   rTree2->Branch("minann_mu", &minann_mu, "minann_mu/F");
   rTree2->Branch("polarity", &polarity, "polarity/F");
