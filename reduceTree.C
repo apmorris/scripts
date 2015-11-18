@@ -14,12 +14,12 @@ void reduceTree(){
 
     // -- define tuple file name, tuple name and cuts to apply
     // -- and also the name of the output file
-    const std::string filename = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal_fixed.root";//change
+    const std::string filename = "~/cern/ntuples/Lb2chicpK_2011_2012_signal_fixed.root";//change
     const std::string treename("MyTuple");
     const std::string cuts = "m_b_DTF_jpsi_chic1_constr > 5.55 && m_b_DTF_jpsi_chic1_constr < 5.7 && dtf_b < 7 && dtf_b > 0 && c2ip_b < 25 && dls_b > 10 && c2ip_kminus > 4 && c2ip_pplus > 4 && minCl_gamma > 0.03 && m_chic > 3.4 && m_chic < 3.7  && trgh_track[0] < 0.3 && trgh_track[1] < 0.3 && trgh_track[2] < 0.3 && trgh_track[3] < 0.3 && ProbNNk > 0.15 && minann_mu > 0.1 && trig_b_l0tos_tos == 1 && trig_b_l1tos_tos == 1 && trig_b_l2tos_tos == 1";
 // && bkgcat_chic < 10 && bkgcat_b < 10" 
 // && trig_b_l0tos_tos == 1.0 && trig_b_l1tos_tos == 1.0 && trig_b_l2tos_tos == 1.0
-    const std::string outFilename("~/cern/ntuples/reducedTreeMC.root");//change
+    const std::string outFilename("~/cern/ntuples/reducedTree.root");//change
   
 
     TFile* file = TFile::Open( filename.c_str() );
@@ -49,15 +49,15 @@ void reduceTree(){
     tree->SetBranchStatus("ProbNNp",1);
     tree->SetBranchStatus("ann_mu",1);
     tree->SetBranchStatus("minann_mu",1);
-    //tree->SetBranchStatus("m_chicp",1);//not in MC
-    //tree->SetBranchStatus("m_pK",1);//not in MC
+    tree->SetBranchStatus("m_chicp",1);//not in MC
+    tree->SetBranchStatus("m_pK",1);//not in MC
     tree->SetBranchStatus("m_jpsi",1);
-    tree->SetBranchStatus("bkgcat_b",1);//only in MC
-    tree->SetBranchStatus("bkgcat_chic",1); //only in MC
-    tree->SetBranchStatus("bkgcat_gamma",1);//only in MC
-    tree->SetBranchStatus("bkgcat_jpsi",1);//only in MC
-    tree->SetBranchStatus("bkgcat_kaon",1);//only in MC
-    tree->SetBranchStatus("bkgcat_proton",1);//only in MC
+    //tree->SetBranchStatus("bkgcat_b",1);//only in MC
+    //tree->SetBranchStatus("bkgcat_chic",1); //only in MC
+    //tree->SetBranchStatus("bkgcat_gamma",1);//only in MC
+    //tree->SetBranchStatus("bkgcat_jpsi",1);//only in MC
+    //tree->SetBranchStatus("bkgcat_kaon",1);//only in MC
+   // tree->SetBranchStatus("bkgcat_proton",1);//only in MC
     tree->SetBranchStatus("P_PX",1);
     tree->SetBranchStatus("P_PY",1);    
     tree->SetBranchStatus("P_PZ",1);    
@@ -80,8 +80,8 @@ void reduceTree(){
     bool trig_b_l0tos_tos, trig_b_l1tos_tos, trig_b_l2tos_tos;
 
     rTree1->SetBranchAddress("m_b_DTF_jpsi_chic1_constr", &mass);
-    //rTree1->SetBranchAddress("m_chicp", &mass_chicp);//not in MC
-   // rTree1->SetBranchAddress("m_pK", &mass_pK);//not in MC
+    rTree1->SetBranchAddress("m_chicp", &mass_chicp);//not in MC
+    rTree1->SetBranchAddress("m_pK", &mass_pK);//not in MC
     rTree1->SetBranchAddress("m_jpsi", &mass_jpsi);
     rTree1->SetBranchAddress("m_chic", &mass_chic);
     rTree1->SetBranchAddress("dtf_b", &dtf_b);
@@ -100,12 +100,12 @@ void reduceTree(){
     rTree1->SetBranchAddress("ProbNNp", &ProbNNp);
     rTree1->SetBranchAddress("ann_mu", &ann_mu);
     rTree1->SetBranchAddress("minann_mu", &minann_mu);
-    rTree1->SetBranchAddress("bkgcat_b", &bkgcat_b);//only in MC
-    rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
-    rTree1->SetBranchAddress("bkgcat_gamma", &bkgcat_gamma);//only in MC
-    rTree1->SetBranchAddress("bkgcat_jpsi", &bkgcat_jpsi);//only in MC
-    rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
-    rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_b", &bkgcat_b);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_gamma", &bkgcat_gamma);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_jpsi", &bkgcat_jpsi);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
     rTree1->SetBranchAddress("P_PX",&P_PX);
     rTree1->SetBranchAddress("P_PY",&P_PY);    
     rTree1->SetBranchAddress("P_PZ",&P_PZ);    
@@ -124,8 +124,8 @@ void reduceTree(){
     TTree* rTree2 = new TTree();
     rTree2->SetName("reducedTree");
     rTree2->Branch("mass", &mass, "mass/F");
-    //rTree2->Branch("mass_chicp", &mass_chicp, "mass_chicp/F");//not in MC
-    //rTree2->Branch("mass_pK", &mass_pK, "mass_pK/F");//not in MC
+    rTree2->Branch("mass_chicp", &mass_chicp, "mass_chicp/F");//not in MC
+    rTree2->Branch("mass_pK", &mass_pK, "mass_pK/F");//not in MC
     rTree2->Branch("mass_jpsi", &mass_jpsi, "mass_jpsi/F");
     rTree2->Branch("mass_chic", &mass_chic, "mass_chic/F");
     rTree2->Branch("dtf_b", &dtf_b, "dtf_b/F");
@@ -144,12 +144,12 @@ void reduceTree(){
     rTree2->Branch("ProbNNp", &ProbNNp, "ProbNNp/F");
     rTree2->Branch("ann_mu", &ann_mu, "ann_mu/F");
     rTree2->Branch("minann_mu", &minann_mu, "minann_mu/F");
-    rTree2->Branch("bkgcat_b", &bkgcat_b, "bkgcat_b/F");//only in MC
-    rTree2->Branch("bkgcat_chic", &bkgcat_chic, "bkgcat_chic/F");//only in MC
-    rTree2->Branch("bkgcat_gamma", &bkgcat_gamma, "bkgcat_gamma/F");//only in MC
-    rTree2->Branch("bkgcat_jpsi", &bkgcat_jpsi, "bkgcat_jpsi/F");//only in MC
-    rTree2->Branch("bkgcat_kaon", &bkgcat_kaon, "bkgcat_kaon/F");//only in MC
-    rTree2->Branch("bkgcat_proton", &bkgcat_proton, "bkgcat_proton/F");//only in MC
+    //rTree2->Branch("bkgcat_b", &bkgcat_b, "bkgcat_b/F");//only in MC
+    //rTree2->Branch("bkgcat_chic", &bkgcat_chic, "bkgcat_chic/F");//only in MC
+    //rTree2->Branch("bkgcat_gamma", &bkgcat_gamma, "bkgcat_gamma/F");//only in MC
+    //rTree2->Branch("bkgcat_jpsi", &bkgcat_jpsi, "bkgcat_jpsi/F");//only in MC
+    //rTree2->Branch("bkgcat_kaon", &bkgcat_kaon, "bkgcat_kaon/F");//only in MC
+    //rTree2->Branch("bkgcat_proton", &bkgcat_proton, "bkgcat_proton/F");//only in MC
     rTree2->Branch("P_PX",&P_PX, "P_PX/D");
     rTree2->Branch("P_PY",&P_PY, "P_PY/D");    
     rTree2->Branch("P_PZ",&P_PZ, "P_PZ/D");    

@@ -11,7 +11,7 @@
 
 void fit(char * input_file = "~/cern/ntuples/reducedTree.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_2011_2012_mass_fit_cb1_cb2.png"){
 
-    gROOT->ProcessLine(".L ~/cern/scripts/lhcbstyle.C");
+    gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();
 
     const std::string filename(input_file);
@@ -43,7 +43,7 @@ void fit(char * input_file = "~/cern/ntuples/reducedTree.root", char * out_file_
     RooCBShape cb1("cb1","cb1", mass, mean, sigma1, alpha1, n1); 
     RooCBShape cb2("cb2","cb2", mass, mean, sigma2, alpha2, n2); 
 
-    RooRealVar cbRatio("cbRatio","cbRatio", 0.8, 0.1, 1.0);
+    RooRealVar cbRatio("cbRatio","cb Ratio", 0.8, 0.1, 1.0);
     RooRealVar dfbYield("dfbYield","dfb Yield", 1e2, 1e1, 1e4);
     RooRealVar bgYield("bgYield","bg Yield", 100.0, 100.0, 1e4);
 

@@ -80,7 +80,7 @@ void fix_names_and_momentum() {
 
     float m_b_DTF_jpsi_chic1_constr, m_chicp, m_pK, m_jpsi, m_chic; 
     float dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track;  
-    float ann_kaon, ProbNNk, ann_proton, ProbNNp, ann_mu, minann_mu; 
+    float ann_kaon, ProbNNK, ann_proton, ProbNNp, ann_mu, minann_mu; 
     double P_PX, P_PY, P_PZ, P_PE;
     double K_PX, K_PY, K_PZ, K_PE;
     bool trig_b_l0tos_tos, trig_b_l1tos_tos, trig_b_l2tos_tos;
@@ -103,9 +103,9 @@ void fix_names_and_momentum() {
     rTree1->SetBranchAddress("trig_b_l2tos_tos", &trig_b_l2tos_tos);
     rTree1->SetBranchAddress("trgh_track", &trgh_track);
     rTree1->SetBranchAddress("ann_kaon", &ann_kaon);
-    rTree1->SetBranchAddress("minann_K", &ProbNNk);
+    rTree1->SetBranchAddress("minann_K", &ProbNNK);//K_ProbNNk???
     rTree1->SetBranchAddress("ann_proton", &ann_proton);
-    rTree1->SetBranchAddress("minann_P", &ProbNNp);
+    rTree1->SetBranchAddress("minann_P", &ProbNNp);//P_ProbNNp???
     rTree1->SetBranchAddress("ann_mu", &ann_mu);
     rTree1->SetBranchAddress("minann_mu", &minann_mu);
     rTree1->SetBranchAddress("p4_pplusX", &P_PX);
@@ -123,7 +123,8 @@ void fix_names_and_momentum() {
     rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
     rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
     rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
-
+    //rTree1->SetBranchAddress
+    //does n_track also need to be renamed to nTracks??
     //-------------------------------------------------------------------------------
 
 
@@ -147,9 +148,9 @@ void fix_names_and_momentum() {
     rTree2->Branch("trig_b_l2tos_tos", &trig_b_l2tos_tos, "trig_b_l2tos_tos/B");
     rTree2->Branch("trgh_track", &trgh_track, "trgh_track/F");
     rTree2->Branch("ann_kaon", &ann_kaon, "ann_kaon/F");
-    rTree2->Branch("ProbNNk", &ProbNNk, "ProbNNk/F");
+    rTree2->Branch("K_ProbNNK", &ProbNNK, "K_ProbNNK/F");
     rTree2->Branch("ann_proton", &ann_proton, "ann_proton/F");
-    rTree2->Branch("ProbNNp", &ProbNNp, "ProbNNp/F");
+    rTree2->Branch("P_ProbNNp", &ProbNNp, "P_ProbNNp/F");
     rTree2->Branch("ann_mu", &ann_mu, "ann_mu/F");
     rTree2->Branch("minann_mu", &minann_mu, "minann_mu/F");
     rTree2->Branch("P_PX", &P_PX, "P_PX/D");
@@ -175,11 +176,12 @@ void fix_names_and_momentum() {
     //TLorentzVector * p_mom = new TLorentzVector(P_PX, P_PY, P_PZ, P_PE);
     //TLorentzVector * k_mom = new TLorentzVector(K_PX, K_PY, K_PZ, K_PE);    
 
-    double p_momentum, k_momentum;
+    double p_momentum, k_momentum, p_eta, k_eta;
 
     rTree2->Branch("P_P", &p_momentum, "P_P/D");
     rTree2->Branch("K_P", &k_momentum, "K_P/D");
-    
+    rTree2->Branch("P_ETA", &p_eta, "P_ETA/D");
+    rTree2->Branch("K_ETA", &k_eta, "K_ETA/D");
     for(int i = 0; i < rTree1->GetEntries(); ++i){    
     //for event in tree
     
@@ -190,6 +192,8 @@ void fix_names_and_momentum() {
               
         k_momentum = k_mom->P();
         p_momentum = p_mom->P();
+        k_eta = k_mom->Eta();
+        p_eta = p_mom->Eta();
         
         rTree2->Fill();
         
