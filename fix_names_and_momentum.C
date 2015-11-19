@@ -123,11 +123,10 @@ void fix_names_and_momentum() {
     rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
     rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
     rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
-    //rTree1->SetBranchAddress
-    //does n_track also need to be renamed to nTracks??
+
     //-------------------------------------------------------------------------------
 
-
+    //this is the important renaming bit---------------------------------------------
 
     TFile* rFile = new TFile( outFilename.c_str() ,"RECREATE");
     TTree* rTree2 = new TTree();

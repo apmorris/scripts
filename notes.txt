@@ -1,7 +1,7 @@
  ___________________________________________________________________________________
 |  _______________________________________________________________________________  |
 | |               |                               |                               | |
-| |  N O T E S    |    A L I C E   M O R R I S    |   M P H Y S   P R O J E C T   | |
+| |   N O T E S   |    A L I C E   M O R R I S    |   M P H Y S   P R O J E C T   | |
 | |_______________|_______________________________|_______________________________| |
 |___________________________________________________________________________________|
 
@@ -20,10 +20,11 @@ renaming to ProbNN* DONE
 --Will need to write another script to rename the main data file to match the 
 changes. Also go through other scripts to change the variable names. DONE
 
---MakePIDCorrection.py errors:
-    - attempt to access null pointer line371, something still wrong with the naming??
+--MakePIDCorrection.py now working
 
---Next steps??
+--P_ProbNNpcorr looks strange - very high peak at zero. This was with 20r1 MagDown, 
+and correcting for Protons - maybe because all have polarity +1?? Tried with MagUp 
+and 20r1, looks the same. 
 
 _____________________________________________________________________________________
 
@@ -51,22 +52,27 @@ git pull
 
 --may need to make plots a repo too? or just all of cern?
 
+_____________________________________________________________________________________
 
-
-L E F T   T H I S   R U N N I N G
+E V E R Y   S T A R T U P   O N   L X P L U S   D O   T H I S :
+______________________________________________________________
 
 source /cvmfs/lhcb.cern.ch/group_login.sh
 SetupUrania v2r4
 
-cd /cmtuser
+_____________________________________________________________________________________
 
-python MakePIDdistributionsRunRange.py "20" "MagUp" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" RUNNING
+L E F T   T H I S   R U N N I N G :
+__________________________________
 
-python MakePIDdistributionsRunRange.py "20" "MagDown" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" Running
 
-python MakePIDdistributionsRunRange.py "20r1" "MagUp" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" Running
+python MakePIDdistributionsRunRange.py "20" "MagUp" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" done
 
-python MakePIDdistributionsRunRange.py "20r1" "MagDown" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" Running
+python MakePIDdistributionsRunRange.py "20" "MagDown" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" done
+
+python MakePIDdistributionsRunRange.py "20r1" "MagUp" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" done
+
+python MakePIDdistributionsRunRange.py "20r1" "MagDown" "[K,P]" "[V2ProbNNK,V2ProbNNp]" -Z "" done
 
 
 
