@@ -5,12 +5,19 @@
 
 	Script to fit models to the data.
 
+Script needs to go through different bdt cuts and record the S and B values to a new
+tree perhaps, errors too. Do this in a loop. Then needs to plot the value of 
+S/sqrt(S+B) with errors versus bdt cut value. This outside the loop.
+
+First try this manually to get an idea of what needs to be done and in what order.
 
 */
 
 
+#include <sstream>
 
-void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_2011_2012_mass_fit_cb1_cb2.png"){
+
+void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file = "~/cern/plots/Lb2chicpK_2011_2012_BDT_cuts.png"){
 
     gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();
@@ -23,7 +30,6 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     if( !file ) std::cout << "file " << filename << " does not exist" << std::endl;
     TTree* tree = (TTree*)file->Get( treename.c_str() );
     if( !tree ) std::cout << "tree " << treename << " does not exist" << std::endl;
-
 
 
     // -- signal, mass shape
@@ -40,7 +46,9 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
     RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
+    RooRealVar bdtg3("bdtg3", "bdtg3", -1.0, 1.0);
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
+
     
     RooGaussian gauss1("gauss1","gauss1", mass, mean, sigma1);
     RooGaussian gauss2("gauss2","gauss2", mass, mean, sigma2);
@@ -82,27 +90,55 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     // -- add signal & bg
     RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
 
-    RooArgSet obs;
-    obs.add(mass);
-    //obs.add(mass_chicp);
-    //obs.add(mass_pK);
-    obs.add(mass_Jpsi);
-    obs.add(mass_Chic);
-    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
-
-    RooPlot* plot = mass.frame();
-
-    RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
-    ds.plotOn( plot );
-    pdf.plotOn( plot );
+//define cut out here
 
 
-    RooPlot* plotPullMass = mass.frame();
+//loop starting here
+    for(int i=0; i <= 5; i=i+1) 
+    {
+        double cut_val = -1.0 + i*0.2;
+        
+        std::stringstream c;
+        c << "bdtg3" << " > " << cut_val;
+        const std::string cut = c.str();
+        
+        //std::cout << cut;
 
-    plotPullMass->addPlotable( plot->pullHist() );
-    //plotPullMass->SetMinimum();
-    //plotPullMass->SetMaximum();
+        RooArgSet obs;
+        obs.add(mass);
+        //obs.add(mass_chicp);
+        //obs.add(mass_pK);
+        obs.add(mass_Jpsi);
+        obs.add(mass_Chic);
+        obs.add(bdtg3);
+        //obs.add(sigYield);
+        //obs.add(bgYield);
+        
+        RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut(cut.c_str())); 
 
+        //RooPlot* plot = mass.frame();
+    
+        RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
+        
+        std::cout << "\n\n\n" << "BDT cut value = " << cut_val << "\n\n\n" ;
+        //std::cout << "S = " << result->Getvalue(sigYield);
+        //std::cout << "B = " << bgYield;
+        
+        //ds.plotOn( plot );
+        //pdf.plotOn( plot );
+
+
+        //RooPlot* plotPullMass = mass.frame();
+
+        //plotPullMass->addPlotable( plot->pullHist() );
+        //plotPullMass->SetMinimum();
+        //plotPullMass->SetMaximum();
+        
+        //std::cout << cut_val;
+   }
+
+
+/*
     TCanvas* c = new TCanvas();
 
     TPad* pad1 = new TPad("pad1","pad1", 0, 0.3, 1, 1.0);
@@ -114,6 +150,7 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     pad2->SetBottomMargin(0.1);
     pad2->SetTopMargin(0.0);
     pad2->Draw();
+
 
     //pdf.plotOn( plot, RooFit::Components( DfbPdf ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
     //pdf.plotOn( plot, RooFit::Components( promptPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDotted) );
@@ -132,6 +169,7 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
 
 
     RooDataSet * dataw_z = new RooDataSet(ds.GetName(),ds.GetTitle(),&ds,*(ds.get()),0,"sigYield_sw") ;
+*/
 /*   
     TCanvas* d = new TCanvas();
     RooPlot* w_mass_chicp = mass_chicp.frame();

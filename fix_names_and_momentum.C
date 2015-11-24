@@ -18,9 +18,9 @@ void fix_names_and_momentum() {
 
     // -- define tuple file name, tuple name and cuts to apply-----------------------
     // -- and also the name of the output file
-    const std::string filename = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal.root";
+    const std::string filename = "~/cern/ntuples/Lb2chicpK_2011_2012_signal.root";
     const std::string treename = "HistosAndTuples/MyTuple";
-    const std::string outFilename("~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal_fixed.root");
+    const std::string outFilename("~/cern/ntuples/Lb2chicpK_2011_2012_signal_fixed.root");
    
    
     TFile* file = TFile::Open( filename.c_str() );
@@ -58,15 +58,15 @@ void fix_names_and_momentum() {
     tree->SetBranchStatus("p4_kminusX",1);  
     tree->SetBranchStatus("p4_kminusY",1);  
     tree->SetBranchStatus("p4_kminusZ",1);     
-    //tree->SetBranchStatus("m_chicp",1);//not in MC
-    //tree->SetBranchStatus("m_pK",1);//not in MC
+    tree->SetBranchStatus("m_chicp",1);//not in MC
+    tree->SetBranchStatus("m_pK",1);//not in MC
     tree->SetBranchStatus("m_jpsi",1);
-    tree->SetBranchStatus("bkgcat_b",1);//only in MC
-    tree->SetBranchStatus("bkgcat_chic",1); //only in MC
-    tree->SetBranchStatus("bkgcat_gamma",1);//only in MC
-    tree->SetBranchStatus("bkgcat_jpsi",1);//only in MC
-    tree->SetBranchStatus("bkgcat_kaon",1);//only in MC
-    tree->SetBranchStatus("bkgcat_proton",1);//only in MC   
+    //tree->SetBranchStatus("bkgcat_b",1);//only in MC
+    //tree->SetBranchStatus("bkgcat_chic",1); //only in MC
+    //tree->SetBranchStatus("bkgcat_gamma",1);//only in MC
+    //tree->SetBranchStatus("bkgcat_jpsi",1);//only in MC
+   // tree->SetBranchStatus("bkgcat_kaon",1);//only in MC
+   // tree->SetBranchStatus("bkgcat_proton",1);//only in MC   
     
     
     
@@ -80,7 +80,7 @@ void fix_names_and_momentum() {
 
     float m_b_DTF_jpsi_chic1_constr, m_chicp, m_pK, m_jpsi, m_chic; 
     float dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track;  
-    float ann_kaon, ProbNNK, ann_proton, ProbNNp, ann_mu, minann_mu; 
+    float ann_kaon, ProbNNk, ann_proton, ProbNNp, ann_mu, minann_mu; 
     double P_PX, P_PY, P_PZ, P_PE;
     double K_PX, K_PY, K_PZ, K_PE;
     bool trig_b_l0tos_tos, trig_b_l1tos_tos, trig_b_l2tos_tos;
@@ -88,8 +88,8 @@ void fix_names_and_momentum() {
     
         
     rTree1->SetBranchAddress("m_b_DTF_jpsi_chic1_constr", &m_b_DTF_jpsi_chic1_constr);
-    //rTree1->SetBranchAddress("m_chicp", &m_chicp);//not in MC
-    //rTree1->SetBranchAddress("m_pK", &m_pK);//not in MC
+    rTree1->SetBranchAddress("m_chicp", &m_chicp);//not in MC
+    rTree1->SetBranchAddress("m_pK", &m_pK);//not in MC
     rTree1->SetBranchAddress("m_jpsi", &m_jpsi);
     rTree1->SetBranchAddress("m_chic", &m_chic);
     rTree1->SetBranchAddress("dtf_b", &dtf_b);
@@ -103,7 +103,7 @@ void fix_names_and_momentum() {
     rTree1->SetBranchAddress("trig_b_l2tos_tos", &trig_b_l2tos_tos);
     rTree1->SetBranchAddress("trgh_track", &trgh_track);
     rTree1->SetBranchAddress("ann_kaon", &ann_kaon);
-    rTree1->SetBranchAddress("minann_K", &ProbNNK);//K_ProbNNk???
+    rTree1->SetBranchAddress("minann_K", &ProbNNk);//K_ProbNNk???
     rTree1->SetBranchAddress("ann_proton", &ann_proton);
     rTree1->SetBranchAddress("minann_P", &ProbNNp);//P_ProbNNp???
     rTree1->SetBranchAddress("ann_mu", &ann_mu);
@@ -116,13 +116,13 @@ void fix_names_and_momentum() {
     rTree1->SetBranchAddress("p4_kminusY", &K_PY);
     rTree1->SetBranchAddress("p4_kminusZ", &K_PZ);
     rTree1->SetBranchAddress("p4_kminusE", &K_PE);
-    rTree1->SetBranchAddress("bkgcat_b", &bkgcat_b);//only in MC
-    rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
-    rTree1->SetBranchAddress("bkgcat_gamma", &bkgcat_gamma);//only in MC
-    rTree1->SetBranchAddress("bkgcat_jpsi", &bkgcat_jpsi);//only in MC
-    rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
-    rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
-    rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_b", &bkgcat_b);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_gamma", &bkgcat_gamma);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_jpsi", &bkgcat_jpsi);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
+    //rTree1->SetBranchAddress("bkgcat_chic", &bkgcat_chic);//only in MC
 
     //-------------------------------------------------------------------------------
 
@@ -132,8 +132,8 @@ void fix_names_and_momentum() {
     TTree* rTree2 = new TTree();
     rTree2->SetName("MyTuple");
     rTree2->Branch("m_b_DTF_jpsi_chic1_constr", &m_b_DTF_jpsi_chic1_constr, "m_b_DTF_jpsi_chic1_constr/F");
-    //rTree2->Branch("m_chicp", &m_chicp, "m_chicp/F");//not in MC
-    //rTree2->Branch("m_pK", &m_pK, "m_pK/F");//not in MC
+    rTree2->Branch("m_chicp", &m_chicp, "m_chicp/F");//not in MC
+    rTree2->Branch("m_pK", &m_pK, "m_pK/F");//not in MC
     rTree2->Branch("m_jpsi", &m_jpsi, "m_jpsi/F");
     rTree2->Branch("m_chic", &m_chic, "m_chic/F");
     rTree2->Branch("dtf_b", &dtf_b, "dtf_b/F");
@@ -147,7 +147,7 @@ void fix_names_and_momentum() {
     rTree2->Branch("trig_b_l2tos_tos", &trig_b_l2tos_tos, "trig_b_l2tos_tos/B");
     rTree2->Branch("trgh_track", &trgh_track, "trgh_track/F");
     rTree2->Branch("ann_kaon", &ann_kaon, "ann_kaon/F");
-    rTree2->Branch("K_ProbNNK", &ProbNNK, "K_ProbNNK/F");
+    rTree2->Branch("K_ProbNNk", &ProbNNk, "K_ProbNNk/F");
     rTree2->Branch("ann_proton", &ann_proton, "ann_proton/F");
     rTree2->Branch("P_ProbNNp", &ProbNNp, "P_ProbNNp/F");
     rTree2->Branch("ann_mu", &ann_mu, "ann_mu/F");
@@ -160,12 +160,12 @@ void fix_names_and_momentum() {
     rTree2->Branch("K_PY", &K_PY, "K_PY/D");
     rTree2->Branch("K_PZ", &K_PZ, "K_PZ/D");
     rTree2->Branch("K_PE", &K_PE, "K_PE/D");
-    rTree2->Branch("bkgcat_b", &bkgcat_b, "bkgcat_b/F");//only in MC
-    rTree2->Branch("bkgcat_gamma", &bkgcat_gamma, "bkgcat_gamma/F");//only in MC
-    rTree2->Branch("bkgcat_jpsi", &bkgcat_jpsi, "bkgcat_jpsi/F");//only in MC
-    rTree2->Branch("bkgcat_kaon", &bkgcat_kaon, "bkgcat_kaon/F");//only in MC
-    rTree2->Branch("bkgcat_proton", &bkgcat_proton, "bkgcat_proton/F");//only in MC
-    rTree2->Branch("bkgcat_chic", &bkgcat_chic, "bkgcat_chic/F");//only in MC
+    //rTree2->Branch("bkgcat_b", &bkgcat_b, "bkgcat_b/F");//only in MC
+    //rTree2->Branch("bkgcat_gamma", &bkgcat_gamma, "bkgcat_gamma/F");//only in MC
+    //rTree2->Branch("bkgcat_jpsi", &bkgcat_jpsi, "bkgcat_jpsi/F");//only in MC
+    //rTree2->Branch("bkgcat_kaon", &bkgcat_kaon, "bkgcat_kaon/F");//only in MC
+    //rTree2->Branch("bkgcat_proton", &bkgcat_proton, "bkgcat_proton/F");//only in MC
+    //rTree2->Branch("bkgcat_chic", &bkgcat_chic, "bkgcat_chic/F");//only in MC
 
 
 
