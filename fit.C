@@ -10,7 +10,7 @@
 
 
 
-void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_2011_2012_mass_fit_cb1_cb2.png"){
+void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_2011_2012_mass_fit.png"){
 
     gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();
@@ -40,6 +40,7 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
     RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
+    //RooRealVar bdtg3("bdtg3", "bdtg3", -1.0, 1.0);
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
     RooGaussian gauss1("gauss1","gauss1", mass, mean, sigma1);
@@ -48,8 +49,8 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     RooCBShape cb2("cb2","cb2", mass, mean, sigma2, alpha2, n2); 
     RooAddPdf sig("sig", "sig", RooArgList(cb1, cb2), RooArgList( frac2 ));
     RooRealVar cbRatio("cbRatio","cb Ratio", 0.8, 0.1, 1.0);
-    RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e2, 1e4);
-    RooRealVar bgYield("bgYield","bg Yield", 1e4, 1e3, 1e5);
+    RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e1, 1e4);
+    RooRealVar bgYield("bgYield","bg Yield", 1e4, 1e1, 1e5);
 
     
     //put in values from fit_MC here
@@ -88,6 +89,8 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     //obs.add(mass_pK);
     obs.add(mass_Jpsi);
     obs.add(mass_Chic);
+    //obs.add(bdtg3);    
+    
     RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
 
     RooPlot* plot = mass.frame();

@@ -56,8 +56,8 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file
     RooCBShape cb2("cb2","cb2", mass, mean, sigma2, alpha2, n2); 
     RooAddPdf sig("sig", "sig", RooArgList(cb1, cb2), RooArgList( frac2 ));
     RooRealVar cbRatio("cbRatio","cb Ratio", 0.8, 0.1, 1.0);
-    RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e2, 1e4);
-    RooRealVar bgYield("bgYield","bg Yield", 1e4, 1e3, 1e5);
+    RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e1, 1e4);
+    RooRealVar bgYield("bgYield","bg Yield", 1e4, 1e1, 1e5);
 
     
     //put in values from fit_MC here
@@ -90,16 +90,19 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file
     // -- add signal & bg
     RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
 
-//define cut out here
+    double efficiencies[40];
+    double efficiencies_error[40];
+    double bdt_cuts[40];
 
 
-//loop starting here
-    for(int i=0; i <= 5; i=i+1) 
+    //loop starting here
+    for(int i=0; i < 40; i=i+1) 
     {
-        double cut_val = -1.0 + i*0.2;
+        double cut_val = -1.0 + i*0.05;
+        bdt_cuts[i] = cut_val;
         
         std::stringstream c;
-        c << "bdtg3" << " > " << cut_val;
+        c << "bdtg3" << " >= " << cut_val;
         const std::string cut = c.str();
         
         //std::cout << cut;
@@ -116,16 +119,33 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file
         
         RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut(cut.c_str())); 
 
-        //RooPlot* plot = mass.frame();
+        RooPlot* plot = mass.frame();
     
         RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
         
-        std::cout << "\n\n\n" << "BDT cut value = " << cut_val << "\n\n\n" ;
-        //std::cout << "S = " << result->Getvalue(sigYield);
-        //std::cout << "B = " << bgYield;
+        double sig_val = sigYield.getVal();
+        double bg_val = bgYield.getVal();
+        double sig_error = sigYield.getError();
+        double bg_error = bgYield.getError();
+        
+        double efficiency = (sig_val)/(TMath::Sqrt(sig_val + bg_val));
+        efficiencies[i] = efficiency;
+        
+        double efficiency_error_sq = (pow(sig_error,2)/(sig_val+bg_val) + (pow(sig_val,2)*(pow(sig_error,2)+pow(bg_error,2))/(4*pow((sig_val+bg_val),3))));
+        
+        double efficiency_error = TMath::Sqrt(efficiency_error_sq);
+        efficiencies_error[i] = efficiency_error;
+        
+        
+        //std::cout << "\n\n" << "BDT cut value = " << cut_val << "\n" ;
+        //std::cout << "S = " << sig_val << " +/- " << sig_error << "\n" ;
+        //std::cout << "B = " << bg_val << " +/- " << bg_error << "\n" ;
+        //std::cout << "S/sqrt(S+B) = " << efficiency << " +/- " << efficiency_error << "\n\n" ;
         
         //ds.plotOn( plot );
         //pdf.plotOn( plot );
+
+
 
 
         //RooPlot* plotPullMass = mass.frame();
@@ -135,9 +155,31 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file
         //plotPullMass->SetMaximum();
         
         //std::cout << cut_val;
-   }
+    }
 
 
+    TCanvas *c1 = new TCanvas(); 
+    
+    
+    
+    //double zeros[20];
+    //for (i=0, i<20, i++) zeros[i]=0.0;
+    
+    TGraphErrors* graph = new TGraphErrors(40, bdt_cuts, efficiencies, 0, efficiencies_error);
+    
+    graph->SetTitle("Efficiency vs BDTG3 cut");
+    graph->SetMarkerColor(4);
+    graph->SetMarkerStyle(20);
+    graph->SetMarkerSize(1.0);
+    graph->GetXaxis()->SetTitle("BDTG3 cut (>)");
+    graph->GetXaxis()->SetRangeUser(-1.0,1.0);
+    graph->GetYaxis()->SetTitle("S/sqrt(S+B)");
+    //graph->Fit("pol5"); 
+    graph->Draw("AP");
+    
+    return c1;
+    c1->SaveAs(out_file.c_str);
+    
 /*
     TCanvas* c = new TCanvas();
 
