@@ -14,11 +14,11 @@ void reduceTree(){
 
     // -- define tuple file name, tuple name and cuts to apply
     // -- and also the name of the output file
-    const std::string filename = "~/cern/Lb2chicpK_MC_2011_2012_signal_fixed_PID-corrected_new_kaon.root";//change
+    const std::string filename = "~/cern/ntuples/Lb2chicpK_MC_2011_2012_signal_fixed.root";//change
     const std::string treename("MyTuple");
-    const std::string cuts = "m_b_DTF_jpsi_chic1_constr > 5.55 && m_b_DTF_jpsi_chic1_constr < 5.7 && dtf_b < 7 && dtf_b > 0 && c2ip_b < 25 && dls_b > 10 && c2ip_kminus > 4 && c2ip_pplus > 4 && minCl_gamma > 0.03 && m_chic > 3.4 && m_chic < 3.7  && trgh_track[0] < 0.3 && trgh_track[1] < 0.3 && trgh_track[2] < 0.3 && trgh_track[3] < 0.3 && K_ProbNNkcorr > 0.15 && minann_mu > 0.1 && trig_b_l0tos_tos == 1 && trig_b_l1tos_tos == 1 && trig_b_l2tos_tos == 1";
+    const std::string cuts = "m_b_DTF_jpsi_chic1_constr > 5.55 && m_b_DTF_jpsi_chic1_constr < 5.7 && dtf_b < 7 && dtf_b > 0 && c2ip_b < 25 && dls_b > 10 && c2ip_kminus > 4 && c2ip_pplus > 4 && minCl_gamma > 0.03 && m_chic > 3.4 && m_chic < 3.7  && trgh_track[0] < 0.3 && trgh_track[1] < 0.3 && trgh_track[2] < 0.3 && trgh_track[3] < 0.3 && K_ProbNNk > 0.15 && minann_mu > 0.1 && trig_b_l0tos_tos == 1 && trig_b_l1tos_tos == 1 && trig_b_l2tos_tos == 1 && bkgcat_b <20";
 
-    const std::string outFilename("~/cern/ntuples/reducedTree_PID-corrected_kaon.root");//change
+    const std::string outFilename("~/cern/ntuples/reducedTreeMC.root");//change
   
 
     TFile* file = TFile::Open( filename.c_str() );
@@ -57,21 +57,21 @@ void reduceTree(){
     tree->SetBranchStatus("bkgcat_jpsi",1);//only in MC
     tree->SetBranchStatus("bkgcat_kaon",1);//only in MC
     tree->SetBranchStatus("bkgcat_proton",1);//only in MC
-    tree->SetBranchStatus("P_PX",1);
-    tree->SetBranchStatus("P_PY",1);    
-    tree->SetBranchStatus("P_PZ",1);    
-    tree->SetBranchStatus("P_PE",1);    
-    tree->SetBranchStatus("P_P",1);    
-    tree->SetBranchStatus("K_PX",1);    
-    tree->SetBranchStatus("K_PY",1);    
-    tree->SetBranchStatus("K_PZ",1);    
-    tree->SetBranchStatus("K_PE",1);    
-    tree->SetBranchStatus("K_P",1);    
+    //tree->SetBranchStatus("P_PX",1);
+    //tree->SetBranchStatus("P_PY",1);    
+    //tree->SetBranchStatus("P_PZ",1);    
+    //tree->SetBranchStatus("P_PE",1);    
+    //tree->SetBranchStatus("P_P",1);    
+    //tree->SetBranchStatus("K_PX",1);    
+   // //tree->SetBranchStatus("K_PY",1);    
+    //tree->SetBranchStatus("K_PZ",1);    
+    //tree->SetBranchStatus("K_PE",1);    
+    //tree->SetBranchStatus("K_P",1);    
 
 
-    tree->SetBranchStatus("P_ETA",1);
-    tree->SetBranchStatus("K_ETA",1);
-    tree->SetBranchStatus("K_ProbNNkcorr",1);
+    //tree->SetBranchStatus("P_ETA",1);
+    //tree->SetBranchStatus("K_ETA",1);
+    //tree->SetBranchStatus("K_ProbNNkcorr",1);
     //tree->SetBranchStatus("P_ProbNNpcorr",1);        
     
     
@@ -81,9 +81,9 @@ void reduceTree(){
     TTree* rTree1 = tree->CopyTree( cuts.c_str() );
 
     float mass, mass_chicp, mass_pK, mass_jpsi, mass_chic, dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track, ann_kaon, K_ProbNNk, ann_proton, P_ProbNNp, ann_mu, minann_mu, bkgcat_b, bkgcat_chic, bkgcat_gamma, bkgcat_jpsi, bkgcat_kaon, bkgcat_proton;
-    double P_PX, P_PY, P_PZ, P_PE, P_P, K_PX, K_PY, K_PZ, K_PE, K_P;
-    double P_ETA, K_ETA; 
-    float K_ProbNNkcorr, P_ProbNNpcorr;
+    //double P_PX, P_PY, P_PZ, P_PE, P_P, K_PX, K_PY, K_PZ, K_PE, K_P;
+    //double P_ETA, K_ETA; 
+    //float K_ProbNNkcorr, P_ProbNNpcorr;
     bool trig_b_l0tos_tos, trig_b_l1tos_tos, trig_b_l2tos_tos;
 
     rTree1->SetBranchAddress("m_b_DTF_jpsi_chic1_constr", &mass);
@@ -113,21 +113,21 @@ void reduceTree(){
     rTree1->SetBranchAddress("bkgcat_jpsi", &bkgcat_jpsi);//only in MC
     rTree1->SetBranchAddress("bkgcat_kaon", &bkgcat_kaon);//only in MC
     rTree1->SetBranchAddress("bkgcat_proton", &bkgcat_proton);//only in MC
-    rTree1->SetBranchAddress("P_PX",&P_PX);
-    rTree1->SetBranchAddress("P_PY",&P_PY);    
-    rTree1->SetBranchAddress("P_PZ",&P_PZ);    
-    rTree1->SetBranchAddress("P_PE",&P_PE);    
-    rTree1->SetBranchAddress("P_P",&P_P);    
-    rTree1->SetBranchAddress("K_PX",&K_PX);    
-    rTree1->SetBranchAddress("K_PY",&K_PY);    
-    rTree1->SetBranchAddress("K_PZ",&K_PZ);    
-    rTree1->SetBranchAddress("K_PE",&K_PE);    
-    rTree1->SetBranchAddress("K_P",&K_P);
+   // rTree1->SetBranchAddress("P_PX",&P_PX);
+    //rTree1->SetBranchAddress("P_PY",&P_PY);    
+    //rTree1->SetBranchAddress("P_PZ",&P_PZ);    
+    //rTree1->SetBranchAddress("P_PE",&P_PE);    
+    //rTree1->SetBranchAddress("P_P",&P_P);    
+    //rTree1->SetBranchAddress("K_PX",&K_PX);    
+    //rTree1->SetBranchAddress("K_PY",&K_PY);    
+    //rTree1->SetBranchAddress("K_PZ",&K_PZ);    
+    //rTree1->SetBranchAddress("K_PE",&K_PE);    
+    //rTree1->SetBranchAddress("K_P",&K_P);
     
      
-    rTree1->SetBranchAddress("P_ETA",&P_ETA);
-    rTree1->SetBranchAddress("K_ETA",&K_ETA);
-    rTree1->SetBranchAddress("K_ProbNNkcorr",&K_ProbNNkcorr);
+    //rTree1->SetBranchAddress("P_ETA",&P_ETA);
+    //rTree1->SetBranchAddress("K_ETA",&K_ETA);
+    //rTree1->SetBranchAddress("K_ProbNNkcorr",&K_ProbNNkcorr);
     //rTree1->SetBranchAddress("P_ProbNNpcorr",&P_ProbNNpcorr);    
 
 
@@ -163,20 +163,20 @@ void reduceTree(){
     rTree2->Branch("bkgcat_jpsi", &bkgcat_jpsi, "bkgcat_jpsi/F");//only in MC
     rTree2->Branch("bkgcat_kaon", &bkgcat_kaon, "bkgcat_kaon/F");//only in MC
     rTree2->Branch("bkgcat_proton", &bkgcat_proton, "bkgcat_proton/F");//only in MC
-    rTree2->Branch("P_PX",&P_PX, "P_PX/D");
-    rTree2->Branch("P_PY",&P_PY, "P_PY/D");    
-    rTree2->Branch("P_PZ",&P_PZ, "P_PZ/D");    
-    rTree2->Branch("P_PE",&P_PE, "P_PE/D");    
-    rTree2->Branch("P_P",&P_P, "P_P/D");    
-    rTree2->Branch("K_PX",&K_PX, "K_PX/D");    
-    rTree2->Branch("K_PY",&K_PY, "K_PY/D");    
-    rTree2->Branch("K_PZ",&K_PZ, "K_PZ/D");    
-    rTree2->Branch("K_PE",&K_PE, "K_PE/D");    
-    rTree2->Branch("K_P",&K_P, "K_P/D"); 
+    //rTree2->Branch("P_PX",&P_PX, "P_PX/D");
+    //rTree2->Branch("P_PY",&P_PY, "P_PY/D");    
+    //rTree2->Branch("P_PZ",&P_PZ, "P_PZ/D");    
+    //rTree2->Branch("P_PE",&P_PE, "P_PE/D");    
+    //rTree2->Branch("P_P",&P_P, "P_P/D");    
+    //rTree2->Branch("K_PX",&K_PX, "K_PX/D");    
+    //rTree2->Branch("K_PY",&K_PY, "K_PY/D");    
+    //rTree2->Branch("K_PZ",&K_PZ, "K_PZ/D");    
+    //rTree2->Branch("K_PE",&K_PE, "K_PE/D");    
+    //rTree2->Branch("K_P",&K_P, "K_P/D"); 
 
-    rTree2->Branch("P_ETA",&P_ETA, "P_ETA/D");
-    rTree2->Branch("K_ETA",&K_ETA, "K_ETA/D");
-    rTree2->Branch("K_ProbNNkcorr",&K_ProbNNkcorr, "K_ProbNNkcorr/F");
+    //rTree2->Branch("P_ETA",&P_ETA, "P_ETA/D");
+    //rTree2->Branch("K_ETA",&K_ETA, "K_ETA/D");
+    //rTree2->Branch("K_ProbNNkcorr",&K_ProbNNkcorr, "K_ProbNNkcorr/F");
     //rTree2->Branch("P_ProbNNpcorr",&P_ProbNNpcorr, "P_ProbNNpcorr/F");
 
 
