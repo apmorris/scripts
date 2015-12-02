@@ -108,7 +108,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     // --- Here the preparation phase begins
 
     // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
-    TString outfileName( "~/cern/ntuples/TMVA.root" );
+    TString outfileName( "~/cern/ntuples/new_tuples/TMVA.root" );
     TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
 
@@ -117,42 +117,97 @@ void ZTMVAClassification( TString myMethodList = "" ) {
 
 
 // ADD IN OUR VARIABLES HERE
+    
+    //factory->AddVariable("chi_c_M", "chi_c_M", "", 'D');
+    //factory->AddVariable("chi_c_P", "chi_c_P", "", 'D');
+    //factory->AddVariable("chi_c_PE", "chi_c_PE", "", 'D');
+    //factory->AddVariable("chi_c_PT", "chi_c_PT", "", 'D');
+    //factory->AddVariable("chi_c_PX", "chi_c_PX", "", 'D');
+    //factory->AddVariable("chi_c_PY", "chi_c_PY", "", 'D');
+    //factory->AddVariable("chi_c_PZ", "chi_c_PZ", "", 'D');
+    
+    //factory->AddVariable("kaon_P", "kaon_P", "", 'D');
+    //factory->AddVariable("kaon_PE", "kaon_PE", "", 'D');
+    //factory->AddVariable("kaon_PX", "kaon_PX", "", 'D');
+    //factory->AddVariable("kaon_PT", "kaon_PT", "", 'D');
+    //factory->AddVariable("kaon_PY", "kaon_PY", "", 'D');
+    //factory->AddVariable("kaon_PZ", "kaon_PZ", "", 'D');
+    factory->AddVariable("kaon_IPCHI2_OWNPV", "kaon_IPCHI2_OWNPV", "", 'D');
+    factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
+    factory->AddVariable("kaon_ProbNNp", "kaon_ProbNNp", "", 'D');
+    factory->AddVariable("kaon_ProbNNk", "kaon_ProbNNk", "", 'D');
+    
+    //factory->AddVariable("proton_P", "proton_P", "", 'D');
+    //factory->AddVariable("proton_PE", "proton_PE", "", 'D');
+    //factory->AddVariable("proton_PT", "proton_PT", "", 'D');
+    //factory->AddVariable("proton_PX", "proton_PX", "", 'D');
+    //factory->AddVariable("proton_PY", "proton_PY", "", 'D');
+    //factory->AddVariable("proton_PZ", "proton_PZ", "", 'D');
+    factory->AddVariable("proton_IPCHI2_OWNPV", "proton_IPCHI2_OWNPV", "", 'D');
+    factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
+    factory->AddVariable("proton_ProbNNp", "proton_ProbNNp", "", 'D');
+    factory->AddVariable("proton_ProbNNk", "proton_ProbNNk", "", 'D');
 
+    //factory->AddVariable("Jpsi_P", "Jpsi_P", "", 'D');
+    //factory->AddVariable("Jpsi_PE", "Jpsi_PE", "", 'D');
+    //factory->AddVariable("Jpsi_PT", "Jpsi_PT", "", 'D');
+    //factory->AddVariable("Jpsi_PX", "Jpsi_PX", "", 'D');
+    //factory->AddVariable("Jpsi_PY", "Jpsi_PY", "", 'D');
+    //factory->AddVariable("Jpsi_PZ", "Jpsi_PZ", "", 'D');
   
-    //factory->AddVariable( "mass", "mass", "", 'F' );
-    //factory->AddVariable( "mass_chicp", "mass_chicp", "", 'F' );
-    //factory->AddVariable( "mass_pK", "mass_pK", "", 'F' );
-    //factory->AddVariable( "mass_jpsi", "mass_jpsi", "", 'F' );
-    //factory->AddVariable( "mass_chic", "mass_chic", "", 'F' );
-    factory->AddVariable( "dtf_b", "dtf_b", "", 'F' );
-    factory->AddVariable( "c2ip_b", "c2ip_b", "", 'F' );
-    factory->AddVariable( "dls_b", "dls_b", "", 'F' );
-    factory->AddVariable( "c2ip_kminus", "c2ip_kminus", "", 'F' );    
-    factory->AddVariable( "c2ip_pplus", "c2ip_pplus", "", 'F' );
-    factory->AddVariable( "minCl_gamma", "minCl_gamma", "", 'F' );
-    //factory->AddVariable( "trig_b_l0tos_tos", "trig_b_l0tos_tos", "", 'F' );
-    //factory->AddVariable( "trig_b_l1tos_tos", "trig_b_l1tos_tos", "", 'F' );   
-    //factory->AddVariable( "trig_b_l2tos_tos", "trig_b_l2tos_tos", "", 'F' );
-    factory->AddVariable( "trgh_track", "trgh_track", "", 'F' );
-    factory->AddVariable( "ann_kaon", "ann_kaon", "", 'F' );
-    //factory->AddVariable( "ProbNNk", "ProbNNk", "", 'F' );    
-    //factory->AddVariable( "ann_proton", "ann_proton", "", 'F' ); 
-    factory->AddVariable( "ProbNNp", "ProbNNp", "", 'F' ); 
-    //factory->AddVariable( "ann_mu", "ann_mu", "", 'F' ); 
-    factory->AddVariable( "minann_mu", "minann_mu", "", 'F' );
+    //factory->AddVariable("gamma_P", "gamma_P", "", 'D');
+    //factory->AddVariable("gamma_PE", "gamma_PE", "", 'D');
+    factory->AddVariable("gamma_PT", "gamma_PT", "", 'D');
+    //factory->AddVariable("gamma_PX", "gamma_PX", "", 'D');
+    //factory->AddVariable("gamma_PY", "gamma_PY", "", 'D');
+    //factory->AddVariable("gamma_PZ", "gamma_PZ", "", 'D');
+    factory->AddVariable("gamma_CL", "gamma_CL", "", 'D');  
+
+    //factory->AddVariable("muminus_P", "muminus_P", "", 'D');
+    //factory->AddVariable("muminus_PE", "muminus_PE", "", 'D'); 
+    //factory->AddVariable("muminus_PT", "muminus_PT", "", 'D');
+    //factory->AddVariable("muminus_PX", "muminus_PX", "", 'D');
+    //factory->AddVariable("muminus_PY", "muminus_PY", "", 'D');
+    //factory->AddVariable("muminus_PZ", "muminus_PZ", "", 'D');  
+    factory->AddVariable("muminus_ProbNNmu", "muminus_ProbNNmu", "", 'D');  
+    factory->AddVariable("muminus_TRACK_GhostProb", "muminus_TRACK_GhostProb", "", 'D');  
+
+    //factory->AddVariable("muplus_P", "muplus_P", "", 'D');
+    //factory->AddVariable("muplus_PE", "muplus_PE", "", 'D');
+    //factory->AddVariable("muplus_PT", "muplus_PT", "", 'D');
+    //factory->AddVariable("muplus_PX", "muplus_PX", "", 'D');
+    //factory->AddVariable("muplus_PY", "muplus_PY", "", 'D');
+    //factory->AddVariable("muplus_PZ", "muplus_PZ", "", 'D');
+    factory->AddVariable("muplus_ProbNNmu", "muplus_ProbNNmu", "", 'D');  
+    factory->AddVariable("muplus_TRACK_GhostProb", "muplus_TRACK_GhostProb", "", 'D');  
+
+    factory->AddVariable("Lambda_b0_DTF_CHI2NDOF", "Lambda_b0_DTF_CHI2NDOF", "", 'D');
+    factory->AddVariable("Lambda_b0_IPCHI2_OWNPV", "Lambda_b0_IPCHI2_OWNPV", "", 'D');
+    factory->AddVariable("Lambda_b0_L0DiMuonDecision_TOS", "Lambda_b0_L0DiMuonDecision_TOS", "", 'B');
+    factory->AddVariable("Lambda_b0_L0MuonDecision_TOS", "Lambda_b0_L0MuonDecision_TOS", "", 'B');
+    factory->AddVariable("Lambda_b0_FDS", "Lambda_b0_FDS", "", 'D');  
+    factory->AddVariable("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "", 'B');  
+    factory->AddVariable("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "", 'B');  
+    factory->AddVariable("Lambda_b0_Hlt1TrackMuonDecision_TOS", "Lambda_b0_Hlt1TrackMuonDecision_TOS", "", 'B');  
+    factory->AddVariable("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "", 'B'); 
+    factory->AddVariable("Lambda_b0_Hlt1TrackAllL0Decision_TOS", "Lambda_b0_Hlt1TrackAllL0Decision_TOS", "", 'B'); 
+    factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "", 'B'); 
+    factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "", 'B');
+    //factory->AddVariable("Lambda_b0_pi0veto", "Lambda_b0_pi0veto", "", 'D');
+    factory->AddVariable("Lambda_b0_PT", "Lambda_b0_PT", "", 'D');
     
 
 
     //   TFile * input_Background = new TFile("../back.root");
-    TFile * input_Signal = new TFile("~/cern/ntuples/reducedTreeMC.root");
-    TFile * input_Background = new TFile("~/cern/ntuples/background.root");
+    TFile * input_Signal = new TFile("~/cern/ntuples/new_tuples/reduced_Lb2chicpK_MC_2011_2012_signal.root");
+    TFile * input_Background = new TFile("~/cern/ntuples/new_tuples/background.root");
     std::cout << "--- TMVAClassification       : Using input file for signal    : " << input_Signal->GetName() << std::endl;
     std::cout << "--- TMVAClassification       : Using input file for background : " << input_Background->GetName() << std::endl;
    
     // --- Register the training and test trees
 
-    TTree *signal     = (TTree*)input_Signal->Get("reducedTree");
-    TTree *background = (TTree*)input_Background->Get("background");
+    TTree *signal     = (TTree*)input_Signal->Get("DecayTree");
+    TTree *background = (TTree*)input_Background->Get("DecayTree");
    
     // global event weights per tree (see below for setting event-wise weights)
     Double_t signalWeight     = 1.0;
@@ -164,7 +219,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
    
 
     // Apply additional cuts on the signal and background samples (can be different)
-    TCut mycuts = ""; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
+    TCut mycuts = "Lambda_b0_DTF_MASS_constr1 > 5610 && Lambda_b0_DTF_MASS_constr1 < 5630"; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
     TCut mycutb = ""; // for example: TCut mycutb = "abs(var1)<0.5";
 
    

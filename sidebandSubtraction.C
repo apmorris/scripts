@@ -81,7 +81,7 @@ void sidebandSubtraction(){
     h2->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();
     
-    c1->SaveAs("~/cern/plots/signal_region_K_ProbNNk.png");
+    c1->SaveAs("~/cern/plots/sideband_subtractions/signal_region_K_ProbNNk.png");
 
     // Plotting the results of the sideband selection
     TCanvas* c2 = new TCanvas("c2");
@@ -93,7 +93,7 @@ void sidebandSubtraction(){
     h2->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();
 
-    //c2->SaveAs("~/cern/plots/sideband_region_K_ProbNNk.png");
+    //c2->SaveAs("~/cern/plots/sideband_subtractions/sideband_region_K_ProbNNk.png");
 */
     // Scaling the sideband histo to the signal histo, and subtracting
     h2->Scale(0.5);
@@ -121,7 +121,7 @@ void sidebandSubtraction(){
     h3->GetYaxis()->SetTitle( yaxis.c_str() );
     lhcbName->Draw();
 
-    c3->SaveAs("~/cern/plots/sideband_subtracted_K_ProbNNk.png");
+    c3->SaveAs("~/cern/plots/sideband_subtractions/sideband_subtracted_K_ProbNNk.png");
 
 
 std::cout << Ndata << " events after sideband subtraction" << std::endl;

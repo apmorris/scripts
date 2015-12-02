@@ -10,7 +10,7 @@
 
 
 
-void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_2011_2012_mass_fit.png"){
+void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass = "~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit.png"){
 
     gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();

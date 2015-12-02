@@ -17,8 +17,9 @@ First try this manually to get an idea of what needs to be done and in what orde
 #include <sstream>
 
 
-void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file = "~/cern/plots/Lb2chicpK_2011_2012_BDT_cuts.png"){
+void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root"){
 
+   
     gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();
 
@@ -176,9 +177,9 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file
     graph->GetYaxis()->SetTitle("S/sqrt(S+B)");
     //graph->Fit("pol5"); 
     graph->Draw("AP");
-    
+    c1->SaveAs("~/cern/plots/bdt_cuts/Lb2chicpK_2011_2012_BDTG3_cuts.png");
     return c1;
-    c1->SaveAs(out_file.c_str);
+    
     
 /*
     TCanvas* c = new TCanvas();

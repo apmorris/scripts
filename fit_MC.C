@@ -8,7 +8,7 @@
 */
 
 
-void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "~/cern/plots/Lb2chicpK_MC_2011_2012_mass_fit_gauss1_gauss2.png"){
+void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "~/cern/plots/fitting/Lb2chicpK_MC_2011_2012_mass_fit_gauss1_gauss2.png"){
 
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
     //lhcbStyle();

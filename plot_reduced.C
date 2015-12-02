@@ -97,7 +97,7 @@
     lhcbName->Draw();		
 
 
-    c1->SaveAs("~/cern/plots/mass.png");
+    c1->SaveAs("~/cern/plots/plot_reduced/mass.png");
 
 
 
@@ -138,7 +138,7 @@
     lhcbName->Draw();		
 
 
-    c2->SaveAs("~/cern/plots/mass_chic.png");
+    c2->SaveAs("~/cern/plots/plot_reduced/mass_chic.png");
 
 
 
@@ -178,7 +178,7 @@
     lhcbName->Draw();		
 
 
-    c3->SaveAs("~/cern/plots/mass_jpsi.png");
+    c3->SaveAs("~/cern/plots/plot_reduced/mass_jpsi.png");
 
 
 

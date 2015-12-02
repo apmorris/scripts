@@ -27,7 +27,7 @@
     const std::string varhisto1 = "mass>>h1";
     const std::string varhisto2 = "mass>>h2";
 
-    const std::string outfile =   "~/cern/plots/mass.png";  
+    const std::string outfile =   "~/cern/plots/plot_reduced/mass.png";  
   
     int bins = 100;
     float rangemin = 5.55;

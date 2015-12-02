@@ -113,7 +113,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c1->SaveAs("~/cern/plots/pt_b.png");
+    c1->SaveAs("~/cern/plots/plot_variables/pt_b.png");
 
 
 
@@ -155,7 +155,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c2->SaveAs("~/cern/plots/m_b_DTF_jpsi_chic1_constr.png");
+    c2->SaveAs("~/cern/plots/plot_variables/m_b_DTF_jpsi_chic1_constr.png");
 
 
 
@@ -197,7 +197,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c3->SaveAs("~/cern/plots/dtf_b.png");
+    c3->SaveAs("~/cern/plots/plot_variables/dtf_b.png");
 
 
 
@@ -239,7 +239,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c4->SaveAs("~/cern/plots/c2ip_b.png");
+    c4->SaveAs("~/cern/plots/plot_variables/c2ip_b.png");
 
 
 
@@ -280,7 +280,7 @@ Script to plot the following variables:
     lhcbName->Draw();	
 
 
-    c5->SaveAs("~/cern/plots/dls_b.png");
+    c5->SaveAs("~/cern/plots/plot_variables/dls_b.png");
 
 
 
@@ -321,7 +321,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c6->SaveAs("~/cern/plots/c2ip_kminus.png");
+    c6->SaveAs("~/cern/plots/plot_variables/c2ip_kminus.png");
 
 
 
@@ -361,7 +361,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c7->SaveAs("~/cern/plots/c2ip_pplus.png");
+    c7->SaveAs("~/cern/plots/plot_variables/c2ip_pplus.png");
 
 
     // minCl_gamma plot section ----------------------------------------------------------------------------------------------------8
@@ -400,7 +400,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c8->SaveAs("~/cern/plots/minCl_gamma.png");
+    c8->SaveAs("~/cern/plots/plot_variables/minCl_gamma.png");
 
 
     // m_chic plot section ----------------------------------------------------------------------------------------------------9
@@ -439,7 +439,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c9->SaveAs("~/cern/plots/m_chic.png");
+    c9->SaveAs("~/cern/plots/plot_variables/m_chic.png");
 
     // trig_b_l0tos_tos plot section ---------------------------------------------------------------------------------------------------10
 
@@ -477,7 +477,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c10->SaveAs("~/cern/plots/trig_b_l0tos_tos.png");
+    c10->SaveAs("~/cern/plots/plot_variables/trig_b_l0tos_tos.png");
 
 
 
@@ -517,7 +517,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c11->SaveAs("~/cern/plots/trig_b_l1tos_tos.png");
+    c11->SaveAs("~/cern/plots/plot_variables/trig_b_l1tos_tos.png");
 
 
 
@@ -557,7 +557,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c12->SaveAs("~/cern/plots/trig_b_l2tos_tos.png");
+    c12->SaveAs("~/cern/plots/plot_variables/trig_b_l2tos_tos.png");
 
 
 
@@ -597,7 +597,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c13->SaveAs("~/cern/plots/trgh_track[0].png");
+    c13->SaveAs("~/cern/plots/plot_variables/trgh_track[0].png");
 
 
 
@@ -637,7 +637,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c14->SaveAs("~/cern/plots/trgh_track[1].png");
+    c14->SaveAs("~/cern/plots/plot_variables/trgh_track[1].png");
 
 
 
@@ -677,7 +677,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c15->SaveAs("~/cern/plots/trgh_track[2].png");
+    c15->SaveAs("~/cern/plots/plot_variables/trgh_track[2].png");
 
 
 
@@ -717,7 +717,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c16->SaveAs("~/cern/plots/trgh_track[3].png");
+    c16->SaveAs("~/cern/plots/plot_variables/trgh_track[3].png");
 
 
 
@@ -757,7 +757,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c17->SaveAs("~/cern/plots/ProbNNk.png");
+    c17->SaveAs("~/cern/plots/plot_variables/ProbNNk.png");
 
 
 
@@ -797,7 +797,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c18->SaveAs("~/cern/plots/minann_mu.png");
+    c18->SaveAs("~/cern/plots/plot_variables/minann_mu.png");
 
 
     // m_jpsi plot section ---------------------------------------------------------------------------------------------------19
@@ -836,7 +836,7 @@ Script to plot the following variables:
     lhcbName->Draw();		
 
 
-    c19->SaveAs("~/cern/plots/m_jpsi.png");
+    c19->SaveAs("~/cern/plots/plot_variables/m_jpsi.png");
 
 
     
