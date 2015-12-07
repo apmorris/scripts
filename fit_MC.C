@@ -8,13 +8,13 @@
 */
 
 
-void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char * out_file_mass = "~/cern/plots/fitting/Lb2chicpK_MC_2011_2012_mass_fit_gauss1_gauss2.png"){
+void fit_MC(char * input_file = "~/cern/ntuples/new_tuples/reduced_Lb2chicpK_MC_2011_2012_signal.root", char * out_file_mass = "~/cern/plots/fitting/Lb2chicpK_MC_2011_2012_cut_mass_fit.png"){
 
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
     //lhcbStyle();
 
     const std::string filename(input_file);
-    const std::string treename = "reducedTree";
+    const std::string treename = "DecayTree";
 
     TFile* file = TFile::Open( filename.c_str() );
     if( !file ) std::cout << "file " << filename << " does not exist" << std::endl;
@@ -23,32 +23,34 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
 
 
     // -- signal, mass shape
-    RooRealVar mass("mass","m(#chi_{c}pK^{-})", 5.45, 5.85); 
+    RooRealVar Lambda_b0_DTF_MASS_constr1("Lambda_b0_DTF_MASS_constr1","m(#chi_{c}pK^{-})", 5450., 5850.); 
     //RooRealVar mass_chicp("mass_chicp","m(#chi_{c}p)", 4.4, 5.2, "GeV/c^{2}"); 
     //RooRealVar mass_pK("mass_pK","m(pK)", 1.3, 2.3, "GeV/c^{2}"); 
-    RooRealVar mass_Jpsi("mass_jpsi","m(#mu#mu)", 3.0, 3.2, "GeV/c^{2}"); 
-    RooRealVar mass_Chic("mass_chic","m(J/#psi#gamma)", 3.35, 3.75, "GeV/c^{2}"); 
-    RooRealVar mean("mean","mean", 5.6, 5.59, 5.65);
-    RooRealVar sigma1("sigma1","sigma1", 0.010, 0.001, 0.1);
-    RooRealVar sigma2("sigma2","sigma2", 0.1, 0.005, 1.0);
+    RooRealVar Jpsi_M("Jpsi_M","m(#mu#mu)", 3000., 3200., "MeV/c^{2}"); 
+    RooRealVar chi_c_M("chi_c_M","m(J/#psi#gamma)", 3350., 3750., "MeV/c^{2}"); 
+    RooRealVar mean("mean","mean", 5620., 5595., 5650.);
+    RooRealVar sigma1("sigma1","sigma1", 10., 1., 100.);
+    RooRealVar sigma2("sigma2","sigma2", 100., 1., 1000.);
     RooRealVar alpha1("alpha1","alpha1", 1.0, 0.5, 5.0);
     RooRealVar n1("n1","n1", 1.8, 0.2, 15.0);
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
     RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
 
-    RooGaussian gauss1("gauss1","gauss1", mass, mean, sigma1);
-    RooGaussian gauss2("gauss2","gauss2", mass, mean, sigma2);
-    RooCBShape cb1("cb1","cb1", mass, mean, sigma1, alpha1, n1); 
-    RooCBShape cb2("cb2","cb2", mass, mean, sigma2, alpha2, n2); 
+    RooGaussian gauss1("gauss1","gauss1", Lambda_b0_DTF_MASS_constr1, mean, sigma1);
+    RooGaussian gauss2("gauss2","gauss2", Lambda_b0_DTF_MASS_constr1, mean, sigma2);
+    RooCBShape cb1("cb1","cb1", Lambda_b0_DTF_MASS_constr1, mean, sigma1, alpha1, n1); 
+    RooCBShape cb2("cb2","cb2", Lambda_b0_DTF_MASS_constr1, mean, sigma2, alpha2, n2); 
     
     // the chi_c2 component
-    RooRealVar mean3("mean3","mean3", 5.57, 5.52, 5.58);
-    RooRealVar sigma3("sigma3","sigma3", 0.01, 0.001, 0.02);
-    RooGaussian gauss3("gauss3","gauss3", mass, mean3, sigma3);
+    RooRealVar mean3("mean3","mean3", 5570., 5520., 5580.);
+    RooRealVar sigma3("sigma3","sigma3", 10., 1., 20.);
+    RooGaussian gauss3("gauss3","gauss3", Lambda_b0_DTF_MASS_constr1, mean3, sigma3);
 
     RooRealVar cbRatio("cbRatio","cbRatio", 0.8, 0.1, 1.0);
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
+    
+  
 
     /*
     alpha1.setVal( 2.1  );
@@ -64,22 +66,23 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     */
 
     // -- add signal & bg
-    RooAddPdf pdf("pdf", "pdf", RooArgList(gauss1, gauss2), RooArgList( frac2 ));  
-    //RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( frac2 ));  
+    //RooAddPdf pdf("pdf", "pdf", RooArgList(gauss1, gauss2), RooArgList( frac2 ));  
+    RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( frac2 ));  
 
+    
     RooArgSet obs;
-    obs.add(mass);
+    obs.add(Lambda_b0_DTF_MASS_constr1);
     //obs.add(mass_chicp);
     //obs.add(mass_pK);
-    obs.add(mass_Jpsi);
-    obs.add(mass_Chic);
+    obs.add(Jpsi_M);
+    obs.add(chi_c_M);
     obs.add(bkgcat_chic);
     //RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut("bkgcat_chic < 10.")); 
-    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
+    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut("Lambda_b0_DTF_MASS_constr1 > 5595")); 
 
-    RooPlot* plot = mass.frame();
+    RooPlot* plot = Lambda_b0_DTF_MASS_constr1.frame();
 
-    plot->SetAxisRange(5.5, 5.75);
+    plot->SetAxisRange(5500., 5750.);
 
 
     pdf.fitTo( ds );
@@ -90,12 +93,12 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
 
 
 
-    RooPlot* plotPullMass = mass.frame();
+    RooPlot* plotPullMass = Lambda_b0_DTF_MASS_constr1.frame();
 
     plotPullMass->addPlotable( plot->pullHist() );
     //plotPullMass->SetMinimum();
     //plotPullMass->SetMaximum();
-    plotPullMass->SetAxisRange(5.5, 5.75);
+    plotPullMass->SetAxisRange(5500., 5750.);
     TCanvas* c = new TCanvas();
     c->cd();
 
@@ -110,8 +113,8 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     pad2->SetTopMargin(0.0);
     pad2->Draw();
 
-    pdf.plotOn( plot, RooFit::Components( gauss1 ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
-    pdf.plotOn( plot, RooFit::Components( gauss2 ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDotted) );
+    pdf.plotOn( plot, RooFit::Components( cb1 ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
+    pdf.plotOn( plot, RooFit::Components( cb2 ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDotted) );
     //pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDashDotted) );
 
     pad1->cd();
@@ -122,6 +125,8 @@ void fit_MC(char * input_file = "~/cern/ntuples/reducedTreeMC_signal.root", char
     plotPullMass->Draw("AP");
 
     c->SaveAs(out_file_mass);
+
+
 }
 
 

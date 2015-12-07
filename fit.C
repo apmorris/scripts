@@ -10,7 +10,7 @@
 
 
 
-void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass = "~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit.png"){
+void fit(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root", char * out_file_mass = "~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit.png"){
 
     gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();
@@ -27,13 +27,11 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
 
 
     // -- signal, mass shape
-    RooRealVar mass("mass","m(#chi_{c}pK^{-})", 5.55, 5.7); 
-    //RooRealVar mass_chicp("mass_chicp","m(#chi_{c}p)", 4.35, 5.35, "GeV/c^{2}"); 
-    //RooRealVar mass_pK("mass_pK","m(pK)", 1.3, 2.3, "GeV/c^{2}"); 
-    RooRealVar mass_Jpsi("mass_Jpsi","m(#mu#mu)", 3.0, 3.2, "GeV/c^{2}"); 
-    RooRealVar mass_Chic("mass_Chic","m(J/#psi#gamma)", 3.4, 3.7, "GeV/c^{2}"); 
-    RooRealVar mean("mean","mean", 5.63, 5.61, 5.65);
-    RooRealVar sigma1("sigma1","sigma1", 0.010, 0.001, 0.1);
+    RooRealVar Lambda_b0_DTF_MASS_constr1("Lambda_b0_DTF_MASS_constr1","m(#chi_{c}pK^{-})", 5550., 5700., "MeV/c^{2}"); 
+    RooRealVar Jpsi_M("Jpsi_M","m(#mu#mu)", 3000., 3200., "MeV/c^{2}"); 
+    RooRealVar chi_c_M("chi_c_M","m(J/#psi#gamma)", 3400., 3700., "MeV/c^{2}"); 
+    RooRealVar mean("mean","mean", 5630., 5610., 5650.);
+    RooRealVar sigma1("sigma1","sigma1", 10., 1., 100.);
     RooRealVar sigma2("sigma2","sigma2", 30.0, 5.0, 300.0);
     RooRealVar alpha1("alpha1","alpha1", 1.0, 0.5, 5.0);
     RooRealVar n1("n1","n1", 1.8, 0.2, 15.0);
@@ -43,10 +41,10 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     //RooRealVar bdtg3("bdtg3", "bdtg3", -1.0, 1.0);
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
-    RooGaussian gauss1("gauss1","gauss1", mass, mean, sigma1);
-    RooGaussian gauss2("gauss2","gauss2", mass, mean, sigma2);
-    RooCBShape cb1("cb1","cb1", mass, mean, sigma1, alpha1, n1); 
-    RooCBShape cb2("cb2","cb2", mass, mean, sigma2, alpha2, n2); 
+    RooGaussian gauss1("gauss1","gauss1", Lambda_b0_DTF_MASS_constr1, mean, sigma1);
+    RooGaussian gauss2("gauss2","gauss2", Lambda_b0_DTF_MASS_constr1, mean, sigma2);
+    RooCBShape cb1("cb1","cb1", Lambda_b0_DTF_MASS_constr1, mean, sigma1, alpha1, n1); 
+    RooCBShape cb2("cb2","cb2", Lambda_b0_DTF_MASS_constr1, mean, sigma2, alpha2, n2); 
     RooAddPdf sig("sig", "sig", RooArgList(cb1, cb2), RooArgList( frac2 ));
     RooRealVar cbRatio("cbRatio","cb Ratio", 0.8, 0.1, 1.0);
     RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e1, 1e4);
@@ -73,34 +71,33 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
 
     // -- bg, mass shape
     RooRealVar a1("a1","a1", -0.1, -0.5, 0.5);
-    RooChebychev comb("comb","comb", mass, a1);
-    RooRealVar mean3("mean3","mean3", 5.56, 5.5, 5.6);
-    RooRealVar sigma3("sigma3","sigma3", 0.005, 0.001, 0.01);
+    RooChebychev comb("comb","comb", Lambda_b0_DTF_MASS_constr1, a1);
+    RooRealVar mean3("mean3","mean3", 5560., 5500., 5600.);
+    RooRealVar sigma3("sigma3","sigma3", 5., 1., 10.);
     RooRealVar frac3("frac3","frac", 0.2, 0.0, 0.3);
-    RooGaussian gauss3("gauss3","gauss3", mass, mean3, sigma3);
+    RooGaussian gauss3("gauss3","gauss3", Lambda_b0_DTF_MASS_constr1, mean3, sigma3);
     RooAddPdf bg("bg","bg", RooArgList(gauss3, comb), RooArgList(frac3));
 
     // -- add signal & bg
     RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
 
     RooArgSet obs;
-    obs.add(mass);
-    //obs.add(mass_chicp);
+    obs.add(Lambda_b0_DTF_MASS_constr1);
+    //obs.add(chi_c_Mp);
     //obs.add(mass_pK);
-    obs.add(mass_Jpsi);
-    obs.add(mass_Chic);
+    obs.add(Jpsi_M);
+    obs.add(chi_c_M);
     //obs.add(bdtg3);    
     
     RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
 
-    RooPlot* plot = mass.frame();
+    RooPlot* plot = Lambda_b0_DTF_MASS_constr1.frame();
 
     RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
     ds.plotOn( plot );
     pdf.plotOn( plot );
 
-
-    RooPlot* plotPullMass = mass.frame();
+    RooPlot* plotPullMass = Lambda_b0_DTF_MASS_constr1.frame();
 
     plotPullMass->addPlotable( plot->pullHist() );
     //plotPullMass->SetMinimum();
@@ -135,7 +132,9 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
 
 
     RooDataSet * dataw_z = new RooDataSet(ds.GetName(),ds.GetTitle(),&ds,*(ds.get()),0,"sigYield_sw") ;
-/*   
+    
+    
+ /* 
     TCanvas* d = new TCanvas();
     RooPlot* w_mass_chicp = mass_chicp.frame();
     dataw_z->plotOn(w_mass_chicp, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
@@ -153,12 +152,12 @@ void fit(char * input_file = "~/cern/ntuples/withbdt.root", char * out_file_mass
     RooPlot* w_mass_Jpsi = mass_Jpsi.frame();
     dataw_z->plotOn(w_mass_Jpsi, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
     w_mass_Jpsi->Draw();
-    f->SaveAs("m_Jpsi_sweighted.png");
+    f->SaveAs("~/cern/plots/m_Jpsi_sweighted.png");
 
     TCanvas* g = new TCanvas();
     RooPlot* w_mass_Chic = mass_Chic.frame();
     dataw_z->plotOn(w_mass_Chic, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
     w_mass_Chic->Draw();
-    g->SaveAs("m_Chic_sweighted.png");
+    g->SaveAs("~/cern/plots/m_Chic_sweighted.png");
     */
 }

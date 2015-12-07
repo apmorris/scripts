@@ -31,7 +31,7 @@
 
 using namespace TMVA;
 
-void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reducedTree.root" , std::string outputfile= "~/cern/ntuples/withbdt.root",TString myMethodList = "" ) 
+void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/new_tuples/reduced_Lb2chicpK_2011_2012_signal_cut.root" , std::string outputfile= "~/cern/ntuples/new_tuples/withbdt.root",TString myMethodList = "" ) 
 {   
 #ifdef __CINT__
    gROOT->ProcessLine( ".O0" ); // turn off optimization in CINT
@@ -141,28 +141,38 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reduc
 
    TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );    
 
+   double kaon_IPCHI2_OWNP, kaon_TRACK_GhostProb, kaon_ProbNNp, kaon_ProbNNk, proton_IPCHI2_OWNPV, proton_TRACK_GhostProb, proton_ProbNNp, proton_ProbNNk, gamma_PT, gamma_CL, muminus_ProbNNmu, muminus_TRACK_GhostProb, muplus_ProbNNmu, muplus_TRACK_GhostProb, Lambda_b0_DTF_CHI2NDOF, Lambda_b0_IPCHI2_OWNPV, Lambda_b0_FDS, Lambda_b0_PT;
+   bool Lambda_b0_L0DiMuonDecision_TOS, Lambda_b0_L0MuonDecision_TOS, Lambda_b0_Hlt1DiMuonHighMassDecision_TOS, Lambda_b0_Hlt1DiMuonLowMassDecision_TOS, Lambda_b0_Hlt1TrackMuonDecision_TOS, Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS, Lambda_b0_Hlt1TrackAllL0Decision_TOS, Lambda_b0_Hlt2DiMuonDetachedDecision_TOS, Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS;
+
+   reader->AddVariable("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPV);
+   reader->AddVariable("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb);
+   reader->AddVariable("kaon_ProbNNp", &kaon_ProbNNp);
+   reader->AddVariable("kaon_ProbNNk", &kaon_ProbNNk);   
+   reader->AddVariable("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPV);
+   reader->AddVariable("proton_TRACK_GhostProb", &proton_TRACK_GhostProb);
+   reader->AddVariable("proton_ProbNNp", &proton_ProbNNp);
+   reader->AddVariable("proton_ProbNNk", &proton_ProbNNk);   
+   reader->AddVariable("gamma_PT", &gamma_PT);
+   reader->AddVariable("gamma_CL", &gamma_CL);
+   reader->AddVariable("muminus_ProbNNmu", &muminus_ProbNNmu);  
+   reader->AddVariable("muminus_TRACK_GhostProb", &muminus_TRACK_GhostProb);  
+   reader->AddVariable("muplus_ProbNNmu", &muplus_ProbNNmu);  
+   reader->AddVariable("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb);  
+   reader->AddVariable("Lambda_b0_DTF_CHI2NDOF", &Lambda_b0_DTF_CHI2NDOF);
+   reader->AddVariable("Lambda_b0_IPCHI2_OWNPV", &Lambda_b0_IPCHI2_OWNPV);
+   reader->AddVariable("Lambda_b0_L0DiMuonDecision_TOS", &Lambda_b0_L0DiMuonDecision_TOS);
+   reader->AddVariable("Lambda_b0_L0MuonDecision_TOS", &Lambda_b0_L0MuonDecision_TOS);
+   reader->AddVariable("Lambda_b0_FDS", &Lambda_b0_FDS);  
+   reader->AddVariable("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", &Lambda_b0_Hlt1DiMuonHighMassDecision_TOS);  
+   reader->AddVariable("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", &Lambda_b0_Hlt1DiMuonLowMassDecision_TOS);  
+   reader->AddVariable("Lambda_b0_Hlt1TrackMuonDecision_TOS", &Lambda_b0_Hlt1TrackMuonDecision_TOS);  
+   reader->AddVariable("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", &Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS); 
+   reader->AddVariable("Lambda_b0_Hlt1TrackAllL0Decision_TOS", &Lambda_b0_Hlt1TrackAllL0Decision_TOS); 
+   reader->AddVariable("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedDecision_TOS); 
+   reader->AddVariable("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS);
+   reader->AddVariable("Lambda_b0_PT", &Lambda_b0_PT);
    
-  // Float_t ptsum, pionpt,pionpt2, maxphi, minphi, normq, logipmax ,logipmin,logfd,logvd, xpt  ,maxpionpid,minpionpid, logvpi , nTT, eta  , maxpioneta, minpioneta; 
-
-   float dtf_b, c2ip_b, dls_b, c2ip_kminus, c2ip_pplus, minCl_gamma, trgh_track, ann_kaon, ProbNNp, minann_mu;
-    
-    //reader->AddVariable( "mass", &mass);
-    //reader->AddVariable( "mass_jpsi", &mass_jpsi);
-    //reader->AddVariable( "mass_chic", &mass_chic);
-    reader->AddVariable( "dtf_b", &dtf_b);
-    reader->AddVariable( "c2ip_b", &c2ip_b);
-    reader->AddVariable( "dls_b", &dls_b);
-    reader->AddVariable( "c2ip_kminus", &c2ip_kminus);    
-    reader->AddVariable( "c2ip_pplus", &c2ip_pplus);
-    reader->AddVariable( "minCl_gamma", &minCl_gamma);
-    reader->AddVariable( "trgh_track", &trgh_track);
-    reader->AddVariable( "ann_kaon", &ann_kaon);
-    //reader->AddVariable( "ProbNNk", &ProbNNk);    
-    //reader->AddVariable( "ann_proton", &ann_proton); 
-    reader->AddVariable( "ProbNNp", &ProbNNp); 
-    //reader->AddVariable( "ann_mu", &ann_mu);   
-    reader->AddVariable( "minann_mu", &minann_mu);
-
+  
 
     float mass, m23;
    
@@ -290,25 +300,38 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reduc
    float mlp;
    TBranch*  b_mlp = newtree->Branch("mlp", &mlp,"mlp/F");    
    
+//-----------------------------------------------------------------------------------
+
+   theTree->SetBranchAddress("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPV);
+   theTree->SetBranchAddress("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb);
+   theTree->SetBranchAddress("kaon_ProbNNp", &kaon_ProbNNp);
+   theTree->SetBranchAddress("kaon_ProbNNk", &kaon_ProbNNk);   
+   theTree->SetBranchAddress("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPV);
+   theTree->SetBranchAddress("proton_TRACK_GhostProb", &proton_TRACK_GhostProb);
+   theTree->SetBranchAddress("proton_ProbNNp", &proton_ProbNNp);
+   theTree->SetBranchAddress("proton_ProbNNk", &proton_ProbNNk);   
+   theTree->SetBranchAddress("gamma_PT", &gamma_PT);
+   theTree->SetBranchAddress("gamma_CL", &gamma_CL);
+   theTree->SetBranchAddress("muminus_ProbNNmu", &muminus_ProbNNmu);  
+   theTree->SetBranchAddress("muminus_TRACK_GhostProb", &muminus_TRACK_GhostProb);  
+   theTree->SetBranchAddress("muplus_ProbNNmu", &muplus_ProbNNmu);  
+   theTree->SetBranchAddress("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb);  
+   theTree->SetBranchAddress("Lambda_b0_DTF_CHI2NDOF", &Lambda_b0_DTF_CHI2NDOF);
+   theTree->SetBranchAddress("Lambda_b0_IPCHI2_OWNPV", &Lambda_b0_IPCHI2_OWNPV);
+   theTree->SetBranchAddress("Lambda_b0_L0DiMuonDecision_TOS", &Lambda_b0_L0DiMuonDecision_TOS);
+   theTree->SetBranchAddress("Lambda_b0_L0MuonDecision_TOS", &Lambda_b0_L0MuonDecision_TOS);
+   theTree->SetBranchAddress("Lambda_b0_FDS", &Lambda_b0_FDS);  
+   theTree->SetBranchAddress("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", &Lambda_b0_Hlt1DiMuonHighMassDecision_TOS);  
+   theTree->SetBranchAddress("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", &Lambda_b0_Hlt1DiMuonLowMassDecision_TOS);  
+   theTree->SetBranchAddress("Lambda_b0_Hlt1TrackMuonDecision_TOS", &Lambda_b0_Hlt1TrackMuonDecision_TOS);  
+   theTree->SetBranchAddress("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", &Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS); 
+   theTree->SetBranchAddress("Lambda_b0_Hlt1TrackAllL0Decision_TOS", &Lambda_b0_Hlt1TrackAllL0Decision_TOS); 
+   theTree->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedDecision_TOS); 
+   theTree->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS);
+   theTree->SetBranchAddress("Lambda_b0_PT", &Lambda_b0_PT);
 
 
-   //theTree->SetBranchAddress(  "mass", &mass);
-   //theTree->SetBranchAddress(  "mass_jpsi", &mass_jpsi);
-   //theTree->SetBranchAddress(  "mass_chic", &mass_chic);
-   theTree->SetBranchAddress(  "dtf_b", &dtf_b);
-   theTree->SetBranchAddress(  "c2ip_b", &c2ip_b);
-   theTree->SetBranchAddress(  "dls_b", &dls_b);
-   theTree->SetBranchAddress(  "c2ip_kminus", &c2ip_kminus);    
-   theTree->SetBranchAddress(  "c2ip_pplus", &c2ip_pplus);
-   theTree->SetBranchAddress(  "minCl_gamma", &minCl_gamma);
-   theTree->SetBranchAddress(  "trgh_track", &trgh_track);
-   theTree->SetBranchAddress(  "ann_kaon", &ann_kaon);
-   //theTree->SetBranchAddress(  "ProbNNk", &ProbNNk);
-   //theTree->SetBranchAddress(  "ann_proton", &ann_proton);
-   theTree->SetBranchAddress(  "ProbNNp", &ProbNNp);
-   //theTree->SetBranchAddress(  "ann_mu", &ann_mu);
-   theTree->SetBranchAddress(  "minann_mu", &minann_mu);
-  
+
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
@@ -454,7 +477,7 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/reduc
 
    // --- Write histograms
 
-   TFile *target  = new TFile( "~/cern/ntuples/TMVApp.root","RECREATE" );
+   TFile *target  = new TFile( "~/cern/ntuples/new_tuples/TMVApp.root","RECREATE" );
    if (Use["Likelihood"   ])   histLk     ->Write();
    if (Use["LikelihoodD"  ])   histLkD    ->Write();
    if (Use["LikelihoodPCA"])   histLkPCA  ->Write();

@@ -5,32 +5,28 @@
 
 	Script to fit models to the data.
 
-Script needs to go through different bdt cuts and record the S and B values to a new
-tree perhaps, errors too. Do this in a loop. Then needs to plot the value of 
-S/sqrt(S+B) with errors versus bdt cut value. This outside the loop.
-
-First try this manually to get an idea of what needs to be done and in what order.
 
 */
 
 
-#include <sstream>
 
+void fit_and_weights(){
 
-void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
-
-   
     gROOT->ProcessLine(".L lhcbstyle.C");
     //lhcbStyle();
 
-    const std::string filename(input_file);
-    const std::string treename = "withbdt";
+
+
+    const std::string filename("~/cern/ntuples/new_tuples/reduced_Lb2chicpK_2011_2012_signal.root");
+    const std::string treename = "DecayTree";
+    const std::string out_file_mass("~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit_weights.png");
     
 
     TFile* file = TFile::Open( filename.c_str() );
     if( !file ) std::cout << "file " << filename << " does not exist" << std::endl;
     TTree* tree = (TTree*)file->Get( treename.c_str() );
     if( !tree ) std::cout << "tree " << treename << " does not exist" << std::endl;
+
 
 
     // -- signal, mass shape
@@ -48,6 +44,13 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
     //RooRealVar bdtg3("bdtg3", "bdtg3", -1.0, 1.0);
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
+    
+    RooRealVar proton_ProbNNp("proton_ProbNNp","proton_ProbNNp",0.0,1.0);
+    RooRealVar proton_ProbNNk("proton_ProbNNk","proton_ProbNNk",0.0,1.0);
+    RooRealVar kaon_ProbNNp("kaon_ProbNNp","kaon_ProbNNp",0.0,1.0);
+    RooRealVar kaon_ProbNNk("kaon_ProbNNk","kaon_ProbNNk",0.0,1.0);
+    
+    
     RooGaussian gauss1("gauss1","gauss1", Lambda_b0_DTF_MASS_constr1, mean, sigma1);
     RooGaussian gauss2("gauss2","gauss2", Lambda_b0_DTF_MASS_constr1, mean, sigma2);
     RooCBShape cb1("cb1","cb1", Lambda_b0_DTF_MASS_constr1, mean, sigma1, alpha1, n1); 
@@ -60,13 +63,13 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
     
     //put in values from fit_MC here
  
-    alpha1.setVal( 2.04670e+00  );
-    alpha2.setVal( -2.01178e+00 );
-    n1.setVal( 2.39553e+00 );
-    n2.setVal( 3.08386e+00 );
-    frac2.setVal( 6.18979e-01 );
-    sigma1.setVal(3.84460e-03);
-    sigma2.setVal(6.80489e-03);
+    alpha1.setVal( 2.12259e+00 );
+    alpha2.setVal( -2.07568e+00  );
+    n1.setVal( 9.17484e+00 );
+    n2.setVal( 2.48592e+00 );
+    frac2.setVal( 7.96312e-01 );
+    sigma1.setVal( 4.18248e+00 );
+    sigma2.setVal( 8.98812e+00 );
     
     alpha1.setConstant( true );
     alpha2.setConstant( true );
@@ -88,95 +91,32 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
     // -- add signal & bg
     RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
 
-    double efficiencies[40];
-    double efficiencies_error[40];
-    double bdt_cuts[40];
-
-
-    //loop starting here
-    for(int i=0; i < 40; i=i+1) 
-    {
-        double cut_val = -1.0 + i*0.05;
-        bdt_cuts[i] = cut_val;
-        
-        std::stringstream c;
-        c << "bdtg3" << " >= " << cut_val;
-        const std::string cut = c.str();
-        
-        //std::cout << cut;
-
-        RooArgSet obs;
-        obs.add(Lambda_b0_DTF_MASS_constr1);
-        //obs.add(chi_c_Mp);
-        //obs.add(mass_pK);
-        obs.add(Jpsi_M);
-        obs.add(chi_c_M);
-        obs.add(bdtg3); 
-        
-        RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut(cut.c_str())); 
-
-        RooPlot* plot = Lambda_b0_DTF_MASS_constr1.frame();
+    RooArgSet obs;
+    obs.add(Lambda_b0_DTF_MASS_constr1);
+    //obs.add(chi_c_Mp);
+    //obs.add(mass_pK);
+    obs.add(Jpsi_M);
+    obs.add(chi_c_M);
+    obs.add(proton_ProbNNp);
+    obs.add(proton_ProbNNk);
+    obs.add(kaon_ProbNNp);
+    obs.add(kaon_ProbNNk);
+    //obs.add(bdtg3);    
     
-        RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
-        
-        double sig_val = sigYield.getVal();
-        double bg_val = bgYield.getVal();
-        double sig_error = sigYield.getError();
-        double bg_error = bgYield.getError();
-        
-        double efficiency = (sig_val)/(TMath::Sqrt(sig_val + bg_val));
-        efficiencies[i] = efficiency;
-        
-        double efficiency_error_sq = (pow(sig_error,2)/(sig_val+bg_val) + (pow(sig_val,2)*(pow(sig_error,2)+pow(bg_error,2))/(4*pow((sig_val+bg_val),3))));
-        
-        double efficiency_error = TMath::Sqrt(efficiency_error_sq);
-        efficiencies_error[i] = efficiency_error;
-        
-        
-        //std::cout << "\n\n" << "BDT cut value = " << cut_val << "\n" ;
-        //std::cout << "S = " << sig_val << " +/- " << sig_error << "\n" ;
-        //std::cout << "B = " << bg_val << " +/- " << bg_error << "\n" ;
-        //std::cout << "S/sqrt(S+B) = " << efficiency << " +/- " << efficiency_error << "\n\n" ;
-        
-        //ds.plotOn( plot );
-        //pdf.plotOn( plot );
+    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
 
+    RooPlot* plot = Lambda_b0_DTF_MASS_constr1.frame();
 
+    RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
+    ds.plotOn( plot );
+    pdf.plotOn( plot );
 
+    RooPlot* plotPullMass = Lambda_b0_DTF_MASS_constr1.frame();
 
-        //RooPlot* plotPullMass = mass.frame();
+    plotPullMass->addPlotable( plot->pullHist() );
+    //plotPullMass->SetMinimum();
+    //plotPullMass->SetMaximum();
 
-        //plotPullMass->addPlotable( plot->pullHist() );
-        //plotPullMass->SetMinimum();
-        //plotPullMass->SetMaximum();
-        
-        //std::cout << cut_val;
-    }
-
-
-    TCanvas *c1 = new TCanvas(); 
-    
-    
-    
-    //double zeros[20];
-    //for (i=0, i<20, i++) zeros[i]=0.0;
-    
-    TGraphErrors* graph = new TGraphErrors(40, bdt_cuts, efficiencies, 0, efficiencies_error);
-    
-    graph->SetTitle("Efficiency vs BDTG3 cut");
-    graph->SetMarkerColor(4);
-    graph->SetMarkerStyle(20);
-    graph->SetMarkerSize(1.0);
-    graph->GetXaxis()->SetTitle("BDTG3 cut (>)");
-    graph->GetXaxis()->SetRangeUser(-1.0,1.0);
-    graph->GetYaxis()->SetTitle("S/sqrt(S+B)");
-    //graph->Fit("pol5"); 
-    graph->Draw("AP");
-    c1->SaveAs("~/cern/plots/bdt_cuts/Lb2chicpK_2011_2012_BDTG3_cuts.png");
-    return c1;
-    
-    
-/*
     TCanvas* c = new TCanvas();
 
     TPad* pad1 = new TPad("pad1","pad1", 0, 0.3, 1, 1.0);
@@ -189,7 +129,6 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
     pad2->SetTopMargin(0.0);
     pad2->Draw();
 
-
     //pdf.plotOn( plot, RooFit::Components( DfbPdf ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
     //pdf.plotOn( plot, RooFit::Components( promptPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDotted) );
     //pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDashDotted) );
@@ -200,19 +139,23 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
     pad2->cd();
     plotPullMass->Draw("AP");
 
-    c->SaveAs(out_file_mass);
+    c->SaveAs(out_file_mass.c_str());
 
     RooStats::SPlot* sData = new RooStats::SPlot("sData","An SPlot",
             ds, &pdf, RooArgList(sigYield, bgYield) );
 
 
     RooDataSet * dataw_z = new RooDataSet(ds.GetName(),ds.GetTitle(),&ds,*(ds.get()),0,"sigYield_sw") ;
-*/
-/*   
+    
+    TTree *tree_data = (TTree*)dataw_z->tree();
+    TFile * newfile = TFile::Open("~/cern/ntuples/new_tuples/weighted_data.root","RECREATE");
+    tree_data->Write();
+    newfile->Close();   
+ /* 
     TCanvas* d = new TCanvas();
-    RooPlot* w_mass_chicp = mass_chicp.frame();
-    dataw_z->plotOn(w_mass_chicp, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_chicp->Draw();
+    RooPlot* w_chi_c_Mp = chi_c_Mp.frame();
+    dataw_z->plotOn(w_chi_c_Mp, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
+    w_chi_c_Mp->Draw();
     d->SaveAs("m_chicp_sweighted.png");
  
     TCanvas* e = new TCanvas();
@@ -223,15 +166,15 @@ void BDT_cuts(char * input_file = "~/cern/ntuples/new_tuples/withbdt.root"){
 */
 /*
     TCanvas* f = new TCanvas();
-    RooPlot* w_mass_Jpsi = mass_Jpsi.frame();
-    dataw_z->plotOn(w_mass_Jpsi, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_Jpsi->Draw();
-    f->SaveAs("m_Jpsi_sweighted.png");
+    RooPlot* w_Jpsi_M = Jpsi_M.frame();
+    dataw_z->plotOn(w_Jpsi_M, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
+    w_Jpsi_M->Draw();
+    f->SaveAs("~/cern/plots/m_Jpsi_sweighted.png");
 
     TCanvas* g = new TCanvas();
-    RooPlot* w_mass_Chic = mass_Chic.frame();
-    dataw_z->plotOn(w_mass_Chic, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_Chic->Draw();
-    g->SaveAs("m_Chic_sweighted.png");
+    RooPlot* w_chi_c_M = chi_c_M.frame();
+    dataw_z->plotOn(w_chi_c_M, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
+    w_chi_c_M->Draw();
+    g->SaveAs("~/cern/plots/m_Chic_sweighted.png");
     */
 }

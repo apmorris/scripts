@@ -118,82 +118,37 @@ void ZTMVAClassification( TString myMethodList = "" ) {
 
 // ADD IN OUR VARIABLES HERE
     
-    //factory->AddVariable("chi_c_M", "chi_c_M", "", 'D');
-    //factory->AddVariable("chi_c_P", "chi_c_P", "", 'D');
-    //factory->AddVariable("chi_c_PE", "chi_c_PE", "", 'D');
-    //factory->AddVariable("chi_c_PT", "chi_c_PT", "", 'D');
-    //factory->AddVariable("chi_c_PX", "chi_c_PX", "", 'D');
-    //factory->AddVariable("chi_c_PY", "chi_c_PY", "", 'D');
-    //factory->AddVariable("chi_c_PZ", "chi_c_PZ", "", 'D');
-    
-    //factory->AddVariable("kaon_P", "kaon_P", "", 'D');
-    //factory->AddVariable("kaon_PE", "kaon_PE", "", 'D');
-    //factory->AddVariable("kaon_PX", "kaon_PX", "", 'D');
-    //factory->AddVariable("kaon_PT", "kaon_PT", "", 'D');
-    //factory->AddVariable("kaon_PY", "kaon_PY", "", 'D');
-    //factory->AddVariable("kaon_PZ", "kaon_PZ", "", 'D');
     factory->AddVariable("kaon_IPCHI2_OWNPV", "kaon_IPCHI2_OWNPV", "", 'D');
     factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
     factory->AddVariable("kaon_ProbNNp", "kaon_ProbNNp", "", 'D');
     factory->AddVariable("kaon_ProbNNk", "kaon_ProbNNk", "", 'D');
     
-    //factory->AddVariable("proton_P", "proton_P", "", 'D');
-    //factory->AddVariable("proton_PE", "proton_PE", "", 'D');
-    //factory->AddVariable("proton_PT", "proton_PT", "", 'D');
-    //factory->AddVariable("proton_PX", "proton_PX", "", 'D');
-    //factory->AddVariable("proton_PY", "proton_PY", "", 'D');
-    //factory->AddVariable("proton_PZ", "proton_PZ", "", 'D');
     factory->AddVariable("proton_IPCHI2_OWNPV", "proton_IPCHI2_OWNPV", "", 'D');
     factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
     factory->AddVariable("proton_ProbNNp", "proton_ProbNNp", "", 'D');
     factory->AddVariable("proton_ProbNNk", "proton_ProbNNk", "", 'D');
 
-    //factory->AddVariable("Jpsi_P", "Jpsi_P", "", 'D');
-    //factory->AddVariable("Jpsi_PE", "Jpsi_PE", "", 'D');
-    //factory->AddVariable("Jpsi_PT", "Jpsi_PT", "", 'D');
-    //factory->AddVariable("Jpsi_PX", "Jpsi_PX", "", 'D');
-    //factory->AddVariable("Jpsi_PY", "Jpsi_PY", "", 'D');
-    //factory->AddVariable("Jpsi_PZ", "Jpsi_PZ", "", 'D');
-  
-    //factory->AddVariable("gamma_P", "gamma_P", "", 'D');
-    //factory->AddVariable("gamma_PE", "gamma_PE", "", 'D');
     factory->AddVariable("gamma_PT", "gamma_PT", "", 'D');
-    //factory->AddVariable("gamma_PX", "gamma_PX", "", 'D');
-    //factory->AddVariable("gamma_PY", "gamma_PY", "", 'D');
-    //factory->AddVariable("gamma_PZ", "gamma_PZ", "", 'D');
     factory->AddVariable("gamma_CL", "gamma_CL", "", 'D');  
-
-    //factory->AddVariable("muminus_P", "muminus_P", "", 'D');
-    //factory->AddVariable("muminus_PE", "muminus_PE", "", 'D'); 
-    //factory->AddVariable("muminus_PT", "muminus_PT", "", 'D');
-    //factory->AddVariable("muminus_PX", "muminus_PX", "", 'D');
-    //factory->AddVariable("muminus_PY", "muminus_PY", "", 'D');
-    //factory->AddVariable("muminus_PZ", "muminus_PZ", "", 'D');  
+  
     factory->AddVariable("muminus_ProbNNmu", "muminus_ProbNNmu", "", 'D');  
     factory->AddVariable("muminus_TRACK_GhostProb", "muminus_TRACK_GhostProb", "", 'D');  
 
-    //factory->AddVariable("muplus_P", "muplus_P", "", 'D');
-    //factory->AddVariable("muplus_PE", "muplus_PE", "", 'D');
-    //factory->AddVariable("muplus_PT", "muplus_PT", "", 'D');
-    //factory->AddVariable("muplus_PX", "muplus_PX", "", 'D');
-    //factory->AddVariable("muplus_PY", "muplus_PY", "", 'D');
-    //factory->AddVariable("muplus_PZ", "muplus_PZ", "", 'D');
     factory->AddVariable("muplus_ProbNNmu", "muplus_ProbNNmu", "", 'D');  
     factory->AddVariable("muplus_TRACK_GhostProb", "muplus_TRACK_GhostProb", "", 'D');  
 
     factory->AddVariable("Lambda_b0_DTF_CHI2NDOF", "Lambda_b0_DTF_CHI2NDOF", "", 'D');
     factory->AddVariable("Lambda_b0_IPCHI2_OWNPV", "Lambda_b0_IPCHI2_OWNPV", "", 'D');
-    factory->AddVariable("Lambda_b0_L0DiMuonDecision_TOS", "Lambda_b0_L0DiMuonDecision_TOS", "", 'B');
-    factory->AddVariable("Lambda_b0_L0MuonDecision_TOS", "Lambda_b0_L0MuonDecision_TOS", "", 'B');
+    //factory->AddVariable("Lambda_b0_L0DiMuonDecision_TOS", "Lambda_b0_L0DiMuonDecision_TOS", "", 'B');
+    //factory->AddVariable("Lambda_b0_L0MuonDecision_TOS", "Lambda_b0_L0MuonDecision_TOS", "", 'B');
     factory->AddVariable("Lambda_b0_FDS", "Lambda_b0_FDS", "", 'D');  
-    factory->AddVariable("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "", 'B');  
-    factory->AddVariable("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "", 'B');  
-    factory->AddVariable("Lambda_b0_Hlt1TrackMuonDecision_TOS", "Lambda_b0_Hlt1TrackMuonDecision_TOS", "", 'B');  
-    factory->AddVariable("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "", 'B'); 
-    factory->AddVariable("Lambda_b0_Hlt1TrackAllL0Decision_TOS", "Lambda_b0_Hlt1TrackAllL0Decision_TOS", "", 'B'); 
-    factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "", 'B'); 
-    factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "", 'B');
-    //factory->AddVariable("Lambda_b0_pi0veto", "Lambda_b0_pi0veto", "", 'D');
+    //factory->AddVariable("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "", 'B');  
+    //factory->AddVariable("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "", 'B');  
+    //factory->AddVariable("Lambda_b0_Hlt1TrackMuonDecision_TOS", "Lambda_b0_Hlt1TrackMuonDecision_TOS", "", 'B');  
+    //factory->AddVariable("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "", 'B'); 
+    //factory->AddVariable("Lambda_b0_Hlt1TrackAllL0Decision_TOS", "Lambda_b0_Hlt1TrackAllL0Decision_TOS", "", 'B'); 
+    //factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "", 'B'); 
+    //factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "", 'B');
     factory->AddVariable("Lambda_b0_PT", "Lambda_b0_PT", "", 'D');
     
 

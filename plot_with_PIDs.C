@@ -132,10 +132,12 @@ void plot_with_PIDs(){
 
     // Plotting the results of the sideband subtraction alongside the scaled MC data, for proton
     h_sg_p->Sumw2();
+    h_sg_p->SetMarkerStyle(20);
+    h_sg_p->SetMarkerColor(1);
     h_MC_p->SetMarkerColor(kRed);
     h_MC_p->SetLineColor(kRed);   
-    h_un_p->SetMarkerColor(kGreen);
-    h_un_p->SetLineColor(kGreen);       
+    h_un_p->SetMarkerColor(8);
+    h_un_p->SetLineColor(8);       
 
     TCanvas* c_p = new TCanvas("c_p");
     c_p->Divide(1,1);
@@ -165,10 +167,12 @@ void plot_with_PIDs(){
 
     // Plotting the results of the sideband subtraction alongside the scaled MC data, for kaon
     h_sg_k->Sumw2();
+    h_sg_k->SetMarkerStyle(20);
+    h_sg_k->SetMarkerColor(1);
     h_MC_k->SetMarkerColor(kRed);
     h_MC_k->SetLineColor(kRed);   
-    h_un_k->SetMarkerColor(kGreen);
-    h_un_k->SetLineColor(kGreen);       
+    h_un_k->SetMarkerColor(8);
+    h_un_k->SetLineColor(8);       
 
     TCanvas* c_k = new TCanvas("c_k");
     c_k->Divide(1,1);

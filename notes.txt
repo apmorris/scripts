@@ -120,3 +120,70 @@ python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_MagUp_si
 
 python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_MagDown_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20_MagDown.root TODO
 
+
+
+/* && kaon_IPCHI2_OWNPV>=0 && kaon_TRACK_GhostProb>=0 && kaon_ProbNNp>=0 && kaon_ProbNNk>=0 && proton_IPCHI2_OWNPV>=0 && proton_TRACK_GhostProb>=0 && proton_ProbNNp>=0 && proton_ProbNNk>=0 && gamma_PT>=0 && gamma_CL>=0 && muminus_ProbNNmu>=0 && muminus_TRACK_GhostProb>=0 && muplus_ProbNNmu>=0 && muplus_TRACK_GhostProb>=0 && Lambda_b0_DTF_CHI2NDOF>=0 && Lambda_b0_IPCHI2_OWNPV>=0 && Lambda_b0_L0DiMuonDecision_TOS>=0 && Lambda_b0_L0MuonDecision_TOS>=0 && Lambda_b0_FDS>=0 && Lambda_b0_Hlt1DiMuonHighMassDecision_TOS>=0 && Lambda_b0_Hlt1DiMuonLowMassDecision_TOS>=0 && Lambda_b0_Hlt1TrackMuonDecision_TOS>=0 && Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS>=0 && Lambda_b0_Hlt1TrackAllL0Decision_TOS>=0 && Lambda_b0_Hlt2DiMuonDetachedDecision_TOS>=0 && Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS>=0 && Lambda_b0_PT>=0"*/
+
+
+
+
+
+E R R O R:::::::::::::
+
+ matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- <WARNING> Tools                    : <GetSQRootMatrix> error in matrix diagonalization; printed S and B
+--- TFHandler_Factory        : ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- TFHandler_Factory        :                                      Variable                                             Mean                                             RMS                                     [        Min                                             Max ]
+--- TFHandler_Factory        : ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- TFHandler_Factory        :                             kaon_IPCHI2_OWNPV:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                          kaon_TRACK_GhostProb:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                  kaon_ProbNNp:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                  kaon_ProbNNk:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                           proton_IPCHI2_OWNPV:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                        proton_TRACK_GhostProb:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                proton_ProbNNp:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                proton_ProbNNk:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                      gamma_PT:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                      gamma_CL:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                              muminus_ProbNNmu:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                       muminus_TRACK_GhostProb:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                               muplus_ProbNNmu:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                        muplus_TRACK_GhostProb:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                        Lambda_b0_DTF_CHI2NDOF:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                        Lambda_b0_IPCHI2_OWNPV:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                Lambda_b0_L0DiMuonDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                  Lambda_b0_L0MuonDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                 Lambda_b0_FDS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :      Lambda_b0_Hlt1DiMuonHighMassDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :       Lambda_b0_Hlt1DiMuonLowMassDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :           Lambda_b0_Hlt1TrackMuonDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :    Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :          Lambda_b0_Hlt1TrackAllL0Decision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :      Lambda_b0_Hlt2DiMuonDetachedDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        : Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        :                                  Lambda_b0_PT:                                           -nan                                           -nan   [                                    1.7977e+308                                   -1.7977e+308 ]
+--- TFHandler_Factory        : ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- TFHandler_Factory        : Plot event variables for Gauss_Deco
+--- TFHandler_Factory        :
+--- TFHandler_Factory        : <PlotVariables> Will not produce scatter plots ==>
+--- TFHandler_Factory        : |  The number of 27 input variables and 0 target values would require 351 two-dimensional
+--- TFHandler_Factory        : |  histograms, which would occupy the computer's memory. Note that this
+--- TFHandler_Factory        : |  suppression does not have any consequences for your analysis, other
+--- TFHandler_Factory        : |  than not disposing of these scatter plots. You can modify the maximum
+--- TFHandler_Factory        : |  number of input variables allowed to generate scatter plots in your
+--- TFHandler_Factory        : |  script via the command line:
+--- TFHandler_Factory        : |  "(TMVA::gConfig().GetVariablePlotting()).fMaxNumOfAllowedVariablesForScatterPlots = <some int>;"
+--- TFHandler_Factory        :
+--- TFHandler_Factory        : Some more output
+--- Tools                    : -nan -nan -nan -nan -nan -nan
+--- <FATAL> Tools                    : <GetSeparation> signal and background histograms have different or invalid dimensions:
+***> abort program execution
+
+
+
