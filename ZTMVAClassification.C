@@ -125,8 +125,8 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     
     factory->AddVariable("proton_IPCHI2_OWNPV", "proton_IPCHI2_OWNPV", "", 'D');
     factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
-    factory->AddVariable("proton_ProbNNp", "proton_ProbNNp", "", 'D');
-    factory->AddVariable("proton_ProbNNk", "proton_ProbNNk", "", 'D');
+    factory->AddVariable("proton_ProbNNpcorr", "proton_ProbNNpcorr", "", 'D');
+    factory->AddVariable("proton_ProbNNkcorr", "proton_ProbNNkcorr", "", 'D');
 
     factory->AddVariable("gamma_PT", "gamma_PT", "", 'D');
     factory->AddVariable("gamma_CL", "gamma_CL", "", 'D');  
@@ -139,16 +139,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
 
     factory->AddVariable("Lambda_b0_DTF_CHI2NDOF", "Lambda_b0_DTF_CHI2NDOF", "", 'D');
     factory->AddVariable("Lambda_b0_IPCHI2_OWNPV", "Lambda_b0_IPCHI2_OWNPV", "", 'D');
-    //factory->AddVariable("Lambda_b0_L0DiMuonDecision_TOS", "Lambda_b0_L0DiMuonDecision_TOS", "", 'B');
-    //factory->AddVariable("Lambda_b0_L0MuonDecision_TOS", "Lambda_b0_L0MuonDecision_TOS", "", 'B');
     factory->AddVariable("Lambda_b0_FDS", "Lambda_b0_FDS", "", 'D');  
-    //factory->AddVariable("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", "", 'B');  
-    //factory->AddVariable("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", "", 'B');  
-    //factory->AddVariable("Lambda_b0_Hlt1TrackMuonDecision_TOS", "Lambda_b0_Hlt1TrackMuonDecision_TOS", "", 'B');  
-    //factory->AddVariable("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", "", 'B'); 
-    //factory->AddVariable("Lambda_b0_Hlt1TrackAllL0Decision_TOS", "Lambda_b0_Hlt1TrackAllL0Decision_TOS", "", 'B'); 
-    //factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", "", 'B'); 
-    //factory->AddVariable("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", "", 'B');
     factory->AddVariable("Lambda_b0_PT", "Lambda_b0_PT", "", 'D');
     
 

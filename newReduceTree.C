@@ -123,8 +123,10 @@ void newReduceTree(){
     
    
     //for MC only                                                                    //
+    tree->SetBranchStatus("proton_ProbNNpcorr",1);                                   //
+    tree->SetBranchStatus("kaon_ProbNNkcorr",1);                                     //ONLY IN MC
     tree->SetBranchStatus("chi_c_BKGCAT",1);                                         //
-    tree->SetBranchStatus("Jpsi_BKGCAT",1);                                          //ONLY IN MC
+    tree->SetBranchStatus("Jpsi_BKGCAT",1);                                          //
     tree->SetBranchStatus("Lambda_b0_BKGCAT",1);                                     //
   
     
@@ -246,7 +248,10 @@ void newReduceTree(){
     //for MC only                                                                    //
                                                                                      //
     int chi_c_BKGCAT, Jpsi_BKGCAT, Lambda_b0_BKGCAT;                                 //
-                                                                                     //ONLY IN MC
+    float proton_ProbNNpcorr, kaon_ProbNNkcorr;                                      //
+                                                                                     //
+    rTree1->SetBranchAddress("kaon_ProbNNkcorr", &kaon_ProbNNkcorr);                 //ONLY IN MC
+    rTree1->SetBranchAddress("proton_ProbNNpcorr", &proton_ProbNNpcorr);             //
     rTree1->SetBranchAddress("chi_c_BKGCAT", &chi_c_BKGCAT);                         //
     rTree1->SetBranchAddress("Jpsi_BKGCAT", &Jpsi_BKGCAT);                           //
     rTree1->SetBranchAddress("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT);                 //
@@ -350,6 +355,8 @@ void newReduceTree(){
                                                         
     //for MC only                                                                    //
                                                                                      //
+    rTree2->Branch("proton_ProbNNpcorr", &proton_ProbNNpcorr, "proton_ProbNNpcorr/F");//
+    rTree2->Branch("kaon_ProbNNkcorr", &kaon_ProbNNkcorr, "kaon_ProbNNkcorr/F");      //
     rTree2->Branch("chi_c_BKGCAT", &chi_c_BKGCAT, "chi_c_BKGCAT/I");                 //ONLY IN MC
     rTree2->Branch("Jpsi_BKGCAT", &Jpsi_BKGCAT, "Jpsi_BKGCAT/I");                    //
     rTree2->Branch("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT, "Lambda_b0_BKGCAT/I");     //

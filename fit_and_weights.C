@@ -17,9 +17,9 @@ void fit_and_weights(){
 
 
 
-    const std::string filename("~/cern/ntuples/new_tuples/reduced_Lb2chicpK_2011_2012_signal.root");
+    const std::string filename("~/cern/ntuples/new_tuples/Lb2chicpK_2012_signal_cut.root");
     const std::string treename = "DecayTree";
-    const std::string out_file_mass("~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit_weights.png");
+    const std::string out_file_mass("~/cern/plots/fitting/Lb2chicpK_2012_mass_fit_weights.png");
     
 
     TFile* file = TFile::Open( filename.c_str() );
@@ -148,7 +148,7 @@ void fit_and_weights(){
     RooDataSet * dataw_z = new RooDataSet(ds.GetName(),ds.GetTitle(),&ds,*(ds.get()),0,"sigYield_sw") ;
     
     TTree *tree_data = (TTree*)dataw_z->tree();
-    TFile * newfile = TFile::Open("~/cern/ntuples/new_tuples/weighted_data.root","RECREATE");
+    TFile * newfile = TFile::Open("~/cern/ntuples/new_tuples/weighted_data_2012.root","RECREATE");
     tree_data->Write();
     newfile->Close();   
  /* 

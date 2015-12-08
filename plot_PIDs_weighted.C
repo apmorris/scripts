@@ -21,8 +21,8 @@ void plot_PIDs_weighted(){
 
     // Definition of variables
 
-    const std::string    filename_corr = "~/cern/ntuples/new_tuples/reduced_Lb2chicpK_MC_2011_2012_signal.root";
-    const std::string filename_weights = "~/cern/ntuples/new_tuples/weighted_data.root";
+    const std::string    filename_MC = "~/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_signal_cut.root";
+    const std::string filename_weights = "~/cern/ntuples/new_tuples/weighted_data_2012.root";
     const std::string         treename = "DecayTree";
     const std::string treename_weights = "ds";
     const std::string            yaxis = "Candidates";
@@ -30,11 +30,11 @@ void plot_PIDs_weighted(){
     // Opening files and trees
 
 
-    TFile* f_co = TFile::Open( filename_corr.c_str() );
-    if( !f_co ) std::cout << "file " << filename_corr << " does not exist" << std::endl;
+    TFile* f_MC = TFile::Open( filename_MC.c_str() );
+    if( !f_MC ) std::cout << "file " << filename_mc << " does not exist" << std::endl;
     
-    TTree* t_co = (TTree*)f_co->Get( treename.c_str() );
-    if( !t_co ) std::cout << "tree " << treename << " does not exist" << std::endl;
+    TTree* t_MC = (TTree*)f_MC->Get( treename.c_str() );
+    if( !t_MC ) std::cout << "tree " << treename << " does not exist" << std::endl;
     
     TFile* f_sw = TFile::Open( filename_weights.c_str() );
     if( !f_sw ) std::cout << "file " << filename_weights << " does not exist" << std::endl;
@@ -59,23 +59,23 @@ void plot_PIDs_weighted(){
 
     // Defining histograms, drawing, for proton
 
-    TH1D* h1_p = new TH1D ("h1_p", "proton_ProbNNp", 25, 0., 1.);
-    TH1D* h2_p = new TH1D ("h2_p", "proton_ProbNNp", 25, 0., 1.);    
-    
+    TH1D* h1_p = new TH1D ("h1_p", "proton_ProbNNpcorr", 20, 0., 1.);
+    TH1D* h2_p = new TH1D ("h2_p", "proton_ProbNNp", 20, 0., 1.);    
+    TH1D* h3_p = new TH1D ("h3_p", "proton_ProbNNp", 20, 0., 1.);
  	
-    t_co->Draw("proton_ProbNNp>>h1_p", "", "goff");
+    t_MC->Draw("proton_ProbNNpcorr>>h1_p", "", "goff");
     t_sw->Draw("proton_ProbNNp>>h2_p", "sigYield_sw", "goff");   
-    
+    t_MC->Draw("proton_ProbNNp>>h3_p", "", "goff");
 
 
     // Defining histograms, drawing, for kaon
-    TH1D* h1_k = new TH1D ("h1_k", "kaon_ProbNNk", 25, 0., 1.);
-    TH1D* h2_k = new TH1D ("h2_k", "kaon_ProbNNk", 25, 0., 1.);    
-   
+    TH1D* h1_k = new TH1D ("h1_k", "kaon_ProbNNkcorr", 20, 0., 1.);
+    TH1D* h2_k = new TH1D ("h2_k", "kaon_ProbNNk", 20, 0., 1.);    
+    TH1D* h3_k = new TH1D ("h3_k", "kaon_ProbNNk", 20, 0., 1.);
 
-    t_co->Draw("kaon_ProbNNk>>h1_k", "", "goff"); 	
+    t_MC->Draw("kaon_ProbNNkcorr>>h1_k", "", "goff"); 	
     t_sw->Draw("kaon_ProbNNk>>h2_k", "sigYield_sw", "goff");
- 
+    t_MC->Draw("kaon_ProbNNk>>h3_k", "", "goff");
 
 /*    
     // Plotting the results of the signal selection
@@ -110,12 +110,15 @@ void plot_PIDs_weighted(){
     //h_sg_p->Add(h_sb_p, -1);
 
     // Scaling the Monte Carlo data
-    int NMC = t_co->GetEntries();
+    int NMC = t_MC->GetEntries();
     int Ndata = t_sw->GetEntries();  
 
-
-    h1_p->Scale( 784. / double(NMC));
-   
+    TH1D* yield = new TH1D ("yield", "sigYield_sw", 25, -10., 10.);
+    t_sw->Draw("sigYield_sw>>yield", "", "goff");
+    double signal = yield->GetMean() * yield->GetEntries();
+    
+    h1_p->Scale( signal / double(NMC));
+    h3_p->Scale( signal / double(NMC));
 
 
     // Plotting the results of the sideband subtraction alongside the scaled MC data, for proton
@@ -123,19 +126,30 @@ void plot_PIDs_weighted(){
     h2_p->SetMarkerStyle(20);
     h2_p->SetMarkerColor(1);
     h1_p->SetMarkerColor(kRed);
-    h1_p->SetLineColor(kRed);      
+    h1_p->SetLineColor(kRed);
+    h3_p->SetMarkerColor(8);
+    h3_p->SetLineColor(8);     
 
     TCanvas* c_p = new TCanvas("c_p");
     c_p->Divide(1,1);
     c_p->cd(1);
     
-    h1_p->Draw();
+    h3_p->Draw();
     h2_p->Draw("same");
-    h1_p->GetXaxis()->SetTitle("proton_ProbNNp");	
-    h1_p->GetYaxis()->SetTitle( yaxis.c_str() );
-    lhcbName->Draw();
+    h1_p->Draw("same");
+    h3_p->GetXaxis()->SetTitle("2012 proton_ProbNNp");	
+    h3_p->GetYaxis()->SetTitle( yaxis.c_str() );
+    //lhcbName->Draw();
 
-    c_p->SaveAs("~/cern/plots/sideband_subtractions/proton_ProbNNp_sweights_PID-corrected.png");
+
+    leg1 = new TLegend(0.15,0.65,0.4,0.85);
+    leg1->SetHeader("#bf{Key:}");
+    leg1->AddEntry(h1_p,"MC(corrected)","l");
+    leg1->AddEntry(h3_p,"MC (uncorrected)","l");
+    leg1->AddEntry(h2_p,"sWeighted data","p");
+    leg1->Draw();
+
+    c_p->SaveAs("~/cern/plots/sideband_subtractions/2012_proton_ProbNNp_sweights_PID-corrected.png");
 
 
     // Scaling the sideband histo to the signal histo, and subtracting, for kaon
@@ -143,10 +157,13 @@ void plot_PIDs_weighted(){
     //h_sg_k->Add(h_sb_k, -1);
 
     // Scaling the Monte Carlo data   
-    int NMCk = t_co->GetEntries();
+    int NMCk = t_MC->GetEntries();
     int Ndatak = t_sw->GetEntries();
     
-    h1_k->Scale( 784. / double(NMCk));
+    
+    
+    h1_k->Scale( signal / double(NMCk));
+    h3_k->Scale( signal / double(NMCk));
     //h3_k->Scale(float(Ndata)/float(NMC_sw));
     //int new_NMC = h_un_p->GetEntries();
 
@@ -159,23 +176,34 @@ void plot_PIDs_weighted(){
     h2_k->SetMarkerColor(1);
     h1_k->SetMarkerColor(kRed);
     h1_k->SetLineColor(kRed);   
+    h3_k->SetMarkerColor(8);
+    h3_k->SetLineColor(8); 
     
     TCanvas* c_k = new TCanvas("c_k");
     c_k->Divide(1,1);
     c_k->cd(1);
 
-    h1_k->Draw();
+    h3_k->Draw();
     h2_k->Draw("same");
-    h1_k->GetXaxis()->SetTitle("kaon_ProbNNk");	
-    h1_k->GetYaxis()->SetTitle( yaxis.c_str() );
-    lhcbName->Draw();
+    h1_k->Draw("same");
+    h3_k->GetXaxis()->SetTitle("2012 kaon_ProbNNk");	
+    h3_k->GetYaxis()->SetTitle( yaxis.c_str() );
+    //lhcbName->Draw();
 
-    c_k->SaveAs("~/cern/plots/sideband_subtractions/kaon_ProbNNk_sweights_PID-corrected.png");
+
+    leg2 = new TLegend(0.15,0.65,0.4,0.85);
+    leg2->SetHeader("#bf{Key:}");
+    leg2->AddEntry(h1_k,"MC(corrected)","l");
+    leg2->AddEntry(h3_k,"MC (uncorrected)","l");
+    leg2->AddEntry(h2_k,"sWeighted data","p");
+    leg2->Draw();
+
+    c_k->SaveAs("~/cern/plots/sideband_subtractions/2012_kaon_ProbNNk_sweights_PID-corrected.png");
   
     
     
-std::cout << Ndata << " data events" << std::endl;
-std::cout << NMC << " Monte Carlo events" << std::endl;
+std::cout << "\n" << signal << " signal events" << std::endl;
+std::cout << "\n" << NMC << "  Monte Carlo events" << "\n" << std::endl;
 //std::cout << new_NMC << std::endl;
 }
 

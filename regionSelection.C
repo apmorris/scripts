@@ -16,8 +16,8 @@ void regionSelection(){
   const std::string treename("DecayTree");
   
   // SIDEBAND
-  const std::string cuts = "Lambda_b0_DTF_MASS_constr1 > 5660 && Lambda_b0_DTF_MASS_constr1 < 5700" ;
-  const std::string outFilename("~/cern/ntuples/sideband.root");
+  const std::string cuts = "runNumber>110e3" ;
+  const std::string outFilename("~/cern/ntuples/new_tuples/Lb2chicpK_2012_signal_cut.root");
  
 /*  // SIGNAL
   const std::string cuts = "Lambda_b0_DTF_MASS_constr1 > 5610 && Lambda_b0_DTF_MASS_constr1 < 5630" ;
@@ -42,6 +42,7 @@ void regionSelection(){
 
   
   rTree1->Write();
+  rTree1->Print();
   newFile->Save();
     
   
@@ -49,7 +50,7 @@ void regionSelection(){
     
   
   //std::cout << "# of events in signal region = " << n_post << endl;
-  std::cout << "# of events in sideband region = " << n_post << endl;
+  //std::cout << "# of events in sideband region = " << n_post << endl;
   
   
 }

@@ -112,13 +112,13 @@ python MakePIDdistributionsRunRange.py "20r1" "MagDown" "[K,P]" "[V2ProbNNK,V2Pr
 
 root -l ~/cern/scripts/cutTree.C
 
-python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_MagUp_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20r1_MagUp.root DONE
+python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_MagUp_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20r1_MagUp.root DONE
 
-python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_MagDown_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20r1_MagDown.root DONE
+python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_MagDown_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20r1_MagDown.root DONE
 
-python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_MagUp_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20_MagUp.root TODO
+python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_MagUp_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20_MagUp.root DONE
 
-python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_MagDown_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20_MagDown.root TODO
+python MakePIDCorrection.py ~/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_MagDown_signal_cut.root DecayTree "[kaon:DEFAULT/K,proton:DEFAULT/P]" "[kaon,proton]" "[ProbNNK,ProbNNp]" PIDHists_Strip20_MagDown.root DONE
 
 
 

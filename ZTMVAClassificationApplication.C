@@ -142,7 +142,7 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/new_t
    TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );    
 
    double kaon_IPCHI2_OWNP, kaon_TRACK_GhostProb, kaon_ProbNNp, kaon_ProbNNk, proton_IPCHI2_OWNPV, proton_TRACK_GhostProb, proton_ProbNNp, proton_ProbNNk, gamma_PT, gamma_CL, muminus_ProbNNmu, muminus_TRACK_GhostProb, muplus_ProbNNmu, muplus_TRACK_GhostProb, Lambda_b0_DTF_CHI2NDOF, Lambda_b0_IPCHI2_OWNPV, Lambda_b0_FDS, Lambda_b0_PT;
-   bool Lambda_b0_L0DiMuonDecision_TOS, Lambda_b0_L0MuonDecision_TOS, Lambda_b0_Hlt1DiMuonHighMassDecision_TOS, Lambda_b0_Hlt1DiMuonLowMassDecision_TOS, Lambda_b0_Hlt1TrackMuonDecision_TOS, Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS, Lambda_b0_Hlt1TrackAllL0Decision_TOS, Lambda_b0_Hlt2DiMuonDetachedDecision_TOS, Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS;
+
 
    reader->AddVariable("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPV);
    reader->AddVariable("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb);
@@ -150,8 +150,8 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/new_t
    reader->AddVariable("kaon_ProbNNk", &kaon_ProbNNk);   
    reader->AddVariable("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPV);
    reader->AddVariable("proton_TRACK_GhostProb", &proton_TRACK_GhostProb);
-   reader->AddVariable("proton_ProbNNp", &proton_ProbNNp);
-   reader->AddVariable("proton_ProbNNk", &proton_ProbNNk);   
+   reader->AddVariable("proton_ProbNNpcorr", &proton_ProbNNp);
+   reader->AddVariable("proton_ProbNNkcorr", &proton_ProbNNk);   
    reader->AddVariable("gamma_PT", &gamma_PT);
    reader->AddVariable("gamma_CL", &gamma_CL);
    reader->AddVariable("muminus_ProbNNmu", &muminus_ProbNNmu);  
@@ -160,16 +160,7 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/new_t
    reader->AddVariable("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb);  
    reader->AddVariable("Lambda_b0_DTF_CHI2NDOF", &Lambda_b0_DTF_CHI2NDOF);
    reader->AddVariable("Lambda_b0_IPCHI2_OWNPV", &Lambda_b0_IPCHI2_OWNPV);
-   reader->AddVariable("Lambda_b0_L0DiMuonDecision_TOS", &Lambda_b0_L0DiMuonDecision_TOS);
-   reader->AddVariable("Lambda_b0_L0MuonDecision_TOS", &Lambda_b0_L0MuonDecision_TOS);
-   reader->AddVariable("Lambda_b0_FDS", &Lambda_b0_FDS);  
-   reader->AddVariable("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", &Lambda_b0_Hlt1DiMuonHighMassDecision_TOS);  
-   reader->AddVariable("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", &Lambda_b0_Hlt1DiMuonLowMassDecision_TOS);  
-   reader->AddVariable("Lambda_b0_Hlt1TrackMuonDecision_TOS", &Lambda_b0_Hlt1TrackMuonDecision_TOS);  
-   reader->AddVariable("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", &Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS); 
-   reader->AddVariable("Lambda_b0_Hlt1TrackAllL0Decision_TOS", &Lambda_b0_Hlt1TrackAllL0Decision_TOS); 
-   reader->AddVariable("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedDecision_TOS); 
-   reader->AddVariable("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS);
+   reader->AddVariable("Lambda_b0_FDS", &Lambda_b0_FDS);     
    reader->AddVariable("Lambda_b0_PT", &Lambda_b0_PT);
    
   
@@ -308,8 +299,8 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/new_t
    theTree->SetBranchAddress("kaon_ProbNNk", &kaon_ProbNNk);   
    theTree->SetBranchAddress("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPV);
    theTree->SetBranchAddress("proton_TRACK_GhostProb", &proton_TRACK_GhostProb);
-   theTree->SetBranchAddress("proton_ProbNNp", &proton_ProbNNp);
-   theTree->SetBranchAddress("proton_ProbNNk", &proton_ProbNNk);   
+   theTree->SetBranchAddress("proton_ProbNNpcorr", &proton_ProbNNp);
+   theTree->SetBranchAddress("proton_ProbNNkcorr", &proton_ProbNNk);   
    theTree->SetBranchAddress("gamma_PT", &gamma_PT);
    theTree->SetBranchAddress("gamma_CL", &gamma_CL);
    theTree->SetBranchAddress("muminus_ProbNNmu", &muminus_ProbNNmu);  
@@ -318,16 +309,7 @@ void ZTMVAClassificationApplication( std::string inputfile="~/cern/ntuples/new_t
    theTree->SetBranchAddress("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb);  
    theTree->SetBranchAddress("Lambda_b0_DTF_CHI2NDOF", &Lambda_b0_DTF_CHI2NDOF);
    theTree->SetBranchAddress("Lambda_b0_IPCHI2_OWNPV", &Lambda_b0_IPCHI2_OWNPV);
-   theTree->SetBranchAddress("Lambda_b0_L0DiMuonDecision_TOS", &Lambda_b0_L0DiMuonDecision_TOS);
-   theTree->SetBranchAddress("Lambda_b0_L0MuonDecision_TOS", &Lambda_b0_L0MuonDecision_TOS);
    theTree->SetBranchAddress("Lambda_b0_FDS", &Lambda_b0_FDS);  
-   theTree->SetBranchAddress("Lambda_b0_Hlt1DiMuonHighMassDecision_TOS", &Lambda_b0_Hlt1DiMuonHighMassDecision_TOS);  
-   theTree->SetBranchAddress("Lambda_b0_Hlt1DiMuonLowMassDecision_TOS", &Lambda_b0_Hlt1DiMuonLowMassDecision_TOS);  
-   theTree->SetBranchAddress("Lambda_b0_Hlt1TrackMuonDecision_TOS", &Lambda_b0_Hlt1TrackMuonDecision_TOS);  
-   theTree->SetBranchAddress("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", &Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS); 
-   theTree->SetBranchAddress("Lambda_b0_Hlt1TrackAllL0Decision_TOS", &Lambda_b0_Hlt1TrackAllL0Decision_TOS); 
-   theTree->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedDecision_TOS); 
-   theTree->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS);
    theTree->SetBranchAddress("Lambda_b0_PT", &Lambda_b0_PT);
 
 
