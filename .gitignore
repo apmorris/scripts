@@ -2,4 +2,6 @@
 *.C~
 *.txt~
 *~
+*.eps
+weights/*
 
