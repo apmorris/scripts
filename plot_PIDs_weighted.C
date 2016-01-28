@@ -21,8 +21,8 @@ void plot_PIDs_weighted(){
 
     // Definition of variables
 
-    const std::string    filename_MC = "~/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_signal_cut.root";
-    const std::string filename_weights = "~/cern/ntuples/new_tuples/weighted_data_2012.root";
+    const std::string    filename_MC = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/Lb2chicpK_MC_2012_signal_cut.root";
+    const std::string filename_weights = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/weighted_data_2012.root";
     const std::string         treename = "DecayTree";
     const std::string treename_weights = "ds";
     const std::string            yaxis = "Candidates";

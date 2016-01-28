@@ -12,11 +12,15 @@ void newReduceTree(){
 
     // -- define tuple file name, tuple name and cuts to apply
     // -- and also the name of the output file
-    const std::string filename = "~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_2012_signal_cut.root";//change
+    const std::string filename = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/background_MC_samples/Bs2JpsiPhi_MC_2012_signal_cut.root";//change
     const std::string treename("DecayTree");
+    //const std::string cuts = "";
+    
+    //MC only
+    //const std::string cuts = "chi_c_BKGCAT==0 && (Lambda_b0_BKGCAT==0||Lambda_b0_BKGCAT==10||Lambda_b0_BKGCAT==50)";
     const std::string cuts = "";
 
-    const std::string outFilename("~/cern/ntuples/new_tuples/reduced_Lb2chicpK_MC_2011_2012_signal.root");//change
+    const std::string outFilename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/background_MC_samples/reduced_Bs2JpsiPhi_MC_2012_signal.root");//change
   
 
     TFile* file = TFile::Open( filename.c_str() );
@@ -121,18 +125,18 @@ void newReduceTree(){
     tree->SetBranchStatus("Lambda_b0_pi0veto",1);
     tree->SetBranchStatus("Lambda_b0_PT",1);
     
-   
+     
     //for MC only                                                                    //
-    tree->SetBranchStatus("proton_ProbNNpcorr",1);                                   //
-    tree->SetBranchStatus("kaon_ProbNNkcorr",1);                                     //ONLY IN MC
+    //tree->SetBranchStatus("proton_ProbNNpcorr",1);                                   //
+    //tree->SetBranchStatus("kaon_ProbNNkcorr",1);                                     //ONLY IN MC
     tree->SetBranchStatus("chi_c_BKGCAT",1);                                         //
     tree->SetBranchStatus("Jpsi_BKGCAT",1);                                          //
     tree->SetBranchStatus("Lambda_b0_BKGCAT",1);                                     //
   
-    
+   
     
     // -- this file is just here to make the 'CopyTree' happy
-    TFile* dummyFile = new TFile("~/cern/ntuples/dummy.root","RECREATE");
+    TFile* dummyFile = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/dummy.root","RECREATE");
     TTree* rTree1 = tree->CopyTree(cuts.c_str());
 
     double chi_c_M,  chi_c_P, chi_c_PE, chi_c_PT, chi_c_PX, chi_c_PY, chi_c_PZ, chi_c_ETA;
@@ -147,7 +151,7 @@ void newReduceTree(){
     
     bool Lambda_b0_L0MuonDecision_TOS, Lambda_b0_L0DiMuonDecision_TOS;
     bool Lambda_b0_Hlt1DiMuonHighMassDecision_TOS, Lambda_b0_Hlt1DiMuonLowMassDecision_TOS;
-    bool Lambda_b0_Hlt1TrackMuonDecision_TOS, Lambda_b0_Hlt1TrackAllL0Decision_TOS);
+    bool Lambda_b0_Hlt1TrackMuonDecision_TOS, Lambda_b0_Hlt1TrackAllL0Decision_TOS;
     bool Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS, Lambda_b0_Hlt2DiMuonDetachedDecision_TOS;
     bool Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS;
     
@@ -244,18 +248,18 @@ void newReduceTree(){
     rTree1->SetBranchAddress("Lambda_b0_pi0veto", &Lambda_b0_pi0veto);
     rTree1->SetBranchAddress("Lambda_b0_PT", &Lambda_b0_PT);
 
-   
+    
     //for MC only                                                                    //
                                                                                      //
     int chi_c_BKGCAT, Jpsi_BKGCAT, Lambda_b0_BKGCAT;                                 //
     float proton_ProbNNpcorr, kaon_ProbNNkcorr;                                      //
                                                                                      //
-    rTree1->SetBranchAddress("kaon_ProbNNkcorr", &kaon_ProbNNkcorr);                 //ONLY IN MC
-    rTree1->SetBranchAddress("proton_ProbNNpcorr", &proton_ProbNNpcorr);             //
+    //rTree1->SetBranchAddress("kaon_ProbNNkcorr", &kaon_ProbNNkcorr);                 //ONLY IN MC
+    //rTree1->SetBranchAddress("proton_ProbNNpcorr", &proton_ProbNNpcorr);             //
     rTree1->SetBranchAddress("chi_c_BKGCAT", &chi_c_BKGCAT);                         //
     rTree1->SetBranchAddress("Jpsi_BKGCAT", &Jpsi_BKGCAT);                           //
     rTree1->SetBranchAddress("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT);                 //
-  
+    
     
     TFile* rFile = new TFile( outFilename.c_str() ,"RECREATE");
     TTree* rTree2 = new TTree();
@@ -355,8 +359,8 @@ void newReduceTree(){
                                                         
     //for MC only                                                                    //
                                                                                      //
-    rTree2->Branch("proton_ProbNNpcorr", &proton_ProbNNpcorr, "proton_ProbNNpcorr/F");//
-    rTree2->Branch("kaon_ProbNNkcorr", &kaon_ProbNNkcorr, "kaon_ProbNNkcorr/F");      //
+    //rTree2->Branch("proton_ProbNNpcorr", &proton_ProbNNpcorr, "proton_ProbNNpcorr/D");//
+    //rTree2->Branch("kaon_ProbNNkcorr", &kaon_ProbNNkcorr, "kaon_ProbNNkcorr/D");      //
     rTree2->Branch("chi_c_BKGCAT", &chi_c_BKGCAT, "chi_c_BKGCAT/I");                 //ONLY IN MC
     rTree2->Branch("Jpsi_BKGCAT", &Jpsi_BKGCAT, "Jpsi_BKGCAT/I");                    //
     rTree2->Branch("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT, "Lambda_b0_BKGCAT/I");     //

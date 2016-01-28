@@ -20,10 +20,10 @@ void plot_with_PIDs(){
 
 
     // Definition of variables
-    const std::string    filename_signal = "~/cern/ntuples/signal.root";
-    const std::string  filename_sideband = "~/cern/ntuples/sideband.root";
-    const std::string        filename_MC = "~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_2012_signal_cut.root";
-    const std::string filename_MC_uncorr = "~/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_2012_signal_uncorrected.root";
+    const std::string    filename_signal = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/signal.root";
+    const std::string  filename_sideband = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/sideband.root";
+    const std::string        filename_MC = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_2012_signal_cut.root";
+    const std::string filename_MC_uncorr = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_2012_signal_uncorrected.root";
     const std::string           treename = "DecayTree";
     const std::string              yaxis = "Candidates";
   

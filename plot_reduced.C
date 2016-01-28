@@ -16,11 +16,11 @@
     
     // Import formatting template
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
-
+    lhcbStyle();
 
     // Definition of variables
-    const std::string filename =    "~/cern/ntuples/reducedTree.root";
-    const std::string filename_MC = "~/cern/ntuples/reducedTreeMC.root";
+    const std::string filename =    "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/reducedTree.root";
+    const std::string filename_MC = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/reducedTreeMC.root";
     const std::string treename =    "reducedTree";
     const std::string yaxis =       "Candidates";
   

@@ -3,7 +3,7 @@
 	Alice Morris
 	MPhys Project 2015/16
 
-	Script to select the sideband and signal regions 
+	Script to select histogram regions 
 	
 
 */
@@ -12,12 +12,12 @@ void regionSelection(){
 
   // -- define tuple file name, tuple name and cuts to apply
   // -- and also the name of the output file
-  const std::string filename = "~/cern/ntuples/new_tuples/Lb2chicpK_2011_2012_signal_cut.root";
+  const std::string filename = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/reduced_Lb2chicpK_2011_2012_signal.root";
   const std::string treename("DecayTree");
   
-  // SIDEBAND
-  const std::string cuts = "runNumber>110e3" ;
-  const std::string outFilename("~/cern/ntuples/new_tuples/Lb2chicpK_2012_signal_cut.root");
+ 
+  const std::string cuts = "proton_ProbNNp>0.3 && kaon_ProbNNk>0.3" ;
+  const std::string outFilename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/reduced_Lb2chicpK_2011_2012_signal_PIDcut.root");
  
 /*  // SIGNAL
   const std::string cuts = "Lambda_b0_DTF_MASS_constr1 > 5610 && Lambda_b0_DTF_MASS_constr1 < 5630" ;

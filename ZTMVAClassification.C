@@ -41,7 +41,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     std::map<std::string,int> Use;
 
     // --- Cut optimisation
-    Use["Cuts"]            = 1;
+    Use["Cuts"]            = 0;
     Use["CutsD"]           = 0;
     Use["CutsPCA"]         = 0;
     Use["CutsGA"]          = 0;
@@ -64,7 +64,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     //
     // --- Linear Discriminant Analysis
     Use["LD"]              = 0; // Linear Discriminant identical to Fisher
-    Use["Fisher"]          = 1;
+    Use["Fisher"]          = 0;
     Use["FisherG"]         = 0;
     Use["BoostedFisher"]   = 0; // uses generalised MVA method boosting
     Use["HMatrix"]         = 0;
@@ -78,7 +78,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     Use["FDA_MCMT"]        = 0;
     //
     // --- Neural Networks (all are feed-forward Multilayer Perceptrons)
-    Use["MLP"]             = 1; // Recommended ANN
+    Use["MLP"]             = 0; // Recommended ANN
     Use["MLPBFGS"]         = 0; // Recommended ANN with optional training method
     Use["MLPBNN"]          = 0; // Recommended ANN with BFGS training method and bayesian regulator
     Use["CFMlpANN"]        = 0; // Depreciated ANN from ALEPH
@@ -91,7 +91,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     Use["BDT"]             = 1; // uses Adaptive Boost
     Use["BDTG"]            = 1; // uses Gradient Boost
     Use["BDTB"]            = 0; // uses Bagging
-    Use["BDTD"]            = 1; // decorrelation + Adaptive Boost
+    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
     Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting 
     // 
     // --- Friedman's RuleFit method, ie, an optimised series of cuts ("rules")
@@ -108,7 +108,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     // --- Here the preparation phase begins
 
     // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
-    TString outfileName( "~/cern/ntuples/new_tuples/TMVA.root" );
+    TString outfileName( "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/TMVA.root" );
     TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
 
@@ -118,15 +118,15 @@ void ZTMVAClassification( TString myMethodList = "" ) {
 
 // ADD IN OUR VARIABLES HERE
     
-    factory->AddVariable("kaon_IPCHI2_OWNPV", "kaon_IPCHI2_OWNPV", "", 'D');
+    factory->AddVariable("log(kaon_IPCHI2_OWNPV)", "log(kaon_IPCHI2_OWNPV)", "", 'D');
     factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
-    factory->AddVariable("kaon_ProbNNp", "kaon_ProbNNp", "", 'D');
-    factory->AddVariable("kaon_ProbNNk", "kaon_ProbNNk", "", 'D');
+    //factory->AddVariable("kaon_ProbNNp", "kaon_ProbNNp", "", 'D');
+    //factory->AddVariable("kaon_ProbNNk", "kaon_ProbNNk", "", 'D');
     
-    factory->AddVariable("proton_IPCHI2_OWNPV", "proton_IPCHI2_OWNPV", "", 'D');
+    factory->AddVariable("log(proton_IPCHI2_OWNPV)", "log(proton_IPCHI2_OWNPV)", "", 'D');
     factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
-    factory->AddVariable("proton_ProbNNpcorr", "proton_ProbNNpcorr", "", 'D');
-    factory->AddVariable("proton_ProbNNkcorr", "proton_ProbNNkcorr", "", 'D');
+    //factory->AddVariable("proton_ProbNNpcorr", "proton_ProbNNpcorr", "", 'D');
+    //factory->AddVariable("proton_ProbNNkcorr", "proton_ProbNNkcorr", "", 'D');
 
     factory->AddVariable("gamma_PT", "gamma_PT", "", 'D');
     factory->AddVariable("gamma_CL", "gamma_CL", "", 'D');  
@@ -138,15 +138,15 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     factory->AddVariable("muplus_TRACK_GhostProb", "muplus_TRACK_GhostProb", "", 'D');  
 
     factory->AddVariable("Lambda_b0_DTF_CHI2NDOF", "Lambda_b0_DTF_CHI2NDOF", "", 'D');
-    factory->AddVariable("Lambda_b0_IPCHI2_OWNPV", "Lambda_b0_IPCHI2_OWNPV", "", 'D');
+    factory->AddVariable("log(Lambda_b0_IPCHI2_OWNPV)", "log(Lambda_b0_IPCHI2_OWNPV)", "", 'D');
     factory->AddVariable("Lambda_b0_FDS", "Lambda_b0_FDS", "", 'D');  
     factory->AddVariable("Lambda_b0_PT", "Lambda_b0_PT", "", 'D');
     
 
 
     //   TFile * input_Background = new TFile("../back.root");
-    TFile * input_Signal = new TFile("~/cern/ntuples/new_tuples/reduced_Lb2chicpK_MC_2011_2012_signal.root");
-    TFile * input_Background = new TFile("~/cern/ntuples/new_tuples/background.root");
+    TFile * input_Signal = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_MC_2011_2012_signal_PIDcut.root");
+    TFile * input_Background = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/background.root");
     std::cout << "--- TMVAClassification       : Using input file for signal    : " << input_Signal->GetName() << std::endl;
     std::cout << "--- TMVAClassification       : Using input file for background : " << input_Background->GetName() << std::endl;
    
@@ -165,7 +165,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
    
 
     // Apply additional cuts on the signal and background samples (can be different)
-    TCut mycuts = "Lambda_b0_DTF_MASS_constr1 > 5610 && Lambda_b0_DTF_MASS_constr1 < 5630"; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
+    TCut mycuts = ""; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
     TCut mycutb = ""; // for example: TCut mycutb = "abs(var1)<0.5";
 
    
