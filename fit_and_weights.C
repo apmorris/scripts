@@ -23,11 +23,11 @@ void fit_and_weights(){
     gStyle->SetPadBottomMargin(0.0);
     gStyle->SetPadLeftMargin(0.14);
     gStyle->SetTitleH(0.01);
-
-    const std::string filename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/Lb2chicpK_2011_2012_signal_withbdt_cut.root");
-    const std::string treename = "withbdt";
-    const std::string out_file_mass("~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit_after_bdtg.png");
-    
+                                                                                    //
+    const std::string filename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_2011_2012_signal_withbdt_cut.root");           
+    const std::string treename = "withbdt";                                         
+    const std::string out_file_mass("~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit_after_bdtg_07.png");                                   
+                                                                                    //
 
     TFile* file = TFile::Open( filename.c_str() );
     if( !file ) std::cout << "file " << filename << " does not exist" << std::endl;
@@ -48,7 +48,7 @@ void fit_and_weights(){
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
     RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
-    RooRealVar bdtg3("bdtg", "bdtg", -1.0, 1.0);
+    RooRealVar bdtg3("bdtg", "bdtg", -1.0, 1.0);                                    //
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
     Lambda_b0_DTF_MASS_constr1.setBins(75);
@@ -82,7 +82,7 @@ void fit_and_weights(){
                                ERR DEF= 0.5
 
     */
-    //put in values from fit_MC here
+    //put in values from fit_MC here                                                //
  
     alpha1.setVal( 2.48734e+00 );
     alpha2.setVal( -2.20825e+00  );
@@ -91,7 +91,7 @@ void fit_and_weights(){
     frac2.setVal( 7.18457e-01 );
     sigma1.setVal( 4.00949e+00 );
     sigma2.setVal( 7.79748e+00 );
-    
+                                                                                    //
     alpha1.setConstant( true );
     alpha2.setConstant( true );
     frac2.setConstant( true );
@@ -114,15 +114,13 @@ void fit_and_weights(){
 
     RooArgSet obs;
     obs.add(Lambda_b0_DTF_MASS_constr1);
-    //obs.add(chi_c_Mp);
-    //obs.add(mass_pK);
     obs.add(Jpsi_M);
     obs.add(chi_c_M);
     obs.add(proton_ProbNNp);
     obs.add(proton_ProbNNk);
     obs.add(kaon_ProbNNp);
     obs.add(kaon_ProbNNk);
-    //obs.add(bdtg);    
+
     
     RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
 

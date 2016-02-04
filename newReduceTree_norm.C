@@ -12,11 +12,11 @@ void newReduceTree_norm(){
 
     // -- define tuple file name, tuple name and cuts to apply
     // -- and also the name of the output file
+    
     const std::string filename = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/Lb2JpsipK_MC_2011_2012_norm_cut.root";//change
+    
     const std::string treename("DecayTree");
-    //const std::string cuts = "";
-    
-    
+
     const std::string cuts = "";
 
     const std::string outFilename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/reduced_Lb2JpsipK_MC_2011_2012_norm.root");//change
@@ -39,7 +39,7 @@ void newReduceTree_norm(){
     tree->SetBranchStatus("kaon_PX",1);
     tree->SetBranchStatus("kaon_PY",1);
     tree->SetBranchStatus("kaon_PZ",1);
-    //tree->SetBranchStatus("kaon_ETA",1);
+
     tree->SetBranchStatus("kaon_IPCHI2_OWNPV",1);
     tree->SetBranchStatus("kaon_TRACK_GhostProb",1);
     tree->SetBranchStatus("kaon_ProbNNp",1);
@@ -52,7 +52,7 @@ void newReduceTree_norm(){
     tree->SetBranchStatus("proton_PX",1);
     tree->SetBranchStatus("proton_PY",1);
     tree->SetBranchStatus("proton_PZ",1);
-    //tree->SetBranchStatus("proton_ETA",1);
+
     tree->SetBranchStatus("proton_IPCHI2_OWNPV",1);
     tree->SetBranchStatus("proton_TRACK_GhostProb",1);
     tree->SetBranchStatus("proton_ProbNNp",1);
@@ -65,9 +65,6 @@ void newReduceTree_norm(){
     tree->SetBranchStatus("Jpsi_PX",1);
     tree->SetBranchStatus("Jpsi_PY",1);
     tree->SetBranchStatus("Jpsi_PZ",1);
-    //tree->SetBranchStatus("Jpsi_ETA",1);
-    
-
     
     tree->SetBranchStatus("muminus_M",1);
     tree->SetBranchStatus("muminus_P",1);
@@ -76,7 +73,6 @@ void newReduceTree_norm(){
     tree->SetBranchStatus("muminus_PX",1);
     tree->SetBranchStatus("muminus_PY",1);
     tree->SetBranchStatus("muminus_PZ",1);
-    //tree->SetBranchStatus("muminus_ETA",1);
     tree->SetBranchStatus("muminus_ProbNNmu",1);
     tree->SetBranchStatus("muminus_TRACK_GhostProb",1); 
     
@@ -87,7 +83,7 @@ void newReduceTree_norm(){
     tree->SetBranchStatus("muplus_PX",1);
     tree->SetBranchStatus("muplus_PY",1);
     tree->SetBranchStatus("muplus_PZ",1);
-    //tree->SetBranchStatus("muplus_ETA",1);
+
     tree->SetBranchStatus("muplus_ProbNNmu",1);
     tree->SetBranchStatus("muplus_TRACK_GhostProb",1);
     
@@ -103,17 +99,14 @@ void newReduceTree_norm(){
     tree->SetBranchStatus("Lambda_b0_Hlt1TrackAllL0Decision_TOS",1);
     tree->SetBranchStatus("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS",1);
     tree->SetBranchStatus("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS",1);
+    tree->SetBranchStatus("Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS",1);
     tree->SetBranchStatus("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS",1);
-
     tree->SetBranchStatus("Lambda_b0_PT",1);
     
      
-    //for MC only                                                                    //
-    //tree->SetBranchStatus("proton_ProbNNpcorr",1);                                   //
-    //tree->SetBranchStatus("kaon_ProbNNkcorr",1);                                     //ONLY IN MC
-                                                                                  //
-    tree->SetBranchStatus("Jpsi_BKGCAT",1);                                          //
-    tree->SetBranchStatus("Lambda_b0_BKGCAT",1);                                     //
+    //for MC only                                                                   //
+    tree->SetBranchStatus("Jpsi_BKGCAT",1);                                         //
+    tree->SetBranchStatus("Lambda_b0_BKGCAT",1);                                    //
   
    
     
@@ -122,23 +115,22 @@ void newReduceTree_norm(){
     TTree* rTree1 = tree->CopyTree(cuts.c_str());
 
 
+
     double kaon_M,  kaon_P, kaon_PE, kaon_PX, kaon_PT, kaon_PY, kaon_PZ, kaon_ETA, kaon_IPCHI2_OWNPV, kaon_TRACK_GhostProb, kaon_ProbNNp, kaon_ProbNNk;
     double proton_M,  proton_P, proton_PE, proton_PT, proton_PX, proton_PY, proton_PZ, proton_ETA, proton_IPCHI2_OWNPV, proton_TRACK_GhostProb, proton_ProbNNp, proton_ProbNNk;
     double Jpsi_M, Jpsi_P, Jpsi_PE, Jpsi_PT, Jpsi_PX, Jpsi_PY, Jpsi_PZ, Jpsi_ETA;
-   
     double muminus_M, muminus_P, muminus_PE, muminus_PT, muminus_PX, muminus_PY, muminus_PZ, muminus_ETA, muminus_ProbNNmu, muminus_TRACK_GhostProb;
     double muplus_M, muplus_P, muplus_PE, muplus_PT, muplus_PX, muplus_PY, muplus_PZ, muplus_ETA, muplus_ProbNNmu, muplus_TRACK_GhostProb;
     double Lambda_b0_DTF_MASS_constr1, Lambda_b0_DTF_CHI2NDOF, Lambda_b0_IPCHI2_OWNPV;
-    double Lambda_b0_FDS, Lambda_b0_pi0veto, Lambda_b0_PT; 
+    double Lambda_b0_FDS, Lambda_b0_PT; 
     
     bool Lambda_b0_L0MuonDecision_TOS, Lambda_b0_L0DiMuonDecision_TOS;
     bool Lambda_b0_Hlt1DiMuonHighMassDecision_TOS, Lambda_b0_Hlt1DiMuonLowMassDecision_TOS;
     bool Lambda_b0_Hlt1TrackMuonDecision_TOS, Lambda_b0_Hlt1TrackAllL0Decision_TOS;
-    bool Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS, Lambda_b0_Hlt2DiMuonDetachedDecision_TOS;
+    bool Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS, Lambda_b0_Hlt2DiMuonDetachedDecision_TOS, Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS;
     bool Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS;
     
-    
-
+  
     
     rTree1->SetBranchAddress("kaon_M", &kaon_M);
     rTree1->SetBranchAddress("kaon_P", &kaon_P);
@@ -147,7 +139,7 @@ void newReduceTree_norm(){
     rTree1->SetBranchAddress("kaon_PT", &kaon_PT);
     rTree1->SetBranchAddress("kaon_PY", &kaon_PY);
     rTree1->SetBranchAddress("kaon_PZ", &kaon_PZ);
-    //rTree1->SetBranchAddress("kaon_ETA", &kaon_ETA);
+
     rTree1->SetBranchAddress("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPV);
     rTree1->SetBranchAddress("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb);
     rTree1->SetBranchAddress("kaon_ProbNNp", &kaon_ProbNNp);
@@ -160,7 +152,7 @@ void newReduceTree_norm(){
     rTree1->SetBranchAddress("proton_PX", &proton_PX);
     rTree1->SetBranchAddress("proton_PY", &proton_PY);
     rTree1->SetBranchAddress("proton_PZ", &proton_PZ);
-    //rTree1->SetBranchAddress("proton_ETA", &proton_ETA);
+
     rTree1->SetBranchAddress("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPV);
     rTree1->SetBranchAddress("proton_TRACK_GhostProb", &proton_TRACK_GhostProb);
     rTree1->SetBranchAddress("proton_ProbNNp", &proton_ProbNNp);
@@ -173,8 +165,6 @@ void newReduceTree_norm(){
     rTree1->SetBranchAddress("Jpsi_PX", &Jpsi_PX);
     rTree1->SetBranchAddress("Jpsi_PY", &Jpsi_PY);
     rTree1->SetBranchAddress("Jpsi_PZ", &Jpsi_PZ);
-    //rTree1->SetBranchAddress("Jpsi_ETA", &Jpsi_ETA);     
-
 
     rTree1->SetBranchAddress("muminus_M", &muminus_M);
     rTree1->SetBranchAddress("muminus_P", &muminus_P);
@@ -183,7 +173,7 @@ void newReduceTree_norm(){
     rTree1->SetBranchAddress("muminus_PX", &muminus_PX);
     rTree1->SetBranchAddress("muminus_PY", &muminus_PY);
     rTree1->SetBranchAddress("muminus_PZ", &muminus_PZ);  
-    //rTree1->SetBranchAddress("muminus_ETA", &muminus_ETA);  
+
     rTree1->SetBranchAddress("muminus_ProbNNmu", &muminus_ProbNNmu);  
     rTree1->SetBranchAddress("muminus_TRACK_GhostProb", &muminus_TRACK_GhostProb);  
 
@@ -194,7 +184,7 @@ void newReduceTree_norm(){
     rTree1->SetBranchAddress("muplus_PX", &muplus_PX);
     rTree1->SetBranchAddress("muplus_PY", &muplus_PY);
     rTree1->SetBranchAddress("muplus_PZ", &muplus_PZ);
-    //rTree1->SetBranchAddress("muplus_ETA", &muplus_ETA);  
+
     rTree1->SetBranchAddress("muplus_ProbNNmu", &muplus_ProbNNmu);  
     rTree1->SetBranchAddress("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb);  
 
@@ -210,29 +200,21 @@ void newReduceTree_norm(){
     rTree1->SetBranchAddress("Lambda_b0_Hlt1TrackAllL0Decision_TOS", &Lambda_b0_Hlt1TrackAllL0Decision_TOS); 
     rTree1->SetBranchAddress("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", &Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS);  
     rTree1->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedDecision_TOS); 
+    rTree1->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS);
     rTree1->SetBranchAddress("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS);
-   
     rTree1->SetBranchAddress("Lambda_b0_PT", &Lambda_b0_PT);
 
     
-    //for MC only                                                                    //
-                                                                                     //
-    int Jpsi_BKGCAT, Jpsi_BKGCAT, Lambda_b0_BKGCAT;                                 //
-    float proton_ProbNNpcorr, kaon_ProbNNkcorr;                                      //
-                                                                                     //
-    //rTree1->SetBranchAddress("kaon_ProbNNkcorr", &kaon_ProbNNkcorr);                 //ONLY IN MC
-    //rTree1->SetBranchAddress("proton_ProbNNpcorr", &proton_ProbNNpcorr);             //
-                                                                                      //
-    rTree1->SetBranchAddress("Jpsi_BKGCAT", &Jpsi_BKGCAT);                           //
-    rTree1->SetBranchAddress("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT);                 //
+    //for MC only                                                                   //
+    int Jpsi_BKGCAT, Lambda_b0_BKGCAT;                                              //
+    rTree1->SetBranchAddress("Jpsi_BKGCAT", &Jpsi_BKGCAT);                          //
+    rTree1->SetBranchAddress("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT);                //
     
     
     TFile* rFile = new TFile( outFilename.c_str() ,"RECREATE");
     TTree* rTree2 = new TTree();
     rTree2->SetName("DecayTree");
-    
 
-    
     rTree2->Branch("kaon_M", &kaon_M, "kaon_M/D");
     rTree2->Branch("kaon_P", &kaon_P, "kaon_P/D");
     rTree2->Branch("kaon_PE", &kaon_PE, "kaon_PE/D");
@@ -240,7 +222,7 @@ void newReduceTree_norm(){
     rTree2->Branch("kaon_PT", &kaon_PT, "kaon_PT/D");
     rTree2->Branch("kaon_PY", &kaon_PY, "kaon_PY/D");
     rTree2->Branch("kaon_PZ", &kaon_PZ, "kaon_PZ/D");
-    //rTree2->Branch("kaon_ETA", &kaon_ETA, "kaon_ETA/D");
+
     rTree2->Branch("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPV, "kaon_IPCHI2_OWNPV/D");
     rTree2->Branch("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb, "kaon_TRACK_GhostProb/D");
     rTree2->Branch("kaon_ProbNNp", &kaon_ProbNNp, "kaon_ProbNNp/D");
@@ -253,7 +235,7 @@ void newReduceTree_norm(){
     rTree2->Branch("proton_PX", &proton_PX, "proton_PX/D");
     rTree2->Branch("proton_PY", &proton_PY, "proton_PY/D");
     rTree2->Branch("proton_PZ", &proton_PZ, "proton_PZ/D");
-    //rTree2->Branch("proton_ETA", &proton_ETA, "proton_ETA/D");
+
     rTree2->Branch("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPV, "proton_IPCHI2_OWNPV/D");
     rTree2->Branch("proton_TRACK_GhostProb", &proton_TRACK_GhostProb, "proton_TRACK_GhostProb/D");
     rTree2->Branch("proton_ProbNNp", &proton_ProbNNp, "proton_ProbNNp/D");
@@ -266,8 +248,6 @@ void newReduceTree_norm(){
     rTree2->Branch("Jpsi_PX", &Jpsi_PX, "Jpsi_PX/D");
     rTree2->Branch("Jpsi_PY", &Jpsi_PY, "Jpsi_PY/D");
     rTree2->Branch("Jpsi_PZ", &Jpsi_PZ, "Jpsi_PZ/D");
-    //rTree2->Branch("Jpsi_ETA", &Jpsi_ETA, "Jpsi_ETA/D");     
-
 
     rTree2->Branch("muminus_M", &muminus_M, "muminus_M/D");
     rTree2->Branch("muminus_P", &muminus_P, "muminus_P/D");
@@ -276,7 +256,7 @@ void newReduceTree_norm(){
     rTree2->Branch("muminus_PX", &muminus_PX, "muminus_PX/D");
     rTree2->Branch("muminus_PY", &muminus_PY, "muminus_PY/D");
     rTree2->Branch("muminus_PZ", &muminus_PZ, "muminus_PZ/D");  
-    //rTree2->Branch("muminus_ETA", &muminus_ETA, "muminus_ETA/D");  
+
     rTree2->Branch("muminus_ProbNNmu", &muminus_ProbNNmu, "muminus_ProbNNmu/D");  
     rTree2->Branch("muminus_TRACK_GhostProb", &muminus_TRACK_GhostProb, "muminus_TRACK_GhostProb/D");  
 
@@ -287,7 +267,7 @@ void newReduceTree_norm(){
     rTree2->Branch("muplus_PX", &muplus_PX, "muplus_PX/D");
     rTree2->Branch("muplus_PY", &muplus_PY, "muplus_PY/D");
     rTree2->Branch("muplus_PZ", &muplus_PZ, "muplus_PZ/D");
-    //rTree2->Branch("muplus_ETA", &muplus_ETA, "muplus_ETA/D");  
+
     rTree2->Branch("muplus_ProbNNmu", &muplus_ProbNNmu, "muplus_ProbNNmu/D");  
     rTree2->Branch("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb, "muplus_TRACK_GhostProb/D");  
 
@@ -303,16 +283,15 @@ void newReduceTree_norm(){
     rTree2->Branch("Lambda_b0_Hlt1TrackAllL0Decision_TOS", &Lambda_b0_Hlt1TrackAllL0Decision_TOS, "Lambda_b0_Hlt1TrackAllL0Decision_TOS/B");
     rTree2->Branch("Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS", &Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS, "Lambda_b0_Hlt1SingleMuonHighPTDecision_TOS/B");  
     rTree2->Branch("Lambda_b0_Hlt2DiMuonDetachedDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedDecision_TOS, "Lambda_b0_Hlt2DiMuonDetachedDecision_TOS/B"); 
+    rTree2->Branch("Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS, "Lambda_b0_Hlt2DiMuonDetachedJPsiDecision_TOS/B");
     rTree2->Branch("Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS", &Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS, "Lambda_b0_Hlt2DiMuonDetachedHeavyDecision_TOS/B");
-
     rTree2->Branch("Lambda_b0_PT", &Lambda_b0_PT, "Lambda_b0_PT/D");
-                                                        
-    //for MC only                                                                    //
-                                                                                     //
-    //rTree2->Branch("proton_ProbNNpcorr", &proton_ProbNNpcorr, "proton_ProbNNpcorr/D");//
-                                                                                     //ONLY IN MC
-    rTree2->Branch("Jpsi_BKGCAT", &Jpsi_BKGCAT, "Jpsi_BKGCAT/I");                    //
-    rTree2->Branch("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT, "Lambda_b0_BKGCAT/I");     //
+                            
+                                                  
+    //for MC only                                                                   //
+    rTree2->Branch("Jpsi_BKGCAT", &Jpsi_BKGCAT, "Jpsi_BKGCAT/I");                   //
+    rTree2->Branch("Lambda_b0_BKGCAT", &Lambda_b0_BKGCAT, "Lambda_b0_BKGCAT/I");    //
+    
     
 //-----------------------------------------------------------------------------------    
 

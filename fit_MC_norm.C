@@ -8,10 +8,10 @@
 */
 
                                                                                     //
-void fit_MC(std::string input_file = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/reduced_Lb2chicpK_MC_2011_2012_signal.root", std::string out_file_mass = "~/cern/plots/fitting/Lb2chicpK_MC_2011_2012_cut_mass_fit.png"){
+void fit_MC_norm(std::string input_file = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/reduced_Lb2JpsipK_MC_2011_2012_norm.root", std::string out_file_mass = "~/cern/plots/fitting/Lb2JpsipK_MC_2011_2012_cut_mass_fit.png"){
                                                                                     //
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
-    //lhcbStyle();
+    lhcbStyle();
 
     const std::string filename(input_file.c_str());
     const std::string treename = "DecayTree";
@@ -23,9 +23,9 @@ void fit_MC(std::string input_file = "/afs/cern.ch/work/a/apmorris/private/cern/
 
 
     // -- signal, mass shape
-    RooRealVar Lambda_b0_DTF_MASS_constr1("Lambda_b0_DTF_MASS_constr1","m(#chi_{c}pK^{-})", 5450., 5850.); 
+    RooRealVar Lambda_b0_DTF_MASS_constr1("Lambda_b0_DTF_MASS_constr1","m(J/#psi pK^{-})", 5450., 5850., "MeV/c^{2}"); 
     RooRealVar Jpsi_M("Jpsi_M","m(#mu#mu)", 3000., 3200., "MeV/c^{2}"); 
-    RooRealVar chi_c_M("chi_c_M","m(J/#psi#gamma)", 3350., 3750., "MeV/c^{2}"); 
+    //RooRealVar chi_c_M("chi_c_M","m(J/#psi#gamma)", 3350., 3750., "MeV/c^{2}"); 
     RooRealVar mean("mean","mean", 5620., 5595., 5650.);
     RooRealVar sigma1("sigma1","sigma1", 10., 1., 100.);
     RooRealVar sigma2("sigma2","sigma2", 100., 1., 1000.);
@@ -33,18 +33,18 @@ void fit_MC(std::string input_file = "/afs/cern.ch/work/a/apmorris/private/cern/
     RooRealVar n1("n1","n1", 1.8, 0.2, 15.0);
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
-    RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
+    //RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
 
     RooGaussian gauss1("gauss1","gauss1", Lambda_b0_DTF_MASS_constr1, mean, sigma1);
     RooGaussian gauss2("gauss2","gauss2", Lambda_b0_DTF_MASS_constr1, mean, sigma2);
     RooCBShape cb1("cb1","cb1", Lambda_b0_DTF_MASS_constr1, mean, sigma1, alpha1, n1); 
     RooCBShape cb2("cb2","cb2", Lambda_b0_DTF_MASS_constr1, mean, sigma2, alpha2, n2); 
-    
+    /*
     // the chi_c2 component
     RooRealVar mean3("mean3","mean3", 5570., 5520., 5580.);
     RooRealVar sigma3("sigma3","sigma3", 10., 1., 20.);
     RooGaussian gauss3("gauss3","gauss3", Lambda_b0_DTF_MASS_constr1, mean3, sigma3);
-
+    */
     RooRealVar cbRatio("cbRatio","cbRatio", 0.8, 0.1, 1.0);
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
@@ -65,16 +65,16 @@ void fit_MC(std::string input_file = "/afs/cern.ch/work/a/apmorris/private/cern/
 
     // -- add signal & bg
     //RooAddPdf pdf("pdf", "pdf", RooArgList(gauss1, gauss2), RooArgList( frac2 ));  
-    RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( frac2 ));  
+    RooAddPdf pdf("pdf", "pdf", RooArgList(cb1, cb2), RooArgList( cbRatio ));  
 
     
     RooArgSet obs;
     obs.add(Lambda_b0_DTF_MASS_constr1);
     obs.add(Jpsi_M);
-    obs.add(chi_c_M);
-    obs.add(bkgcat_chic);
-    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut("Lambda_b0_DTF_MASS_constr1 > 5595")); 
-
+    //obs.add(chi_c_M);
+    //obs.add(bkgcat_chic);
+    RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
+ //RooFit::Cut("Lambda_b0_DTF_MASS_constr1 > 5580")
     RooPlot* plot = Lambda_b0_DTF_MASS_constr1.frame();
 
     plot->SetAxisRange(5500., 5750.);

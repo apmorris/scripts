@@ -25,10 +25,10 @@ void BDT_cuts(){
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
     //lhcbStyle();
     
-    const std::string filename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/Lb2chicpK_2011_2012_signal_withbdt.root");
+    const std::string filename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_2011_2012_signal_withbdt.root");                //
     const std::string treename = "withbdt";
     
-    const std::string filenameMC("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/Lb2chicpK_MC_2011_2012_signal_withbdt.root");
+    const std::string filenameMC("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_MC_2011_2012_signal_withbdt.root");             //
     
     TFile* file = TFile::Open( filename.c_str() );
     if( !file ) std::cout << "file " << filename << " does not exist" << std::endl;
@@ -53,7 +53,7 @@ void BDT_cuts(){
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
     //RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
-    RooRealVar bdtg("bdtg", "bdtg", -1.0, 1.0);
+    RooRealVar bdtg("bdtg", "bdtg", -1.0, 1.0);                                     //
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
     RooGaussian gauss1("gauss1","gauss1", Lambda_b0_DTF_MASS_constr1, mean, sigma1);
@@ -67,15 +67,15 @@ void BDT_cuts(){
     
     
     
-    //put in values from fit_MC here
-    
-    alpha1.setVal( 2.04670e+00  );
-    alpha2.setVal( -2.01178e+00 );
-    n1.setVal( 2.39553e+00 );
-    n2.setVal( 3.08386e+00 );
-    frac2.setVal( 6.18979e-01 );
-    sigma1.setVal(3.84460e-03);
-    sigma2.setVal(6.80489e-03);
+    //put in values from fit_MC here                                                //
+                                                                                    //
+    alpha1.setVal( 2.48734e+00 );                                                   //
+    alpha2.setVal( -2.20825e+00  );                                                 //
+    n1.setVal( 9.10141e+00 );                                                       //
+    n2.setVal( 2.57018e+00 );                                                       //
+    frac2.setVal( 7.18457e-01 );                                                    //
+    sigma1.setVal( 4.00949e+00 );                                                   //
+    sigma2.setVal( 7.79748e+00 );                                                   //
     
     alpha1.setConstant( true );
     alpha2.setConstant( true );
@@ -98,8 +98,7 @@ void BDT_cuts(){
     RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
     
     
-    double efficiencies1[40];
-    double efficiencies1_error[40];
+    
     double bdt_cuts[40];
     double efficiencies2[40];
     double efficiencies2_error[40];
@@ -121,52 +120,12 @@ void BDT_cuts(){
         const std::string cut = c.str();
         
         //std::cout << cut;
-    /*
-        RooArgSet obs;
-        obs.add(Lambda_b0_DTF_MASS_constr1);
-        //obs.add(chi_c_Mp);
-        //obs.add(mass_pK);
-        obs.add(Jpsi_M);
-        obs.add(chi_c_M);
-        obs.add(bdtg); 
     
-        RooDataSet ds("ds","ds", obs, RooFit::Import(*tree), RooFit::Cut(cut.c_str())); 
-    
-        RooPlot* plot = Lambda_b0_DTF_MASS_constr1.frame();
-    
-        RooFitResult * result = pdf.fitTo( ds, RooFit::Extended() );
-        
-        double sig_val = sigYield.getVal();
-        double bg_val = bgYield.getVal();
-        double sig_error = sigYield.getError();
-        double bg_error = bgYield.getError();
-        
-        double efficiency1 = (sig_val)/(sqrt(sig_val + bg_val));
-        efficiencies1[i] = efficiency1;
-        
-        double efficiency1_error_sq = (pow(sig_error,2)/(sig_val+bg_val) + (pow(sig_val,2)*(pow(sig_error,2)+pow(bg_error,2))/(4*pow((sig_val+bg_val),3))));
-        
-        double efficiency1_error = sqrt(efficiency1_error_sq);
-        efficiencies1_error[i] = efficiency1_error;
-        */
-        
-        double MC_post = treeMC->GetEntries(cut.c_str());
-        
-        double eff_val = MC_post/MC_pre; 
-        
-        //something here to get the sideband background count
-         
-        /*
-        Lambda_b0_DTF_MASS_constr1.setRange("R", 5650., 5700.);
-        RooFitResult * sideband = bg.fitTo( ds, RooFit::Range("R") );
-        sideband->Print();
-        */
         Lambda_b0_DTF_MASS_constr1.setRange("R", 5650., 5700.);
         RooAbsReal* integral = pdf.createIntegral(Lambda_b0_DTF_MASS_constr1, RooFit::Range("R"));
         //std::cout << integral->getVal() << std::endl;
         //std::cout << integral->getError() << std::endl;
-        //Double_t sideband_bg_val = integral->getVal();
-        //double sideband_bg_error = integral->getError();
+        
         
         std::stringstream r;
         r << "bdtg" << " >= " << cut_val << " && Lambda_b0_DTF_MASS_constr1 >= 5650 && Lambda_b0_DTF_MASS_constr1 <= 5700";
@@ -188,42 +147,11 @@ void BDT_cuts(){
         
         //double efficiency2_error = efficiency2*sqrt(pow(eff_error/eff_val,2)+(1/(4*sideband_bg_val))*pow(sideband_bg_error/(5/2+sideband_bg_val),2));
         
-        //std::cout << "\n\n" << "BDT cut value = " << cut_val << "\n" ;
-        //std::cout << "S = " << sig_val << " +/- " << sig_error << "\n" ;
-        //std::cout << "B = " << bg_val << " +/- " << bg_error << "\n" ;
-        //std::cout << "S/sqrt(S+B) = " << efficiency << " +/- " << efficiency_error << "\n\n" ;
         
-        //ds.plotOn( plot );
-        //pdf.plotOn( plot );
-    
-        //RooPlot* plotPullMass = mass.frame();
-    
-        //plotPullMass->addPlotable( plot->pullHist() );
-        //plotPullMass->SetMinimum();
-        //plotPullMass->SetMaximum();
-        
-        //std::cout << cut_val;
     }
     
     
-    //TCanvas *c1 = new TCanvas(); 
-    
-    //double zeros[20];
-    //for (i=0, i<20, i++) zeros[i]=0.0;
-    
-    //TGraphErrors* graph = new TGraphErrors(40, bdt_cuts, efficiencies1, 0, efficiencies1_error);
-    
-    //graph->SetTitle("S/sqrt(S+B) vs BDTG cut");
-    //graph->SetMarkerColor(4);
-    //graph->SetMarkerStyle(20);
-    //graph->SetMarkerSize(1.0);
-    //graph->GetXaxis()->SetTitle("BDTG cut (>)");
-    //graph->GetXaxis()->SetRangeUser(-1.0,1.0);
-    //graph->GetYaxis()->SetTitle("S/sqrt(S+B)");
-    //graph->Fit("pol5"); 
-    //graph->Draw("AP");
-    //c1->SaveAs("~/cern/plots/bdt_cuts/Lb2chicpK_2011_2012_BDTG_cuts_S_sqrtS+B.png");
-    //return c1;
+
     
     //gStyle->SetOptFit(1011);
     TCanvas *c2 = new TCanvas();
@@ -243,66 +171,7 @@ void BDT_cuts(){
     //return c2;
     
     
-    
-    
-    /*
-    TCanvas* c = new TCanvas();
-    
-    TPad* pad1 = new TPad("pad1","pad1", 0, 0.3, 1, 1.0);
-    pad1->SetBottomMargin(0.1);
-    pad1->SetTopMargin(0.1);
-    pad1->Draw();
-    c->cd();
-    TPad* pad2 = new TPad("pad2","pad2", 0, 0, 1, 0.3);
-    pad2->SetBottomMargin(0.1);
-    pad2->SetTopMargin(0.0);
-    pad2->Draw();
-    
-    
-    //pdf.plotOn( plot, RooFit::Components( DfbPdf ), RooFit::LineColor( kRed ), RooFit::LineStyle(kDashed) );
-    //pdf.plotOn( plot, RooFit::Components( promptPdf ), RooFit::LineColor( kBlue ), RooFit::LineStyle(kDotted) );
-    //pdf.plotOn( plot, RooFit::Components( bgPdf ), RooFit::LineColor( kOrange ), RooFit::LineStyle(kDashDotted) );
-    
-    pad1->cd();
-    plot->Draw();
-    
-    pad2->cd();
-    plotPullMass->Draw("AP");
-    
-    c->SaveAs(out_file_mass);
-    
-    RooStats::SPlot* sData = new RooStats::SPlot("sData","An SPlot",
-            ds, &pdf, RooArgList(sigYield, bgYield) );
-    
-    
-    RooDataSet * dataw_z = new RooDataSet(ds.GetName(),ds.GetTitle(),&ds,*(ds.get()),0,"sigYield_sw") ;
-    */
-    /*   
-    TCanvas* d = new TCanvas();
-    RooPlot* w_mass_chicp = mass_chicp.frame();
-    dataw_z->plotOn(w_mass_chicp, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_chicp->Draw();
-    d->SaveAs("m_chicp_sweighted.png");
-    
-    TCanvas* e = new TCanvas();
-    RooPlot* w_mass_pK = mass_pK.frame();
-    dataw_z->plotOn(w_mass_pK, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_pK->Draw();
-    e->SaveAs("m_pK_sweighted.png");
-    */
-    /*
-    TCanvas* f = new TCanvas();
-    RooPlot* w_mass_Jpsi = mass_Jpsi.frame();
-    dataw_z->plotOn(w_mass_Jpsi, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_Jpsi->Draw();
-    f->SaveAs("m_Jpsi_sweighted.png");
-    
-    TCanvas* g = new TCanvas();
-    RooPlot* w_mass_Chic = mass_Chic.frame();
-    dataw_z->plotOn(w_mass_Chic, RooFit::DataError(RooAbsData::SumW2), RooFit::Binning(20)) ;
-    w_mass_Chic->Draw();
-    g->SaveAs("m_Chic_sweighted.png");
-    */
+  
     
     
 }

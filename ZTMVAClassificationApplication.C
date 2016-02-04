@@ -30,9 +30,9 @@
 #endif
 
 using namespace TMVA;
-
-void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/background_MC_samples/reduced_Bs2JpsiPhi_MC_2012_signal.root" , std::string outputfile= "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/background_MC_samples/Bs2JpsiPhi_MC_2012_signal_withbdt.root",TString myMethodList = "" ) 
-{   
+                                                                                    //
+void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_2011_2012_signal_PIDcut.root" , std::string outputfile= "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_2011_2012_signal_withbdt.root",TString myMethodList = "" ) {   
+                                                                                    //
 #ifdef __CINT__
    gROOT->ProcessLine( ".O0" ); // turn off optimization in CINT
 #endif
@@ -148,19 +148,19 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
     
     
    reader->AddVariable( "log(kaon_IPCHI2_OWNPV)", &kaon_IPCHI2_OWNPV);
-   reader->AddVariable( "kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb);
-    //   reader->AddVariable("kaon_ProbNNp", &kaon_ProbNNp);
-    //   reader->AddVariable("kaon_ProbNNk", &kaon_ProbNNk);   
+   reader->AddVariable( "kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb); 
+     
    reader->AddVariable( "log(proton_IPCHI2_OWNPV)", &proton_IPCHI2_OWNPV);
-   reader->AddVariable( "proton_TRACK_GhostProb", &proton_TRACK_GhostProb);
-    //   reader->AddVariable("proton_ProbNNpcorr", &proton_ProbNNp);
-    //   reader->AddVariable("proton_ProbNNkcorr", &proton_ProbNNk);   
+   reader->AddVariable( "proton_TRACK_GhostProb", &proton_TRACK_GhostProb);   
+   
    reader->AddVariable( "gamma_PT", &gamma_PT);
    reader->AddVariable( "gamma_CL", &gamma_CL);
+   
    reader->AddVariable( "muminus_ProbNNmu", &muminus_ProbNNmu);  
    reader->AddVariable( "muminus_TRACK_GhostProb", &muminus_TRACK_GhostProb);  
    reader->AddVariable( "muplus_ProbNNmu", &muplus_ProbNNmu);  
    reader->AddVariable( "muplus_TRACK_GhostProb", &muplus_TRACK_GhostProb);  
+   
    reader->AddVariable( "Lambda_b0_DTF_CHI2NDOF", &Lambda_b0_DTF_CHI2NDOF);
    reader->AddVariable( "log(Lambda_b0_IPCHI2_OWNPV)", &Lambda_b0_IPCHI2_OWNPV);
    reader->AddVariable( "Lambda_b0_FDS", &Lambda_b0_FDS);     
@@ -305,18 +305,18 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
 
    theTree->SetBranchAddress("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPVd);
    theTree->SetBranchAddress("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProbd);
-   //theTree->SetBranchAddress("kaon_ProbNNp", &kaon_ProbNNp);
-    //   theTree->SetBranchAddress("kaon_ProbNNk", &kaon_ProbNNk);   
+  
    theTree->SetBranchAddress("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPVd);
    theTree->SetBranchAddress("proton_TRACK_GhostProb", &proton_TRACK_GhostProbd);
-    //   theTree->SetBranchAddress("proton_ProbNNpcorr", &proton_ProbNNp);
-    //   theTree->SetBranchAddress("proton_ProbNNkcorr", &proton_ProbNNk);   
+
    theTree->SetBranchAddress("gamma_PT", &gamma_PTd);
    theTree->SetBranchAddress("gamma_CL", &gamma_CLd);
+   
    theTree->SetBranchAddress("muminus_ProbNNmu", &muminus_ProbNNmud);  
    theTree->SetBranchAddress("muminus_TRACK_GhostProb", &muminus_TRACK_GhostProbd);  
    theTree->SetBranchAddress("muplus_ProbNNmu", &muplus_ProbNNmud);  
-   theTree->SetBranchAddress("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProbd);  
+   theTree->SetBranchAddress("muplus_TRACK_GhostProb", &muplus_TRACK_GhostProbd); 
+    
    theTree->SetBranchAddress("Lambda_b0_DTF_CHI2NDOF", &Lambda_b0_DTF_CHI2NDOFd);
    theTree->SetBranchAddress("Lambda_b0_IPCHI2_OWNPV", &Lambda_b0_IPCHI2_OWNPVd);
    theTree->SetBranchAddress("Lambda_b0_FDS", &Lambda_b0_FDSd);  
@@ -336,25 +336,25 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
    sw.Start();
    for (Long64_t ievt=0; ievt<smalltree->GetEntries();ievt++) {
    
-      if (ievt%10000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
+        if (ievt%10000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
      
         smalltree->GetEntry(ievt);
 
-        kaon_IPCHI2_OWNPV         = static_cast<float>(kaon_IPCHI2_OWNPVd);
-        kaon_TRACK_GhostProb      = static_cast<float>(kaon_TRACK_GhostProbd);
-        proton_IPCHI2_OWNPV       = static_cast<float>(proton_IPCHI2_OWNPVd);
-        proton_TRACK_GhostProb    = static_cast<float>(proton_TRACK_GhostProbd);
-        gamma_PT                  = static_cast<float>(gamma_PTd);
-        gamma_CL                  = static_cast<float>(gamma_CLd);
-        muminus_ProbNNmu          = static_cast<float>(muminus_ProbNNmud);  
-        muminus_TRACK_GhostProb   = static_cast<float>(muminus_TRACK_GhostProbd);  
-        muplus_ProbNNmu           = static_cast<float>(muplus_ProbNNmud);  
-        muplus_TRACK_GhostProb    = static_cast<float>(muplus_TRACK_GhostProbd);  
-        Lambda_b0_DTF_CHI2NDOF    = static_cast<float>(Lambda_b0_DTF_CHI2NDOFd);
-        Lambda_b0_IPCHI2_OWNPV    = static_cast<float>(Lambda_b0_IPCHI2_OWNPVd);
-        Lambda_b0_FDS             = static_cast<float>(Lambda_b0_FDSd);  
-        Lambda_b0_PT              = static_cast<float>(Lambda_b0_PTd);
+        kaon_IPCHI2_OWNPV           = static_cast<float>(kaon_IPCHI2_OWNPVd);
+        kaon_TRACK_GhostProb        = static_cast<float>(kaon_TRACK_GhostProbd);
+        proton_IPCHI2_OWNPV         = static_cast<float>(proton_IPCHI2_OWNPVd);
+        proton_TRACK_GhostProb      = static_cast<float>(proton_TRACK_GhostProbd);
+        gamma_PT                    = static_cast<float>(gamma_PTd);
+        gamma_CL                    = static_cast<float>(gamma_CLd);
+        muminus_ProbNNmu            = static_cast<float>(muminus_ProbNNmud);  
+        muminus_TRACK_GhostProb     = static_cast<float>(muminus_TRACK_GhostProbd);  
+        muplus_ProbNNmu             = static_cast<float>(muplus_ProbNNmud);  
+        muplus_TRACK_GhostProb      = static_cast<float>(muplus_TRACK_GhostProbd);  
+        Lambda_b0_DTF_CHI2NDOF      = static_cast<float>(Lambda_b0_DTF_CHI2NDOFd);
+        Lambda_b0_IPCHI2_OWNPV      = static_cast<float>(Lambda_b0_IPCHI2_OWNPVd);
+        Lambda_b0_FDS               = static_cast<float>(Lambda_b0_FDSd);  
+        Lambda_b0_PT                = static_cast<float>(Lambda_b0_PTd);
 
 
 
@@ -486,7 +486,7 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
 
    // --- Write histograms
 
-   TFile *target  = new TFile( "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/TMVApp.root","RECREATE" );
+   TFile *target  = new TFile( "TMVApp.root","RECREATE" );
    if (Use["Likelihood"   ])   histLk     ->Write();
    if (Use["LikelihoodD"  ])   histLkD    ->Write();
    if (Use["LikelihoodPCA"])   histLkPCA  ->Write();

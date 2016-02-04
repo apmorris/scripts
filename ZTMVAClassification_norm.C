@@ -30,7 +30,7 @@
 #include "TMVA/Tools.h"
 #endif
 
-void ZTMVAClassification( TString myMethodList = "" ) {
+void ZTMVAClassification_norm( TString myMethodList = "" ) {
    
 
     //---------------------------------------------------------------
@@ -108,7 +108,7 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     // --- Here the preparation phase begins
 
     // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
-    TString outfileName( "TMVA.root" );                                             //
+    TString outfileName( "TMVA.root" );
     TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
 
@@ -119,34 +119,32 @@ void ZTMVAClassification( TString myMethodList = "" ) {
 // ADD IN OUR VARIABLES HERE
     
     factory->AddVariable("log(kaon_IPCHI2_OWNPV)", "log(kaon_IPCHI2_OWNPV)", "", 'D');
-    factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
-    //factory->AddVariable("kaon_ProbNNp", "kaon_ProbNNp", "", 'D');
-    //factory->AddVariable("kaon_ProbNNk", "kaon_ProbNNk", "", 'D');
     
-    factory->AddVariable("log(proton_IPCHI2_OWNPV)", "log(proton_IPCHI2_OWNPV)", "", 'D');
-    factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
-    //factory->AddVariable("proton_ProbNNpcorr", "proton_ProbNNpcorr", "", 'D');
-    //factory->AddVariable("proton_ProbNNkcorr", "proton_ProbNNkcorr", "", 'D');
+    factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
 
-    factory->AddVariable("gamma_PT", "gamma_PT", "", 'D');
-    factory->AddVariable("gamma_CL", "gamma_CL", "", 'D');  
+    factory->AddVariable("log(proton_IPCHI2_OWNPV)", "log(proton_IPCHI2_OWNPV)", "", 'D');
+    
+    factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
   
     factory->AddVariable("muminus_ProbNNmu", "muminus_ProbNNmu", "", 'D');  
+    
     factory->AddVariable("muminus_TRACK_GhostProb", "muminus_TRACK_GhostProb", "", 'D');  
 
     factory->AddVariable("muplus_ProbNNmu", "muplus_ProbNNmu", "", 'D');  
+    
     factory->AddVariable("muplus_TRACK_GhostProb", "muplus_TRACK_GhostProb", "", 'D');  
 
     factory->AddVariable("Lambda_b0_DTF_CHI2NDOF", "Lambda_b0_DTF_CHI2NDOF", "", 'D');
+    
     factory->AddVariable("log(Lambda_b0_IPCHI2_OWNPV)", "log(Lambda_b0_IPCHI2_OWNPV)", "", 'D');
-    factory->AddVariable("Lambda_b0_FDS", "Lambda_b0_FDS", "", 'D');  
+    
     factory->AddVariable("Lambda_b0_PT", "Lambda_b0_PT", "", 'D');
     
 
 
     //   TFile * input_Background = new TFile("../back.root");
-    TFile * input_Signal = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_MC_2011_2012_signal_PIDcut.root");                                //
-    TFile * input_Background = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/background.root");                                //
+    TFile * input_Signal = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/reduced_Lb2JpsipK_MC_2011_2012_norm.root");
+    TFile * input_Background = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/background.root");
     std::cout << "--- TMVAClassification       : Using input file for signal    : " << input_Signal->GetName() << std::endl;
     std::cout << "--- TMVAClassification       : Using input file for background : " << input_Background->GetName() << std::endl;
    
