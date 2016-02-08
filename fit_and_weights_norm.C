@@ -10,7 +10,7 @@
 
 
 
-void fit_and_weights(){
+void fit_and_weights_norm(){
 
     gROOT->ProcessLine(".x ~/cern/scripts/lhcbStyle.C");
     //lhcbStyle();
@@ -24,9 +24,9 @@ void fit_and_weights(){
     gStyle->SetPadLeftMargin(0.14);
     gStyle->SetTitleH(0.01);
                                                                                     //
-    const std::string filename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_2011_2012_signal_withbdt_cut_08.root");           
+    const std::string filename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/Lb2JpsipK_2011_2012_signal_withbdt_cut_05.root");           
     const std::string treename = "withbdt";                                         
-    const std::string out_file_mass("~/cern/plots/fitting/Lb2chicpK_2011_2012_mass_fit_after_bdtg_08.png");                                   
+    const std::string out_file_mass("~/cern/plots/fitting/Lb2JpsipK_2011_2012_mass_fit_after_bdtg3_05.png");                                   
                                                                                     //
 
     TFile* file = TFile::Open( filename.c_str() );
@@ -39,7 +39,7 @@ void fit_and_weights(){
     // -- signal, mass shape
     RooRealVar Lambda_b0_DTF_MASS_constr1("Lambda_b0_DTF_MASS_constr1","m(#chi_{c}pK^{-})", 5550., 5700., "MeV/c^{2}"); 
     RooRealVar Jpsi_M("Jpsi_M","m(#mu#mu)", 3000., 3200., "MeV/c^{2}"); 
-    RooRealVar chi_c_M("chi_c_M","m(J/#psi#gamma)", 3400., 3700., "MeV/c^{2}"); 
+    //RooRealVar chi_c_M("chi_c_M","m(J/#psi#gamma)", 3400., 3700., "MeV/c^{2}"); 
     RooRealVar mean("mean","mean", 5630., 5610., 5650.);
     RooRealVar sigma1("sigma1","sigma1", 10., 1., 100.);
     RooRealVar sigma2("sigma2","sigma2", 30.0, 5.0, 300.0);
@@ -48,15 +48,12 @@ void fit_and_weights(){
     RooRealVar alpha2("alpha2","alpha2", -0.5, -5.5, 0.0);
     RooRealVar n2("n2","n2", 0.7, 0.2, 10.0);
     //RooRealVar bkgcat_chic("bkgcat_chic","bkgcat_chic", 0, 100);
-    RooRealVar bdtg3("bdtg", "bdtg", -1.0, 1.0);                                    //
+    RooRealVar bdtg3("bdtg3", "bdtg3", -1.0, 1.0);                                    //
     RooRealVar frac2("frac2","frac2", 0.3, 0., 1.);
     
     Lambda_b0_DTF_MASS_constr1.setBins(75);
     
-    RooRealVar proton_ProbNNp("proton_ProbNNp","proton_ProbNNp",0.0,1.0);
-    RooRealVar proton_ProbNNk("proton_ProbNNk","proton_ProbNNk",0.0,1.0);
-    RooRealVar kaon_ProbNNp("kaon_ProbNNp","kaon_ProbNNp",0.0,1.0);
-    RooRealVar kaon_ProbNNk("kaon_ProbNNk","kaon_ProbNNk",0.0,1.0);
+    
     
     
     RooGaussian gauss1("gauss1","gauss1", Lambda_b0_DTF_MASS_constr1, mean, sigma1);
@@ -68,28 +65,27 @@ void fit_and_weights(){
     RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e1, 1e4);
     RooRealVar bgYield("bgYield","bg Yield", 1e2, 1e0, 5e5);
 
-    /* 8/2/16
-     EXT PARAMETER                                INTERNAL      INTERNAL
+    //put in values from fit_MC here <<--- DON'T FORGET TO CHANGE THESE IF THE FIT CHANGES!!!
+    /*
+    EXT PARAMETER                                INTERNAL      INTERNAL
   NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE
-   1  alpha1       1.95196e+00   5.61003e-02   2.56658e-03  -3.62575e-01
-   2  alpha2      -1.97943e+00   4.74197e-02   2.83267e-03   2.84008e-01
-   3  frac2        6.14816e-01   2.67461e-02   3.79093e-03   2.31700e-01
-   4  mean         5.61971e+03   1.71676e-02   2.25218e-04  -1.01505e-01
-   5  n1           2.34308e+00   9.38480e-02   2.67929e-03  -7.90059e-01
-   6  n2           3.27041e+00   2.01566e-01   8.31475e-03  -3.82656e-01
-   7  sigma1       3.84171e+00   5.81416e-02   4.35788e-04  -1.23031e+00
-   8  sigma2       6.48664e+00   1.51833e-01   1.74564e-04  -1.42244e+00
+   1  alpha1       1.74154e+00   3.36750e-02   1.24897e-04  -4.64754e-01
+   2  alpha2      -2.02379e+00   6.38694e-02   1.18078e-04   2.87434e+00
+   3  cbRatio      3.81630e-01   2.53217e-02   1.04396e-03  -3.83487e-01
+   4  mean         5.61983e+03   1.06900e-02   5.57074e-05  -9.73350e-02
+   5  n1           3.61886e+00   1.29299e-01   2.50836e-04  -5.68053e-01
+   6  n2           3.28978e+00   1.59452e-01   3.00100e-04  -3.78398e-01
+   7  sigma1       7.37006e+00   1.49989e-01   2.60360e-05  -1.05787e+00
+   8  sigma2       4.90330e+00   4.88847e-02   5.78092e-06  -1.44570e+00
     */
-    //put in values from fit_MC here                                                //
- 
-    alpha1.setVal( 1.95196e+00 );                                                   //
-    alpha2.setVal( -1.97943e+00  );                                                 //
-    n1.setVal( 2.34308e+00 );                                                       //
-    n2.setVal( 3.27041e+00 );                                                       //
-    frac2.setVal( 6.14816e-01 );                                                    //
-    sigma1.setVal( 3.84171e+00 );                                                   //
-    sigma2.setVal( 6.48664e+00 );                                                   //
-                                                                                    
+    alpha1.setVal( 1.74154e+00 );
+    alpha2.setVal( -2.02379e+00 );
+    n1.setVal( 3.61886e+00 );
+    n2.setVal( 3.28978e+00 );
+    frac2.setVal( 3.81630e-01 );
+    sigma1.setVal( 7.37006e+00 );
+    sigma2.setVal( 4.90330e+00 );
+    
     alpha1.setConstant( true );
     alpha2.setConstant( true );
     frac2.setConstant( true );
@@ -108,16 +104,16 @@ void fit_and_weights(){
     RooAddPdf bg("bg","bg", RooArgList(gauss3, comb), RooArgList(frac3));
 
     // -- add signal & bg
-    RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
+    RooAddPdf pdf("pdf", "pdf", RooArgList(sig, comb), RooArgList( sigYield, bgYield));  
 
     RooArgSet obs;
     obs.add(Lambda_b0_DTF_MASS_constr1);
     obs.add(Jpsi_M);
-    obs.add(chi_c_M);
-    obs.add(proton_ProbNNp);
-    obs.add(proton_ProbNNk);
-    obs.add(kaon_ProbNNp);
-    obs.add(kaon_ProbNNk);
+    //obs.add(chi_c_M);
+    //obs.add(proton_ProbNNp);
+    //obs.add(proton_ProbNNk);
+    //obs.add(kaon_ProbNNp);
+    //obs.add(kaon_ProbNNk);
 
     
     RooDataSet ds("ds","ds", obs, RooFit::Import(*tree)); 
@@ -136,7 +132,7 @@ void fit_and_weights(){
 
     TCanvas* c = new TCanvas();
 
-    TPad* pad1 = new TPad("pad1","pad1", 0, 0.4, 1, 1.0);
+    TPad* pad1 = new TPad("pad1","pad1", 0, 0.3, 1, 1.0);
     pad1->SetBottomMargin(0.0);
     pad1->SetTopMargin(0.01);
     pad1->Draw();

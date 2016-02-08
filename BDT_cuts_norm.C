@@ -68,14 +68,25 @@ void BDT_cuts_norm(){
     
     
     //put in values from fit_MC here <<--- DON'T FORGET TO CHANGE THESE IF THE FIT CHANGES!!!
-    
-    alpha1.setVal( 2.48734e+00 );
-    alpha2.setVal( -2.20825e+00  );
-    n1.setVal( 9.10141e+00 );
-    n2.setVal( 2.57018e+00 );
-    frac2.setVal( 7.18457e-01 );
-    sigma1.setVal( 4.00949e+00 );
-    sigma2.setVal( 7.79748e+00 );
+    /*
+    EXT PARAMETER                                INTERNAL      INTERNAL
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE
+   1  alpha1       1.74154e+00   3.36750e-02   1.24897e-04  -4.64754e-01
+   2  alpha2      -2.02379e+00   6.38694e-02   1.18078e-04   2.87434e+00
+   3  cbRatio      3.81630e-01   2.53217e-02   1.04396e-03  -3.83487e-01
+   4  mean         5.61983e+03   1.06900e-02   5.57074e-05  -9.73350e-02
+   5  n1           3.61886e+00   1.29299e-01   2.50836e-04  -5.68053e-01
+   6  n2           3.28978e+00   1.59452e-01   3.00100e-04  -3.78398e-01
+   7  sigma1       7.37006e+00   1.49989e-01   2.60360e-05  -1.05787e+00
+   8  sigma2       4.90330e+00   4.88847e-02   5.78092e-06  -1.44570e+00
+    */
+    alpha1.setVal( 1.74154e+00 );
+    alpha2.setVal( -2.02379e+00 );
+    n1.setVal( 3.61886e+00 );
+    n2.setVal( 3.28978e+00 );
+    frac2.setVal( 3.81630e-01 );
+    sigma1.setVal( 7.37006e+00 );
+    sigma2.setVal( 4.90330e+00 );
     
     alpha1.setConstant( true );
     alpha2.setConstant( true );
@@ -92,10 +103,10 @@ void BDT_cuts_norm(){
     RooRealVar sigma3("sigma3","sigma3", 5., 1., 10.);
     RooRealVar frac3("frac3","frac", 0.2, 0.0, 0.3);
     RooGaussian gauss3("gauss3","gauss3", Lambda_b0_DTF_MASS_constr1, mean3, sigma3);
-    RooAddPdf bg("bg","bg", RooArgList(gauss3, comb), RooArgList(frac3));
+    //RooAddPdf bg("bg","bg", RooArgList(comb), RooArgList(frac3));
     
     // -- add signal & bg
-    RooAddPdf pdf("pdf", "pdf", RooArgList(sig, bg), RooArgList( sigYield, bgYield));  
+    RooAddPdf pdf("pdf", "pdf", RooArgList(sig, comb), RooArgList( sigYield, bgYield));  
     
     
     double efficiencies1[40];

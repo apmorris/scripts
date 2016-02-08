@@ -21,7 +21,7 @@
 #include "TROOT.h"
 #include "TStopwatch.h"
 
-#include "TMVAGui.C"
+//#include "TMVAGui.C"
 
 #if not defined(__CINT__) || defined(__MAKECINT__)
 #include "TMVA/Tools.h"
@@ -31,7 +31,7 @@
 
 using namespace TMVA;
                                                                                     //
-void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_2011_2012_signal_PIDcut.root" , std::string outputfile= "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_2011_2012_signal_withbdt.root",TString myMethodList = "" ) {   
+void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_2011_2012_signal.root" , std::string outputfile= "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_2011_2012_signal_withbdt.root",TString myMethodList = "" ) {   
                                                                                     //
 #ifdef __CINT__
    gROOT->ProcessLine( ".O0" ); // turn off optimization in CINT
@@ -141,17 +141,19 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
 
    TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );    
 
-   float kaon_IPCHI2_OWNPV, kaon_TRACK_GhostProb, kaon_ProbNNp, kaon_ProbNNk, proton_IPCHI2_OWNPV;
-   float proton_TRACK_GhostProb, proton_ProbNNp, proton_ProbNNk, gamma_PT, gamma_CL, muminus_ProbNNmu;
+   float kaon_IPCHI2_OWNPV, kaon_TRACK_GhostProb, kaon_PT, proton_IPCHI2_OWNPV;
+   float proton_TRACK_GhostProb, proton_PT, gamma_PT, gamma_CL, muminus_ProbNNmu;
    float muminus_TRACK_GhostProb, muplus_ProbNNmu, muplus_TRACK_GhostProb, Lambda_b0_DTF_CHI2NDOF;
    float Lambda_b0_IPCHI2_OWNPV, Lambda_b0_FDS, Lambda_b0_PT;
     
     
    reader->AddVariable( "log(kaon_IPCHI2_OWNPV)", &kaon_IPCHI2_OWNPV);
    reader->AddVariable( "kaon_TRACK_GhostProb", &kaon_TRACK_GhostProb); 
+   reader->AddVariable( "kaon_PT", &kaon_PT);
      
    reader->AddVariable( "log(proton_IPCHI2_OWNPV)", &proton_IPCHI2_OWNPV);
    reader->AddVariable( "proton_TRACK_GhostProb", &proton_TRACK_GhostProb);   
+   reader->AddVariable( "proton_PT", &proton_PT);
    
    reader->AddVariable( "gamma_PT", &gamma_PT);
    reader->AddVariable( "gamma_CL", &gamma_CL);
@@ -301,13 +303,16 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
    double proton_TRACK_GhostProbd, proton_ProbNNpd, proton_ProbNNkd, gamma_PTd, gamma_CLd, muminus_ProbNNmud;
    double muminus_TRACK_GhostProbd, muplus_ProbNNmud, muplus_TRACK_GhostProbd, Lambda_b0_DTF_CHI2NDOFd;
    double Lambda_b0_IPCHI2_OWNPVd, Lambda_b0_FDSd, Lambda_b0_PTd; 
+   double proton_PTd, kaon_PTd; 
 
 
    theTree->SetBranchAddress("kaon_IPCHI2_OWNPV", &kaon_IPCHI2_OWNPVd);
    theTree->SetBranchAddress("kaon_TRACK_GhostProb", &kaon_TRACK_GhostProbd);
+   theTree->SetBranchAddress("kaon_PT", &kaon_PTd);
   
    theTree->SetBranchAddress("proton_IPCHI2_OWNPV", &proton_IPCHI2_OWNPVd);
    theTree->SetBranchAddress("proton_TRACK_GhostProb", &proton_TRACK_GhostProbd);
+   theTree->SetBranchAddress("proton_PT", &proton_PTd);
 
    theTree->SetBranchAddress("gamma_PT", &gamma_PTd);
    theTree->SetBranchAddress("gamma_CL", &gamma_CLd);
@@ -345,6 +350,8 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
         kaon_TRACK_GhostProb        = static_cast<float>(kaon_TRACK_GhostProbd);
         proton_IPCHI2_OWNPV         = static_cast<float>(proton_IPCHI2_OWNPVd);
         proton_TRACK_GhostProb      = static_cast<float>(proton_TRACK_GhostProbd);
+        proton_PT                   = static_cast<float>(proton_PTd);
+        kaon_PT                     = static_cast<float>(kaon_PTd);
         gamma_PT                    = static_cast<float>(gamma_PTd);
         gamma_CL                    = static_cast<float>(gamma_CLd);
         muminus_ProbNNmu            = static_cast<float>(muminus_ProbNNmud);  
@@ -486,7 +493,7 @@ void ZTMVAClassificationApplication( std::string inputfile="/afs/cern.ch/work/a/
 
    // --- Write histograms
 
-   TFile *target  = new TFile( "TMVApp.root","RECREATE" );
+   TFile *target  = new TFile( "TMVApp.root","RECREATE" );                          //
    if (Use["Likelihood"   ])   histLk     ->Write();
    if (Use["LikelihoodD"  ])   histLkD    ->Write();
    if (Use["LikelihoodPCA"])   histLkPCA  ->Write();

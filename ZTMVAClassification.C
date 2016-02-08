@@ -22,7 +22,7 @@
 #include "TSystem.h"
 #include "TROOT.h"
 
-#include "TMVAGui.C"
+//#include "TMVAGui.C"
 
 #if not defined(__CINT__) || defined(__MAKECINT__)
 // needs to be included when makecint runs (ACLIC)
@@ -120,14 +120,12 @@ void ZTMVAClassification( TString myMethodList = "" ) {
     
     factory->AddVariable("log(kaon_IPCHI2_OWNPV)", "log(kaon_IPCHI2_OWNPV)", "", 'D');
     factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
-    //factory->AddVariable("kaon_ProbNNp", "kaon_ProbNNp", "", 'D');
-    //factory->AddVariable("kaon_ProbNNk", "kaon_ProbNNk", "", 'D');
+    factory->AddVariable("kaon_PT", "kaon_PT", "", 'D');
     
     factory->AddVariable("log(proton_IPCHI2_OWNPV)", "log(proton_IPCHI2_OWNPV)", "", 'D');
     factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
-    //factory->AddVariable("proton_ProbNNpcorr", "proton_ProbNNpcorr", "", 'D');
-    //factory->AddVariable("proton_ProbNNkcorr", "proton_ProbNNkcorr", "", 'D');
-
+    factory->AddVariable("proton_PT", "proton_PT", "", 'D');
+    
     factory->AddVariable("gamma_PT", "gamma_PT", "", 'D');
     factory->AddVariable("gamma_CL", "gamma_CL", "", 'D');  
   
@@ -145,8 +143,8 @@ void ZTMVAClassification( TString myMethodList = "" ) {
 
 
     //   TFile * input_Background = new TFile("../back.root");
-    TFile * input_Signal = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_MC_2011_2012_signal_PIDcut.root");                                //
-    TFile * input_Background = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/background.root");                                //
+    TFile * input_Signal = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_MC_2011_2012_signal.root");                                  //
+    TFile * input_Background = new TFile("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/background.root");                                                  //
     std::cout << "--- TMVAClassification       : Using input file for signal    : " << input_Signal->GetName() << std::endl;
     std::cout << "--- TMVAClassification       : Using input file for background : " << input_Background->GetName() << std::endl;
    

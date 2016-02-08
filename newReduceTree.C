@@ -13,13 +13,13 @@ void newReduceTree(){
     // -- define tuple file name, tuple name and cuts to apply
     // -- and also the name of the output file
     
-    const std::string filename = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/background_MC_samples/Bs2JpsiPhi_MC_2012_signal_cut.root";//change
+    const std::string filename = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/Lb2chicpK_MC_2011_2012_signal_cut.root";//change
     
     const std::string treename("DecayTree");
 
     const std::string cuts = "";
 
-    const std::string outFilename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/background_MC_samples/reduced_Bs2JpsiPhi_MC_2012_signal.root");//change
+    const std::string outFilename("/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/signal_samples/reduced_Lb2chicpK_MC_2011_2012_signal.root");//change
   
 
     TFile* file = TFile::Open( filename.c_str() );
@@ -122,12 +122,12 @@ void newReduceTree(){
     tree->SetBranchStatus("Lambda_b0_pi0veto",1);
     tree->SetBranchStatus("Lambda_b0_PT",1);
     
-     
+    
     //for MC only                                                                   //
     tree->SetBranchStatus("chi_c_BKGCAT",1);                                        //
     tree->SetBranchStatus("Jpsi_BKGCAT",1);                                         //
     tree->SetBranchStatus("Lambda_b0_BKGCAT",1);                                    //
-  
+    
    
     
     // -- this file is just here to make the 'CopyTree' happy
@@ -351,7 +351,7 @@ void newReduceTree(){
     rTree2->Branch("Lambda_b0_pi0veto", &Lambda_b0_pi0veto, "Lambda_b0_pi0veto/D");
     rTree2->Branch("Lambda_b0_PT", &Lambda_b0_PT, "Lambda_b0_PT/D");
                             
-                                                        
+                                              
     //for MC only                                                                   //
     rTree2->Branch("chi_c_BKGCAT", &chi_c_BKGCAT, "chi_c_BKGCAT/I");                //
     rTree2->Branch("Jpsi_BKGCAT", &Jpsi_BKGCAT, "Jpsi_BKGCAT/I");                   //

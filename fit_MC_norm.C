@@ -11,7 +11,7 @@
 void fit_MC_norm(std::string input_file = "/afs/cern.ch/work/a/apmorris/private/cern/ntuples/new_tuples/normalisation_samples/reduced_Lb2JpsipK_MC_2011_2012_norm.root", std::string out_file_mass = "~/cern/plots/fitting/Lb2JpsipK_MC_2011_2012_cut_mass_fit.png"){
                                                                                     //
     gROOT->ProcessLine(".L ~/cern/scripts/lhcbStyle.C");
-    lhcbStyle();
+    //lhcbStyle();
 
     const std::string filename(input_file.c_str());
     const std::string treename = "DecayTree";

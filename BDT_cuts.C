@@ -65,17 +65,28 @@ void BDT_cuts(){
     RooRealVar sigYield("sigYield","sig Yield", 4e2, 1e1, 1e4);
     RooRealVar bgYield("bgYield","bg Yield", 1e4, 1e1, 1e5);
     
-    
+    /*
+    EXT PARAMETER                                INTERNAL      INTERNAL
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE
+   1  alpha1       1.95196e+00   5.61003e-02   2.56658e-03  -3.62575e-01
+   2  alpha2      -1.97943e+00   4.74197e-02   2.83267e-03   2.84008e-01
+   3  frac2        6.14816e-01   2.67461e-02   3.79093e-03   2.31700e-01
+   4  mean         5.61971e+03   1.71676e-02   2.25218e-04  -1.01505e-01
+   5  n1           2.34308e+00   9.38480e-02   2.67929e-03  -7.90059e-01
+   6  n2           3.27041e+00   2.01566e-01   8.31475e-03  -3.82656e-01
+   7  sigma1       3.84171e+00   5.81416e-02   4.35788e-04  -1.23031e+00
+   8  sigma2       6.48664e+00   1.51833e-01   1.74564e-04  -1.42244e+00
+    */
     
     //put in values from fit_MC here                                                //
                                                                                     //
-    alpha1.setVal( 2.48734e+00 );                                                   //
-    alpha2.setVal( -2.20825e+00  );                                                 //
-    n1.setVal( 9.10141e+00 );                                                       //
-    n2.setVal( 2.57018e+00 );                                                       //
-    frac2.setVal( 7.18457e-01 );                                                    //
-    sigma1.setVal( 4.00949e+00 );                                                   //
-    sigma2.setVal( 7.79748e+00 );                                                   //
+    alpha1.setVal( 1.95196e+00 );                                                   //
+    alpha2.setVal( -1.97943e+00  );                                                 //
+    n1.setVal( 2.34308e+00 );                                                       //
+    n2.setVal( 3.27041e+00 );                                                       //
+    frac2.setVal( 6.14816e-01 );                                                    //
+    sigma1.setVal( 3.84171e+00 );                                                   //
+    sigma2.setVal( 6.48664e+00 );                                                   //
     
     alpha1.setConstant( true );
     alpha2.setConstant( true );
@@ -133,6 +144,10 @@ void BDT_cuts(){
         
         double integ = tree->GetEntries(cut2.c_str());
         //double integ = integral->getVal();
+
+        double MC_post = treeMC->GetEntries(cut.c_str());
+
+        double eff_val = MC_post/MC_pre;
 
         double efficiency2 = eff_val/(5./2. + sqrt(integ));
         efficiencies2[i] = efficiency2;

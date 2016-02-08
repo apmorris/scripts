@@ -22,7 +22,7 @@
 #include "TSystem.h"
 #include "TROOT.h"
 
-#include "TMVAGui.C"
+//#include "TMVAGui.C"
 
 #if not defined(__CINT__) || defined(__MAKECINT__)
 // needs to be included when makecint runs (ACLIC)
@@ -121,10 +121,14 @@ void ZTMVAClassification_norm( TString myMethodList = "" ) {
     factory->AddVariable("log(kaon_IPCHI2_OWNPV)", "log(kaon_IPCHI2_OWNPV)", "", 'D');
     
     factory->AddVariable("kaon_TRACK_GhostProb", "kaon_TRACK_GhostProb", "", 'D');
+    
+    factory->AddVariable("kaon_PT", "kaon_PT", "", 'D');
 
     factory->AddVariable("log(proton_IPCHI2_OWNPV)", "log(proton_IPCHI2_OWNPV)", "", 'D');
     
     factory->AddVariable("proton_TRACK_GhostProb", "proton_TRACK_GhostProb", "", 'D');
+    
+    factory->AddVariable("proton_PT", "proton_PT", "", 'D');
   
     factory->AddVariable("muminus_ProbNNmu", "muminus_ProbNNmu", "", 'D');  
     
@@ -139,6 +143,8 @@ void ZTMVAClassification_norm( TString myMethodList = "" ) {
     factory->AddVariable("log(Lambda_b0_IPCHI2_OWNPV)", "log(Lambda_b0_IPCHI2_OWNPV)", "", 'D');
     
     factory->AddVariable("Lambda_b0_PT", "Lambda_b0_PT", "", 'D');
+    
+    factory->AddVariable("Lambda_b0_FDS", "Lambda_b0_FDS", "", 'D');
     
 
 
